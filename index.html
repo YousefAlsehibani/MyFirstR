@@ -198,64 +198,63 @@
 </nav>
 
 <div class="main">
-
-  <!-- OVERVIEW -->
+<!-- OVERVIEW -->
   <div class="section active" id="section-overview">
-    <div class="page-hdr">
-      <h1>مرحباً، هذا عامك ١٤٤٨هـ 🎯</h1>
-      <p>لنبنِ سنةً هجرية تستحق أن تُعاش</p>
+
+    <!-- التاريخ -->
+    <div class="card" style="margin-bottom:16px;">
+      <div id="today-date-hijri" style="font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;"></div>
+      <div id="today-date-miladi" style="font-size:13px;color:var(--text2);"></div>
     </div>
+
+    <!-- الباقي على السنة -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">⏳ الباقي على نهاية ١٤٤٨هـ</div>
+      <div style="display:flex;gap:24px;margin-bottom:10px;">
+        <div><div id="days-left" style="font-size:24px;font-weight:700;color:var(--text);">—</div><div style="font-size:12px;color:var(--text2);">يوم</div></div>
+        <div><div id="weeks-left" style="font-size:24px;font-weight:700;color:var(--text);">—</div><div style="font-size:12px;color:var(--text2);">أسبوع</div></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="year-progress-bar" style="width:0%"></div></div>
+    </div>
+
+    <!-- عادة اليوم -->
     <div class="grid-2" style="margin-bottom:16px;">
       <div class="card">
         <div class="card-title">🌿 عادة اليوم</div>
-        <div id="today-habit-name" style="font-size:16px;font-weight:700;margin-bottom:14px;"></div>
-        <button class="primary" id="today-habit-btn" onclick="toggleTodayHabit()">✅ أتممت اليوم</button>
+        <div id="today-habit-name" style="font-size:15px;font-weight:700;margin-bottom:14px;"></div>
+        <button class="primary" id="today-habit-btn" onclick="toggleTodayHabit()">⬜ سجّل إنجاز اليوم</button>
         <div id="today-habit-stats" style="margin-top:14px;font-size:13px;color:var(--text2);"></div>
-        <div class="progress-bar" style="margin-top:8px;">
-          <div class="progress-fill" id="today-habit-bar" style="width:0%"></div>
-        </div>
+        <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" id="today-habit-bar" style="width:0%"></div></div>
       </div>
       <div class="card">
         <div class="card-title">📅 تقدم العادات</div>
         <div id="habits-overview"></div>
       </div>
     </div>
-    <div class="grid-3">
-      <div class="metric">
-        <div class="metric-label">✅ الأهداف المنجزة</div>
-        <div class="metric-val" id="ov-done">0</div>
-        <div class="metric-sub" id="ov-total">من 0 هدف</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">📅 الأسبوع الحالي</div>
-        <div class="metric-val" id="ov-week">—</div>
-        <div class="metric-sub">من 51 أسبوع</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">📊 نسبة التقدم</div>
-        <div class="metric-val" id="ov-pct">0%</div>
-        <div class="metric-sub">إجمالي الإنجاز</div>
+
+    <!-- مهام اليوم -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">📋 مهام اليوم</div>
+      <div id="today-tasks-list"></div>
+      <div id="today-enrichment" style="display:none;margin-top:14px;">
+        <hr class="divider">
+        <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">✨ أحسنت! هل تريد مهاماً إثرائية؟</div>
+        <div id="today-enrichment-list"></div>
       </div>
     </div>
+
+    <!-- تقييم الأسبوع الماضي -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">📊 تقييم الأسبوع الماضي</div>
+      <div id="last-week-review"></div>
+    </div>
+
+    <!-- ملاحظة اليوم -->
     <div class="card">
-      <div class="card-title">🗓 مسار السنة الهجرية — أشهر ١٤٤٨هـ</div>
-      <div class="months-track" id="months-track"></div>
-      <div class="month-labels">
-        <span>محرم</span>
-        <span id="current-month-label" style="color:var(--green);font-weight:500;"></span>
-        <span>ذو الحجة</span>
-      </div>
+      <div class="card-title">📝 ملاحظة اليوم</div>
+      <textarea id="today-note" placeholder="كيف كان يومك؟ ماذا تعلّمت؟" oninput="saveTodayNote()"></textarea>
     </div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">📝 كلمتي لهذا العام</div>
-        <textarea id="year-note" placeholder="اكتب نيّتك أو هدفك الأكبر لعام ١٤٤٨هـ…" oninput="saveNote()"></textarea>
-      </div>
-      <div class="card">
-        <div class="card-title">🔥 أبرز الأهداف النشطة</div>
-        <div id="top-goals"></div>
-      </div>
-    </div>
+
   </div>
 
   <!-- GOALS -->

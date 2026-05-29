@@ -275,12 +275,42 @@
     <div class="card">
       <div class="week-grid" id="week-grid"></div>
     </div>
-    <div class="card" id="week-detail" style="display:none;">
-      <div class="card-title" id="week-detail-title">الأسبوع</div>
-      <div style="margin-bottom:10px;">
-        <label style="font-size:13px;color:var(--text2);display:block;margin-bottom:4px;">هدف هذا الأسبوع</label>
-        <input type="text" id="week-goal-in" placeholder="ما الذي تريد إنجازه هذا الأسبوع؟" style="width:100%;">
-      </div>
+  <div class="card" id="week-detail" style="display:none;">
+  <div class="card-title" id="week-detail-title">الأسبوع</div>
+
+  <label class="section-lbl">🎯 هدفا الأسبوع</label>
+  <div class="week-goals-row">
+    <input type="text" id="week-g1" placeholder="الهدف الأول…">
+  </div>
+  <div class="week-goals-row">
+    <input type="text" id="week-g2" placeholder="الهدف الثاني…">
+  </div>
+
+  <hr class="divider">
+
+  <label class="section-lbl">📝 ملاحظات ومراجعة</label>
+  <textarea id="week-note-in" placeholder="ماذا أنجزت؟ ما الذي تعلّمته؟" style="margin-bottom:14px;"></textarea>
+
+  <label class="section-lbl">⭐ تقييم الأسبوع</label>
+  <div class="stars-row" id="stars-row">
+    <button class="star-btn" onclick="setStar(1)">★</button>
+    <button class="star-btn" onclick="setStar(2)">★</button>
+    <button class="star-btn" onclick="setStar(3)">★</button>
+    <button class="star-btn" onclick="setStar(4)">★</button>
+    <button class="star-btn" onclick="setStar(5)">★</button>
+  </div>
+  <div id="star-label" style="font-size:12px;color:var(--text3);margin-top:4px;margin-bottom:14px;"></div>
+
+  <hr class="divider">
+
+  <div style="display:flex;align-items:center;gap:16px;">
+    <button class="primary" onclick="saveWeek()">💾 حفظ</button>
+    <label style="font-size:14px;display:flex;align-items:center;gap:8px;cursor:pointer;">
+      <input type="checkbox" id="week-done-chk" style="width:16px;height:16px;accent-color:var(--green);">
+      أتممت هذا الأسبوع بنجاح
+    </label>
+  </div>
+</div>    </div>
       <div style="margin-bottom:12px;">
         <label style="font-size:13px;color:var(--text2);display:block;margin-bottom:4px;">ملاحظات ومراجعة</label>
         <textarea id="week-note-in" placeholder="ماذا أنجزت؟ ما الذي تعلّمته؟"></textarea>

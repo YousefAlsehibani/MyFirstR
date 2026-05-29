@@ -430,8 +430,7 @@ function weekToHijriLabel(weekNum) {
 }
 
 // ======= الحالة =======
-let S = { goals:[], weeks:{}, pos:[], neg:[], note:'' };
-
+let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{} };
 function load() {
   try { const d = localStorage.getItem('planner1448'); if (d) S = JSON.parse(d); } catch(e){}
   render();

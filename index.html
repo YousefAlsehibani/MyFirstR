@@ -433,6 +433,9 @@ function weekToHijriLabel(weekNum) {
 let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{} };
 function load() {
   try { const d = localStorage.getItem('planner1448'); if (d) S = JSON.parse(d); } catch(e){}
+  for (let i = 0; i < 12; i++) {
+    if (!S.habits[i]) S.habits[i] = { name: '', days: {} };
+  }
   render();
 }
 function save() {
@@ -445,8 +448,8 @@ function showTab(t, btn) {
   document.getElementById('section-'+t).classList.add('active');
   btn.classList.add('active');
   if (t==='overview') renderOverview();
+  if (t==='habits') renderHabits();
 }
-
 const CAT = { work:'عمل', health:'صحة', personal:'شخصي', learn:'تعلّم' };
 const CATC = { work:'cat-work', health:'cat-health', personal:'cat-personal', learn:'cat-learn' };
 
@@ -515,21 +518,36 @@ function renderWeeks() {
 }
 
 let selWeek = null;
+let selRating = 0;
+const STAR_LABELS = ['','أسبوع صعب','أسبوع مقبول','أسبوع جيد','أسبوع ممتاز','أسبوع رائع! 🎉'];
+
+function setStar(n) {
+  selRating = n;
+  document.querySelectorAll('.star-btn').forEach((b,i) => b.classList.toggle('lit', i < n));
+  document.getElementById('star-label').textContent = STAR_LABELS[n];
+}
+
 function openWeek(w) {
   selWeek = w;
   const d = S.weeks[w] || {};
+  selRating = d.rating || 0;
   document.getElementById('week-detail').style.display = 'block';
   document.getElementById('week-detail-title').textContent = 'الأسبوع ' + w + ' — ' + weekToHijriLabel(w);
-  document.getElementById('week-goal-in').value = d.goal || '';
+  document.getElementById('week-g1').value = d.g1 || '';
+  document.getElementById('week-g2').value = d.g2 || '';
   document.getElementById('week-note-in').value = d.note || '';
   document.getElementById('week-done-chk').checked = !!d.done;
+  setStar(selRating);
   document.getElementById('week-detail').scrollIntoView({behavior:'smooth'});
 }
+
 function saveWeek() {
   if (!selWeek) return;
   S.weeks[selWeek] = {
-    goal: document.getElementById('week-goal-in').value,
+    g1: document.getElementById('week-g1').value,
+    g2: document.getElementById('week-g2').value,
     note: document.getElementById('week-note-in').value,
+    rating: selRating,
     done: document.getElementById('week-done-chk').checked
   };
   save(); renderWeeks();

@@ -181,7 +181,20 @@
 </style>
 </head>
 <body>
+<div id="login-screen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;width:100%;max-width:360px;">
+    <h2 style="font-size:20px;font-weight:700;margin-bottom:4px;">مخططي ١٤٤٨هـ 🧭</h2>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:24px;">سجّل دخولك للمتابعة</p>
+    <label class="section-lbl">البريد الإلكتروني</label>
+    <input type="text" id="login-email" placeholder="example@email.com" style="width:100%;margin-bottom:12px;direction:ltr;">
+    <label class="section-lbl">كلمة المرور</label>
+    <input type="password" id="login-password" placeholder="••••••••" style="width:100%;margin-bottom:16px;direction:ltr;" onkeydown="if(event.key==='Enter')signIn()">
+    <div id="login-error" style="font-size:12px;color:var(--red);margin-bottom:12px;"></div>
+    <button class="primary" onclick="signIn()" style="width:100%;">دخول</button>
+  </div>
+</div>
 
+<div id="app" style="display:none;">
 <nav class="nav">
   <div class="nav-logo">🧭 مخططي <span>١٤٤٨هـ</span></div>
   <div class="nav-tabs">
@@ -387,6 +400,7 @@
   </div>
 
 </div>
+</div>
 
 <script>
 // ======= التقويم الهجري =======
@@ -445,16 +459,126 @@ function weekToHijriLabel(weekNum) {
 }
 
 // ======= الحالة =======
-let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{} };
-function load() {
-  try { const d = localStorage.getItem('planner1448'); if (d) S = JSON.parse(d); } catch(e){}
+const SUPABASE_URL = 'https://sdsotlhjkcbbypngnioo.supabase.co
+';
+const SUPABASE_KEY = '
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkc290bGhqa2NiYnlwbmduaW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNDkzMjQsImV4cCI6MjA5NTYyNTMyNH0.60j0DvHA_38o9CU8DMQgTLMnWhp3WiTK3ztDRflk8TM
+';
+ let currentUser = null;
+
+async function signIn() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
+
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+    method: 'POST',
+    headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await res.json();
+  if (data.access_token) {
+    currentUser = data.user;
+    localStorage.setItem('sb_token', data.access_token);
+    localStorage.setItem('sb_user', JSON.stringify(data.user));
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    await loadFromDB();
+  } else {
+    errEl.textContent = 'البريد أو كلمة المرور غير صحيحة';
+  }
+}
+
+async function checkSession() {
+  const token = localStorage.getItem('sb_token');
+  const user = localStorage.getItem('sb_user');
+  if (token && user) {
+    currentUser = JSON.parse(user);
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    await loadFromDB();
+  }
+}
+
+async function signOut() {
+  localStorage.removeItem('sb_token');
+  localStorage.removeItem('sb_user');
+  currentUser = null;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+ async function sbFetch(method, body) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/planner_data`, {
+    method,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'return=minimal' : 'return=representation'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  return method === 'GET' ? res.json() : res;
+}
+ async function saveToDB() {
+  if (!currentUser) return;
+  const token = localStorage.getItem('sb_token');
+  const existing = await fetch(
+    `${SUPABASE_URL}/rest/v1/planner_data?user_id=eq.${currentUser.id}`,
+    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${token}` } }
+  ).then(r => r.json());
+
+  const payload = { user_id: currentUser.id, data: JSON.stringify(S) };
+
+  if (existing.length > 0) {
+    await fetch(`${SUPABASE_URL}/rest/v1/planner_data?user_id=eq.${currentUser.id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+  } else {
+    await fetch(`${SUPABASE_URL}/rest/v1/planner_data`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+  }
+}
+
+async function loadFromDB() {
+  if (!currentUser) return;
+  const token = localStorage.getItem('sb_token');
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/planner_data?user_id=eq.${currentUser.id}`,
+    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${token}` } }
+  ).then(r => r.json());
+
+  if (res.length > 0) {
+    try { S = JSON.parse(res[0].data); } catch(e) {}
+  }
   for (let i = 0; i < 12; i++) {
     if (!S.habits[i]) S.habits[i] = { name: '', days: {} };
   }
   render();
 }
+ let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{} };
+function load() {
+  checkSession();
+}
 function save() {
   try { localStorage.setItem('planner1448', JSON.stringify(S)); } catch(e){}
+  saveToDB();
 }
 
 function showTab(t, btn) {

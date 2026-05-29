@@ -154,7 +154,44 @@
   .habit-stat-val { font-weight: 700; color: var(--text); }
   .habit-pct-bar { height: 6px; border-radius: 99px; background: var(--surface2); margin-top: 8px; overflow: hidden; }
   .habit-pct-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s; }
-  /* MISC */
+ /* OVERVIEW */
+  .task-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1.5px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+    font-size: 11px; color: transparent;
+  }
+  .task-check.done { background: var(--green); border-color: var(--green); color: white; }
+  .task-text { flex: 1; font-size: 14px; color: var(--text); }
+  .task-text.done { text-decoration: line-through; color: var(--text3); }
+  .task-priority { font-size: 12px; color: var(--amber); font-weight: 700; flex-shrink: 0; }
+  .task-cat {
+    font-size: 11px; padding: 2px 8px; border-radius: 99px;
+    flex-shrink: 0; font-weight: 500;
+  }
+  .cat-faith { background: var(--purple-bg); color: var(--purple); }
+  .cat-health { background: var(--green-bg); color: var(--green-dark); }
+  .cat-science { background: var(--amber-bg); color: var(--amber); }
+  .cat-work { background: var(--blue-bg); color: var(--blue); }
+  .week-score-bar {
+    display: flex; gap: 4px; margin-top: 10px;
+  }
+  .score-seg {
+    height: 10px; border-radius: 99px; transition: width 0.4s;
+  }
+  .enrichment-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 0; font-size: 13px; color: var(--text2);
+    border-bottom: 1px solid var(--border);
+  }
+  .enrichment-item:last-child { border-bottom: none; }
+ /* MISC */
   .page-hdr { margin-bottom: 24px; }
   .page-hdr h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
   .page-hdr p { font-size: 14px; color: var(--text2); }
@@ -493,8 +530,7 @@ async function loadFromDB() {
 }
 
 // ===== الحالة =====
-let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{} };
-
+let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{}, days:{} };
 function load() { checkSession(); }
 
 function save() {
@@ -744,25 +780,187 @@ function renderTags() {
 
 function saveNote() { S.note = document.getElementById('year-note').value; save(); }
 
+function saveTodayNote() {
+  const hi = currentHijriInfo();
+  if (!hi.inYear) return;
+  if (!S.days) S.days = {};
+  const key = hi.dayOfYear;
+  if (!S.days[key]) S.days[key] = { tasks: {}, note: '' };
+  S.days[key].note = document.getElementById('today-note').value;
+  save();
+}
+
+function toggleTodayTask(taskKey) {
+  const hi = currentHijriInfo();
+  if (!hi.inYear) return;
+  if (!S.days) S.days = {};
+  const key = hi.dayOfYear;
+  if (!S.days[key]) S.days[key] = { tasks: {}, note: '' };
+  S.days[key].tasks[taskKey] = !S.days[key].tasks[taskKey];
+  save();
+  renderTodayTasks();
+}
+
+function getTodayTasks() {
+  const hi = currentHijriInfo();
+  if (!hi.inYear) return [];
+  const weekNum = hi.weekNum;
+  const w = S.weeks[weekNum] || {};
+  const CATS = ['faith','health','science','work'];
+  const WEIGHTS = [40, 30, 20, 10];
+  const priorities = w.priorities || CATS;
+  const tasks = [];
+  priorities.forEach((cat, idx) => {
+    const taskText = w['task_' + cat] || '';
+    const importance = w['imp_' + cat] || '!';
+    if (taskText) {
+      tasks.push({
+        key: cat,
+        text: taskText,
+        cat: cat,
+        importance: importance,
+        weight: WEIGHTS[idx]
+      });
+    }
+  });
+  return tasks;
+}
+
+function renderTodayTasks() {
+  const hi = currentHijriInfo();
+  const el = document.getElementById('today-tasks-list');
+  if (!el) return;
+  if (!hi.inYear) { el.innerHTML = '<div class="empty">خارج نطاق ١٤٤٨هـ</div>'; return; }
+
+  const tasks = getTodayTasks();
+  const dayKey = hi.dayOfYear;
+  const dayData = (S.days && S.days[dayKey]) || { tasks: {}, note: '' };
+
+  if (!tasks.length) {
+    el.innerHTML = '<div class="empty">لم تحدد مهام لهذا الأسبوع بعد — اذهب لتبويب التقويم</div>';
+    return;
+  }
+
+  const CAT_LABELS = { faith: '🕌 إيماني', health: '🏃 صحي', science: '📚 علمي', work: '💼 عملي' };
+  const CAT_CLASS = { faith: 'cat-faith', health: 'cat-health', science: 'cat-science', work: 'cat-work' };
+
+  el.innerHTML = tasks.map((t, idx) => {
+    const isDone = !!dayData.tasks[t.key];
+    return '<div class="task-row">' +
+      '<div style="font-size:12px;color:var(--text3);width:16px;text-align:center;flex-shrink:0;">①②③④'[idx] + '</div>' +
+      '<div class="task-check ' + (isDone?'done':'') + '" onclick="toggleTodayTask(\'' + t.key + '\')">✓</div>' +
+      '<div class="task-text ' + (isDone?'done':'') + '">' + t.text + '</div>' +
+      '<span class="task-priority">' + t.importance + '</span>' +
+      '<span class="task-cat ' + CAT_CLASS[t.cat] + '">' + CAT_LABELS[t.cat] + '</span>' +
+      '</div>';
+  }).join('');
+
+  // مهام إثرائية بعد إنجاز الكل
+  const allDone = tasks.every(t => !!dayData.tasks[t.key]);
+  const enrichEl = document.getElementById('today-enrichment');
+  if (enrichEl) enrichEl.style.display = allDone ? 'block' : 'none';
+
+  // ملاحظة اليوم
+  const noteEl = document.getElementById('today-note');
+  if (noteEl) noteEl.value = dayData.note || '';
+}
+
+function renderLastWeekReview() {
+  const hi = currentHijriInfo();
+  const el = document.getElementById('last-week-review');
+  if (!el || !hi.inYear) return;
+
+  const lastWeek = hi.weekNum - 1;
+  if (lastWeek < 1) { el.innerHTML = '<div class="empty">لا يوجد أسبوع سابق بعد</div>'; return; }
+
+  const w = S.weeks[lastWeek] || {};
+  const CATS = ['faith','health','science','work'];
+  const WEIGHTS = [40, 30, 20, 10];
+  const LABELS = { faith: '🕌 إيماني', health: '🏃 صحي', science: '📚 علمي', work: '💼 عملي' };
+  const COLORS = { faith: '#534AB7', health: '#1D9E75', science: '#854F0B', work: '#185FA5' };
+  const priorities = w.priorities || CATS;
+
+  // احسب بداية ونهاية الأسبوع الماضي
+  const weekStartDay = (lastWeek - 1) * 7;
+  const weekEndDay = weekStartDay + 6;
+
+  let totalScore = 0;
+  let scoreBreakdown = [];
+
+  priorities.forEach((cat, idx) => {
+    const weight = WEIGHTS[idx];
+    const taskText = w['task_' + cat] || '';
+    if (!taskText) return;
+
+    // احسب كم يوم أنجز من أيام الأسبوع
+    let doneDays = 0;
+    for (let d = weekStartDay; d <= weekEndDay; d++) {
+      const dayData = (S.days && S.days[d]) || { tasks: {} };
+      if (dayData.tasks[cat]) doneDays++;
+    }
+    const catScore = Math.round((doneDays / 7) * weight);
+    totalScore += catScore;
+    scoreBreakdown.push({ cat, label: LABELS[cat], color: COLORS[cat], score: catScore, max: weight, done: doneDays });
+  });
+
+  const stars = totalScore >= 90 ? '⭐⭐⭐⭐⭐' : totalScore >= 70 ? '⭐⭐⭐⭐' : totalScore >= 50 ? '⭐⭐⭐' : totalScore >= 30 ? '⭐⭐' : '⭐';
+
+  el.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
+    '<div style="font-size:13px;color:var(--text2);">الأسبوع ' + lastWeek + ' — ' + weekToHijriLabel(lastWeek) + '</div>' +
+    '<div style="font-size:18px;">' + stars + ' <span style="font-size:13px;color:var(--text2);">' + totalScore + '%</span></div>' +
+    '</div>' +
+    '<div class="progress-bar" style="margin-bottom:12px;"><div class="progress-fill" style="width:' + totalScore + '%"></div></div>' +
+    scoreBreakdown.map(s =>
+      '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">' +
+      '<span>' + s.label + '</span>' +
+      '<span style="color:var(--text2);">' + s.done + '/٧ أيام — ' + s.score + '/' + s.max + ' نقطة</span>' +
+      '</div>'
+    ).join('');
+}
+
+function renderDateHeader() {
+  const hi = currentHijriInfo();
+  const hijriEl = document.getElementById('today-date-hijri');
+  const miladiEl = document.getElementById('today-date-miladi');
+  const daysLeftEl = document.getElementById('days-left');
+  const weeksLeftEl = document.getElementById('weeks-left');
+  const barEl = document.getElementById('year-progress-bar');
+  if (!hijriEl) return;
+
+  const today = new Date();
+  const DAYS_AR = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const MONTHS_AR = ['يناير','فبراير','مارس','إبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const dayName = DAYS_AR[today.getDay()];
+  const miladiStr = dayName + ' — ' + today.getDate() + ' ' + MONTHS_AR[today.getMonth()] + ' ' + today.getFullYear() + 'م';
+
+  if (hi.inYear) {
+    const dayInMonth = hi.dayOfYear - MONTH_STARTS[hi.monthIdx] + 1;
+    const hijriStr = dayName + ' — ' + dayInMonth + ' ' + HIJRI_MONTHS[hi.monthIdx] + ' ١٤٤٨هـ';
+    hijriEl.textContent = hijriStr;
+    const daysLeft = YEAR_DAYS - hi.dayOfYear - 1;
+    const weeksLeft = Math.floor(daysLeft / 7);
+    const pct = Math.round(hi.dayOfYear / YEAR_DAYS * 100);
+    daysLeftEl.textContent = daysLeft;
+    weeksLeftEl.textContent = weeksLeft;
+    barEl.style.width = pct + '%';
+  } else {
+    hijriEl.textContent = 'خارج نطاق ١٤٤٨هـ';
+  }
+  miladiEl.textContent = miladiStr;
+}
+
 // ===== نظرة عامة =====
 function renderOverview() {
-  const done = S.goals.filter(g => g.done).length;
-  const total = S.goals.length;
-  const pct = total ? Math.round(done/total*100) : 0;
-  document.getElementById('ov-done').textContent = done;
-  document.getElementById('ov-total').textContent = 'من ' + total + ' هدف';
-  document.getElementById('ov-pct').textContent = pct + '%';
+  renderDateHeader();
+  renderTodayHabit();
+  renderHabitsOverview();
+  renderTodayTasks();
+  renderLastWeekReview();
   const hi = currentHijriInfo();
-  document.getElementById('ov-week').textContent = hi.inYear ? hi.weekNum : '—';
   const yn = document.getElementById('year-note');
   if (yn) yn.value = S.note || '';
-  const track = document.getElementById('months-track');
-  if (track) {
-    const cm = hi.inYear ? hi.monthIdx : -1;
-    track.innerHTML = HIJRI_MONTHS.map((_,i) =>
-      '<div class="month-seg ' + (i<cm?'passed':'') + ' ' + (i===cm?'current-month':'') + '" title="' + HIJRI_MONTHS[i] + '"></div>'
-    ).join('');
-  }
+}
   const cml = document.getElementById('current-month-label');
   if (cml) cml.textContent = hi.inYear ? 'الآن: ' + HIJRI_MONTHS[hi.monthIdx] : 'خارج نطاق ١٤٤٨هـ';
   renderTodayHabit();

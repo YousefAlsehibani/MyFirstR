@@ -552,7 +552,83 @@ function saveWeek() {
   };
   save(); renderWeeks();
 }
+function saveHabitName(mi) {
+  S.habits[mi].name = document.getElementById('habit-name-'+mi).value;
+  save();
+  const el = document.getElementById('habit-hname-'+mi);
+  if (el) el.textContent = S.habits[mi].name || '(بدون اسم)';
+}
+ function toggleDay(mi, day) {
+  if (!S.habits[mi]) S.habits[mi] = { name:'', days:{} };
+  if (S.habits[mi].days[day]) delete S.habits[mi].days[day];
+  else S.habits[mi].days[day] = true;
+  save();
+  renderHabitMonth(mi);
+}
 
+function toggleHabitBody(mi) {
+  document.getElementById('habit-body-'+mi).classList.toggle('open');
+}
+ function renderHabitMonth(mi) {
+  const h = S.habits[mi];
+  const totalDays = MONTH_LENGTHS[mi];
+  const hi = currentHijriInfo();
+  let todayDayInMonth = -1;
+  if (hi.inYear && hi.monthIdx === mi) todayDayInMonth = hi.dayOfYear - MONTH_STARTS[mi] + 1;
+  const monthPassed = hi.inYear && hi.monthIdx > mi;
+  const monthFuture = !hi.inYear || hi.monthIdx < mi;
+  const doneDays = Object.keys(h.days).length;
+  const availDays = monthPassed ? totalDays : (monthFuture ? 0 : todayDayInMonth);
+  const pct = availDays > 0 ? Math.round(doneDays / availDays * 100) : 0;
+
+  const daysHTML = Array.from({length: totalDays}, (_, i) => {
+    const day = i + 1;
+    const isDone = !!h.days[day];
+    const isFuture = monthFuture || (!monthPassed && day > todayDayInMonth);
+    return `<div class="day-cell ${isDone?'done':''} ${isFuture?'future':''}"
+      onclick="${isFuture ? '' : `toggleDay(${mi}, ${day})`}"
+      title="يوم ${day}">${day}</div>`;
+  }).join('');
+
+  document.getElementById('habit-body-'+mi).innerHTML = `
+    <div class="habit-name-row">
+      <input type="text" id="habit-name-${mi}" value="${h.name || ''}"
+        placeholder="اكتب اسم العادة… مثل: قرأت ١٠ دقائق"
+        oninput="saveHabitName(${mi})">
+    </div>
+    <div class="days-grid">${daysHTML}</div>
+    <div class="habit-stats">
+      <span>✅ أنجزت: <span class="habit-stat-val">${doneDays}</span> يوم</span>
+      <span>📅 من: <span class="habit-stat-val">${availDays}</span> يوم</span>
+      <span>📊 النسبة: <span class="habit-stat-val">${pct}%</span></span>
+    </div>
+    <div class="habit-pct-bar"><div class="habit-pct-fill" style="width:${pct}%"></div></div>
+  `;
+}
+ function renderHabits() {
+  const el = document.getElementById('habits-list');
+  const hi = currentHijriInfo();
+  el.innerHTML = HIJRI_MONTHS.map((name, mi) => {
+    const h = S.habits[mi] || { name:'', days:{} };
+    const isCurrent = hi.inYear && hi.monthIdx === mi;
+    const doneDays = Object.keys(h.days).length;
+    return `
+      <div class="habit-month-card">
+        <div class="habit-month-header ${isCurrent?'current-m':''}" onclick="toggleHabitBody(${mi})">
+          <div>
+            <div class="habit-month-name">${name} ${isCurrent ? '← الشهر الحالي' : ''}</div>
+            <div class="habit-month-meta" id="habit-hname-${mi}">${h.name || '(لم تحدد عادة بعد)'}</div>
+          </div>
+          <div style="font-size:13px;color:var(--text2);">
+            ${doneDays > 0 ? `✅ ${doneDays} يوم` : ''}
+            <span style="margin-right:8px;font-size:16px;">⌄</span>
+          </div>
+        </div>
+        <div class="habit-month-body ${isCurrent?'open':''}" id="habit-body-${mi}"></div>
+      </div>`;
+  }).join('');
+  for (let i = 0; i < 12; i++) renderHabitMonth(i);
+}
 function addTag(type) {
   const inp = document.getElementById(type+'-in');
   const val = inp.value.trim();

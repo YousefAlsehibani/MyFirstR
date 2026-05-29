@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مخططي الشخصي ١٤٤٨هـ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f6f3; --surface: #ffffff; --surface2: #f0eeea;
+    --border: rgba(0,0,0,0.09); --border2: rgba(0,0,0,0.16);
+    --text: #1a1a18; --text2: #6b6a66; --text3: #9e9c97;
+    --green: #1D9E75; --green-bg: #E1F5EE; --green-dark: #085041;
+    --red-bg: #FCEBEB; --red: #A32D2D;
+    --blue-bg: #E6F1FB; --blue: #185FA5;
+    --purple-bg: #EEEDFE; --purple: #534AB7;
+    --amber-bg: #FAEEDA; --amber: #854F0B;
+    --radius: 10px; --radius-lg: 14px;
+  }
+  html { font-family: 'Tajawal', sans-serif; font-size: 15px; background: var(--bg); color: var(--text); }
+  body { min-height: 100vh; }
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; height: 56px;
+  }
+  .nav-logo { font-size: 16px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .nav-logo span { color: var(--green); }
+  .nav-tabs { display: flex; gap: 4px; }
+  .tab-btn {
+    background: none; border: 1px solid transparent;
+    border-radius: var(--radius); padding: 6px 16px;
+    font-family: 'Tajawal', sans-serif; font-size: 14px;
+    cursor: pointer; color: var(--text2); transition: all 0.15s;
+  }
+  .tab-btn:hover { background: var(--surface2); }
+  .tab-btn.active { background: var(--surface2); border-color: var(--border2); color: var(--text); font-weight: 500; }
+  .main { max-width: 920px; margin: 0 auto; padding: 28px 24px; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .metric { background: var(--surface2); border-radius: var(--radius); padding: 16px 18px; }
+  .metric-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+  .metric-val { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
+  .metric-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .progress-bar { background: var(--surface2); border-radius: 99px; height: 8px; overflow: hidden; margin-top: 6px; }
+  .progress-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s; }
+  .goal-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .goal-row:last-child { border-bottom: none; }
+  .goal-check {
+    width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: all 0.15s; font-size: 11px; color: transparent;
+  }
+  .goal-check.done { background: var(--green); border-color: var(--green); color: white; }
+  .goal-text { flex: 1; font-size: 14px; color: var(--text); }
+  .goal-text.done { text-decoration: line-through; color: var(--text3); }
+  .cat-badge { font-size: 11px; padding: 2px 10px; border-radius: 99px; flex-shrink: 0; font-weight: 500; }
+  .cat-work { background: var(--blue-bg); color: var(--blue); }
+  .cat-health { background: var(--green-bg); color: var(--green-dark); }
+  .cat-personal { background: var(--purple-bg); color: var(--purple); }
+  .cat-learn { background: var(--amber-bg); color: var(--amber); }
+  .del-btn { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 18px; padding: 0 2px; line-height: 1; }
+  .del-btn:hover { color: var(--red); }
+  .add-form { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  input[type="text"], select, textarea {
+    font-family: 'Tajawal', sans-serif; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 8px 12px; font-size: 13px; color: var(--text);
+    outline: none; transition: border-color 0.15s; direction: rtl;
+  }
+  input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--green); }
+  input[type="text"] { flex: 1; min-width: 160px; }
+  select { min-width: 100px; }
+  button {
+    font-family: 'Tajawal', sans-serif; background: var(--surface); border: 1px solid var(--border2);
+    border-radius: var(--radius); padding: 8px 16px; font-size: 13px; cursor: pointer;
+    color: var(--text); transition: all 0.15s; white-space: nowrap;
+  }
+  button:hover { background: var(--surface2); }
+  button.primary { background: var(--green); color: white; border-color: var(--green); }
+  button.primary:hover { opacity: 0.9; }
+  .week-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  @media (max-width: 700px) { .week-grid { grid-template-columns: repeat(4, 1fr); } }
+  .week-cell {
+    background: var(--surface2); border-radius: var(--radius); padding: 8px;
+    cursor: pointer; transition: all 0.15s; border: 1.5px solid transparent;
+    position: relative; min-height: 56px;
+  }
+  .week-cell:hover { border-color: var(--border2); background: var(--surface); }
+  .week-cell.current { border-color: var(--green); background: var(--green-bg); }
+  .week-cell.is-done { background: var(--green-bg); }
+  .week-num { font-size: 10px; color: var(--text3); }
+  .week-hijri { font-size: 10px; color: var(--text3); margin-top: 1px; }
+  .week-goal-preview { font-size: 11px; color: var(--text2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .week-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); position: absolute; top: 8px; left: 8px; }
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; min-height: 36px; }
+  .tag { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; padding: 4px 12px; border-radius: 99px; }
+  .tag.pos { background: #9FE1CB; color: #085041; }
+  .tag.neg { background: #F7C1C1; color: #791F1F; }
+  .tag-del { background: none; border: none; cursor: pointer; font-size: 12px; opacity: 0.5; padding: 0; color: inherit; }
+  .tag-del:hover { opacity: 1; }
+  .tag-input-row { display: flex; gap: 8px; margin-top: 12px; }
+  .tag-input-row input { flex: 1; }
+  #ai-result { line-height: 1.9; font-size: 14px; }
+  .months-track { display: flex; gap: 3px; height: 28px; margin-bottom: 8px; }
+  .month-seg { flex: 1; border-radius: 4px; background: var(--surface2); }
+  .month-seg.passed { background: var(--green); opacity: 0.7; }
+  .month-seg.current-month { background: var(--green); opacity: 1; }
+  .month-labels { display: flex; justify-content: space-between; }
+  .month-labels span { font-size: 11px; color: var(--text3); }
+  .page-hdr { margin-bottom: 24px; }
+  .page-hdr h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .page-hdr p { font-size: 14px; color: var(--text2); }
+  .empty { text-align: center; color: var(--text3); font-size: 13px; padding: 20px 0; }
+  textarea { width: 100%; min-height: 80px; resize: vertical; }
+  .strength-box { border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; }
+  .strength-box.pos-box { background: var(--green-bg); }
+  .strength-box.neg-box { background: var(--red-bg); }
+  .strength-box-title { font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+  .pos-box .strength-box-title { color: var(--green-dark); }
+  .neg-box .strength-box-title { color: var(--red); }
+  .hijri-badge {
+    display: inline-block; background: var(--amber-bg); color: var(--amber);
+    font-size: 11px; padding: 2px 10px; border-radius: 99px; font-weight: 500; margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">🧭 مخططي <span>١٤٤٨هـ</span></div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('overview', this)">نظرة عامة</button>
+    <button class="tab-btn" onclick="showTab('goals', this)">أهدافي</button>
+    <button class="tab-btn" onclick="showTab('weeks', this)">الأسابيع</button>
+    <button class="tab-btn" onclick="showTab('strengths', this)">نقاط القوة</button>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div class="section active" id="section-overview">
+    <div class="page-hdr">
+      <h1>مرحباً، هذا عامك ١٤٤٨هـ 🎯</h1>
+      <p>لنبنِ سنةً هجرية تستحق أن تُعاش</p>
+    </div>
+    <div class="grid-3">
+      <div class="metric">
+        <div class="metric-label">✅ الأهداف المنجزة</div>
+        <div class="metric-val" id="ov-done">0</div>
+        <div class="metric-sub" id="ov-total">من 0 هدف</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">📅 الأسبوع الحالي</div>
+        <div class="metric-val" id="ov-week">—</div>
+        <div class="metric-sub">من 51 أسبوع</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">📊 نسبة التقدم</div>
+        <div class="metric-val" id="ov-pct">0%</div>
+        <div class="metric-sub">إجمالي الإنجاز</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🗓 مسار السنة الهجرية — أشهر ١٤٤٨هـ</div>
+      <div class="months-track" id="months-track"></div>
+      <div class="month-labels">
+        <span>محرم</span>
+        <span id="current-month-label" style="color:var(--green);font-weight:500;"></span>
+        <span>ذو الحجة</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📝 كلمتي لهذا العام</div>
+        <textarea id="year-note" placeholder="اكتب نيّتك أو هدفك الأكبر لعام ١٤٤٨هـ…" oninput="saveNote()"></textarea>
+      </div>
+      <div class="card">
+        <div class="card-title">🔥 أبرز الأهداف النشطة</div>
+        <div id="top-goals"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOALS -->
+  <div class="section" id="section-goals">
+    <div class="page-hdr">
+      <h1>أهدافي لعام ١٤٤٨هـ</h1>
+      <p>أضف أهدافك وتابع تقدّمك</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 قائمة الأهداف</div>
+      <div id="goals-list"></div>
+      <div class="add-form">
+        <input type="text" id="goal-input" placeholder="أضف هدفاً جديداً…" onkeydown="if(event.key==='Enter')addGoal()">
+        <select id="goal-cat">
+          <option value="work">💼 عمل</option>
+          <option value="health">💪 صحة</option>
+          <option value="personal">🌱 شخصي</option>
+          <option value="learn">📚 تعلّم</option>
+        </select>
+        <button class="primary" onclick="addGoal()">+ إضافة</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 التقدم حسب الفئة</div>
+      <div id="cat-progress"></div>
+    </div>
+  </div>
+
+  <!-- WEEKS -->
+  <div class="section" id="section-weeks">
+    <div class="page-hdr">
+      <h1>أسابيع ١٤٤٨هـ</h1>
+      <p>خطّط لكل أسبوع هجري ووثّق إنجازاتك</p>
+    </div>
+    <div class="card">
+      <div class="week-grid" id="week-grid"></div>
+    </div>
+    <div class="card" id="week-detail" style="display:none;">
+      <div class="card-title" id="week-detail-title">الأسبوع</div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:13px;color:var(--text2);display:block;margin-bottom:4px;">هدف هذا الأسبوع</label>
+        <input type="text" id="week-goal-in" placeholder="ما الذي تريد إنجازه هذا الأسبوع؟" style="width:100%;">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:13px;color:var(--text2);display:block;margin-bottom:4px;">ملاحظات ومراجعة</label>
+        <textarea id="week-note-in" placeholder="ماذا أنجزت؟ ما الذي تعلّمته؟"></textarea>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <button class="primary" onclick="saveWeek()">💾 حفظ</button>
+        <label style="font-size:14px;display:flex;align-items:center;gap:8px;cursor:pointer;">
+          <input type="checkbox" id="week-done-chk" style="width:16px;height:16px;accent-color:var(--green);">
+          أتممت هذا الأسبوع بنجاح
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRENGTHS -->
+  <div class="section" id="section-strengths">
+    <div class="page-hdr">
+      <h1>نقاط القوة والتطوير</h1>
+      <p>اعرف نفسك لتخطّط بشكل أفضل</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title" style="color:var(--green-dark);">💪 نقاط القوة</div>
+        <div class="strength-box pos-box">
+          <div class="strength-box-title">ما تتميّز به</div>
+          <div class="tag-wrap" id="pos-tags"></div>
+        </div>
+        <div class="tag-input-row">
+          <input type="text" id="pos-in" placeholder="أضف نقطة قوة…" onkeydown="if(event.key==='Enter')addTag('pos')">
+          <button onclick="addTag('pos')">+ إضافة</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--red);">🎯 نقاط التطوير</div>
+        <div class="strength-box neg-box">
+          <div class="strength-box-title">ما تريد تحسينه</div>
+          <div class="tag-wrap" id="neg-tags"></div>
+        </div>
+        <div class="tag-input-row">
+          <input type="text" id="neg-in" placeholder="أضف نقطة تطوير…" onkeydown="if(event.key==='Enter')addTag('neg')">
+          <button onclick="addTag('neg')">+ إضافة</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🤖 تحليل شخصي بالذكاء الاصطناعي</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">بناءً على أهدافك ونقاطك، احصل على تحليل ونصائح مخصّصة لك.</p>
+      <button class="primary" onclick="analyzeMe()">✨ حلّل وضعي واقترح خطوات</button>
+      <div id="ai-result" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ======= التقويم الهجري =======
+// ١٤٤٨هـ: يبدأ ١ محرم ١٤٤٨ = 19 يونيو 2026 (تقريباً)
+// وينتهي ٢٩/٣٠ ذو الحجة ١٤٤٨ = يونيو 2027
+
+const HIJRI_MONTHS = [
+  'محرم','صفر','ربيع الأول','ربيع الآخر',
+  'جمادى الأولى','جمادى الآخرة','رجب','شعبان',
+  'رمضان','شوال','ذو القعدة','ذو الحجة'
+];
+
+// بداية ١٤٤٨هـ بالتاريخ الميلادي (تقدير فلكي)
+// 1 محرم 1448 = 19 يونيو 2026
+const HIJRI_1448_START = new Date(2026, 5, 19); // June 19, 2026
+
+// طول كل شهر هجري في ١٤٤٨ (تقدير: 29 أو 30 يوم بالتناوب)
+const MONTH_LENGTHS = [30,29,30,29,30,29,30,29,30,29,30,29];
+
+function getMonthStartDays() {
+  // إرجاع عدد الأيام من بداية السنة لبداية كل شهر
+  const starts = [0];
+  for (let i = 0; i < 11; i++) starts.push(starts[i] + MONTH_LENGTHS[i]);
+  return starts;
+}
+
+const MONTH_STARTS = getMonthStartDays();
+const YEAR_DAYS = MONTH_STARTS[11] + MONTH_LENGTHS[11]; // ~354
+
+function currentHijriInfo() {
+  const today = new Date();
+  const diffMs = today - HIJRI_1448_START;
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffDays < 0 || diffDays >= YEAR_DAYS) {
+    return { inYear: false, dayOfYear: diffDays, monthIdx: -1, weekNum: -1 };
+  }
+
+  let monthIdx = 0;
+  for (let i = 11; i >= 0; i--) {
+    if (diffDays >= MONTH_STARTS[i]) { monthIdx = i; break; }
+  }
+
+  const weekNum = Math.min(Math.floor(diffDays / 7) + 1, 51);
+  return { inYear: true, dayOfYear: diffDays, monthIdx, weekNum };
+}
+
+function weekToHijriLabel(weekNum) {
+  const dayStart = (weekNum - 1) * 7;
+  let monthIdx = 0;
+  for (let i = 11; i >= 0; i--) {
+    if (dayStart >= MONTH_STARTS[i]) { monthIdx = i; break; }
+  }
+  const dayInMonth = dayStart - MONTH_STARTS[monthIdx] + 1;
+  return `${dayInMonth} ${HIJRI_MONTHS[monthIdx].substring(0,4)}.`;
+}
+
+// ======= الحالة =======
+let S = { goals:[], weeks:{}, pos:[], neg:[], note:'' };
+
+function load() {
+  try { const d = localStorage.getItem('planner1448'); if (d) S = JSON.parse(d); } catch(e){}
+  render();
+}
+function save() {
+  try { localStorage.setItem('planner1448', JSON.stringify(S)); } catch(e){}
+}
+
+function showTab(t, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-'+t).classList.add('active');
+  btn.classList.add('active');
+  if (t==='overview') renderOverview();
+}
+
+const CAT = { work:'عمل', health:'صحة', personal:'شخصي', learn:'تعلّم' };
+const CATC = { work:'cat-work', health:'cat-health', personal:'cat-personal', learn:'cat-learn' };
+
+function addGoal() {
+  const inp = document.getElementById('goal-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  S.goals.push({ id: Date.now(), text, cat: document.getElementById('goal-cat').value, done: false });
+  inp.value = '';
+  save(); renderGoals(); renderOverview();
+}
+function toggleGoal(id) {
+  const g = S.goals.find(g => g.id===id);
+  if (g) { g.done = !g.done; save(); renderGoals(); renderOverview(); }
+}
+function delGoal(id) {
+  S.goals = S.goals.filter(g => g.id!==id);
+  save(); renderGoals(); renderOverview();
+}
+
+function renderGoals() {
+  const el = document.getElementById('goals-list');
+  if (!S.goals.length) { el.innerHTML = '<div class="empty">لا توجد أهداف بعد. أضف هدفك الأول!</div>'; renderCatProg(); return; }
+  el.innerHTML = S.goals.map(g => `
+    <div class="goal-row">
+      <div class="goal-check ${g.done?'done':''}" onclick="toggleGoal(${g.id})">✓</div>
+      <div class="goal-text ${g.done?'done':''}">${g.text}</div>
+      <span class="cat-badge ${CATC[g.cat]}">${CAT[g.cat]}</span>
+      <button class="del-btn" onclick="delGoal(${g.id})">×</button>
+    </div>`).join('');
+  renderCatProg();
+}
+
+function renderCatProg() {
+  const el = document.getElementById('cat-progress');
+  const rows = ['work','health','personal','learn'].map(cat => {
+    const all = S.goals.filter(g => g.cat===cat);
+    if (!all.length) return '';
+    const done = all.filter(g => g.done).length;
+    const pct = Math.round(done/all.length*100);
+    return `<div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;">
+        <span>${CAT[cat]}</span><span style="color:var(--text2)">${done}/${all.length}</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+  el.innerHTML = rows || '<div class="empty">لا توجد أهداف</div>';
+}
+
+function renderWeeks() {
+  const grid = document.getElementById('week-grid');
+  const hi = currentHijriInfo();
+  const cw = hi.inYear ? hi.weekNum : -1;
+  grid.innerHTML = Array.from({length:51},(_,i) => {
+    const w = i+1;
+    const d = S.weeks[w] || {};
+    const label = weekToHijriLabel(w);
+    return `<div class="week-cell ${w===cw?'current':''} ${d.done?'is-done':''}" onclick="openWeek(${w})">
+      ${w===cw?'<div class="week-dot"></div>':''}
+      <div class="week-num">أسبوع ${w}</div>
+      <div class="week-hijri">${label}</div>
+      <div class="week-goal-preview">${d.goal ? d.goal.substring(0,13)+(d.goal.length>13?'…':'') : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+let selWeek = null;
+function openWeek(w) {
+  selWeek = w;
+  const d = S.weeks[w] || {};
+  document.getElementById('week-detail').style.display = 'block';
+  document.getElementById('week-detail-title').textContent = 'الأسبوع ' + w + ' — ' + weekToHijriLabel(w);
+  document.getElementById('week-goal-in').value = d.goal || '';
+  document.getElementById('week-note-in').value = d.note || '';
+  document.getElementById('week-done-chk').checked = !!d.done;
+  document.getElementById('week-detail').scrollIntoView({behavior:'smooth'});
+}
+function saveWeek() {
+  if (!selWeek) return;
+  S.weeks[selWeek] = {
+    goal: document.getElementById('week-goal-in').value,
+    note: document.getElementById('week-note-in').value,
+    done: document.getElementById('week-done-chk').checked
+  };
+  save(); renderWeeks();
+}
+
+function addTag(type) {
+  const inp = document.getElementById(type+'-in');
+  const val = inp.value.trim();
+  if (!val) return;
+  if (type==='pos') S.pos.push(val); else S.neg.push(val);
+  inp.value = ''; save(); renderTags();
+}
+function delTag(type, i) {
+  if (type==='pos') S.pos.splice(i,1); else S.neg.splice(i,1);
+  save(); renderTags();
+}
+function renderTags() {
+  document.getElementById('pos-tags').innerHTML = S.pos.length
+    ? S.pos.map((t,i) => `<span class="tag pos">${t}<button class="tag-del" onclick="delTag('pos',${i})">×</button></span>`).join('')
+    : '<span style="font-size:12px;color:var(--green-dark);opacity:0.5;">أضف نقاط قوتك…</span>';
+  document.getElementById('neg-tags').innerHTML = S.neg.length
+    ? S.neg.map((t,i) => `<span class="tag neg">${t}<button class="tag-del" onclick="delTag('neg',${i})">×</button></span>`).join('')
+    : '<span style="font-size:12px;color:var(--red);opacity:0.5;">أضف ما تريد تطويره…</span>';
+}
+
+function saveNote() { S.note = document.getElementById('year-note').value; save(); }
+
+function renderOverview() {
+  const done = S.goals.filter(g => g.done).length;
+  const total = S.goals.length;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('ov-done').textContent = done;
+  document.getElementById('ov-total').textContent = 'من ' + total + ' هدف';
+  document.getElementById('ov-pct').textContent = pct + '%';
+
+  const hi = currentHijriInfo();
+  document.getElementById('ov-week').textContent = hi.inYear ? hi.weekNum : '—';
+
+  const yn = document.getElementById('year-note');
+  if (yn) yn.value = S.note || '';
+
+  // مسار الأشهر
+  const track = document.getElementById('months-track');
+  if (track) {
+    const cm = hi.inYear ? hi.monthIdx : -1;
+    track.innerHTML = HIJRI_MONTHS.map((_,i) =>
+      `<div class="month-seg ${i<cm?'passed':''} ${i===cm?'current-month':''}" title="${HIJRI_MONTHS[i]}"></div>`
+    ).join('');
+  }
+  const cml = document.getElementById('current-month-label');
+  if (cml) {
+    cml.textContent = hi.inYear ? 'الآن: ' + HIJRI_MONTHS[hi.monthIdx] : 'خارج نطاق ١٤٤٨هـ';
+  }
+
+  const tg = document.getElementById('top-goals');
+  const active = S.goals.filter(g => !g.done).slice(0,4);
+  tg.innerHTML = active.length
+    ? active.map(g => `<div class="goal-row" style="padding:7px 0;">
+        <div class="goal-check" onclick="toggleGoal(${g.id})" style="width:16px;height:16px;font-size:9px;">✓</div>
+        <div class="goal-text" style="font-size:13px;">${g.text}</div>
+        <span class="cat-badge ${CATC[g.cat]}" style="font-size:10px;">${CAT[g.cat]}</span>
+      </div>`).join('')
+    : '<div class="empty">أضف أهدافك من تبويب "أهدافي"</div>';
+}
+
+function analyzeMe() {
+  const res = document.getElementById('ai-result');
+  const goals = S.goals.map(g => g.text).join(', ') || 'لا توجد أهداف';
+  const done = S.goals.filter(g => g.done).length;
+  const pos = S.pos.join(', ') || 'غير محددة';
+  const neg = S.neg.join(', ') || 'غير محددة';
+  const prompt = `أنا أستخدم مخططاً شخصياً لعام ١٤٤٨هـ. أهدافي: ${goals}. أنجزت ${done} منها. نقاط قوتي: ${pos}. ما أريد تطويره: ${neg}. قدّم لي: ١) تحليلاً سريعاً لوضعي ٢) ٣ نصائح عملية للأسابيع القادمة ٣) تحذير من نقطة ضعف قد تؤثر على أهدافي. كن مختصراً وعملياً وباللغة العربية.`;
+  res.innerHTML = '<span style="color:var(--text3);">جارٍ التحليل…</span>';
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  }).then(r => r.json()).then(data => {
+    const text = data.content.map(c => c.text || '').join('');
+    res.innerHTML = text.replace(/\n/g, '<br>');
+  }).catch(() => {
+    res.innerHTML = '<span style="color:var(--red);">تعذّر الاتصال. حاول مجدداً.</span>';
+  });
+}
+
+function render() { renderGoals(); renderWeeks(); renderTags(); renderOverview(); }
+load();
+</script>
+</body>
+</html>

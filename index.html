@@ -1000,7 +1000,13 @@ function analyzeMe() {
 }
 
 function render() { renderGoals(); renderWeeks(); renderTags(); renderOverview(); }
-load();
+
+// تهيئة days عند التحميل
+const _origLoadFromDB = loadFromDB;
+loadFromDB = async function() {
+  await _origLoadFromDB();
+  if (!S.days) S.days = {};
+};load();
 </script>
 </body>
 </html>

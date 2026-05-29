@@ -961,22 +961,7 @@ function renderOverview() {
   const yn = document.getElementById('year-note');
   if (yn) yn.value = S.note || '';
 }
-  const cml = document.getElementById('current-month-label');
-  if (cml) cml.textContent = hi.inYear ? 'الآن: ' + HIJRI_MONTHS[hi.monthIdx] : 'خارج نطاق ١٤٤٨هـ';
-  renderTodayHabit();
-  renderHabitsOverview();
-  const tg = document.getElementById('top-goals');
-  const active = S.goals.filter(g => !g.done).slice(0,4);
-  tg.innerHTML = active.length
-    ? active.map(g =>
-        '<div class="goal-row" style="padding:7px 0;">' +
-        '<div class="goal-check" onclick="toggleGoal(' + g.id + ')" style="width:16px;height:16px;font-size:9px;">✓</div>' +
-        '<div class="goal-text" style="font-size:13px;">' + g.text + '</div>' +
-        '<span class="cat-badge ' + CATC[g.cat] + '" style="font-size:10px;">' + CAT[g.cat] + '</span>' +
-        '</div>'
-      ).join('')
-    : '<div class="empty">أضف أهدافك من تبويب "أهدافي"</div>';
-}
+  
 
 // ===== AI =====
 function analyzeMe() {

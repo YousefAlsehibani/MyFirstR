@@ -7,7 +7,46 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ /* WEEK DETAIL — تقييم النجوم */
+.week-goals-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.week-goals-row input { flex: 1; }
+.stars-row { display: flex; gap: 6px; margin-top: 6px; }
+.star-btn {
+  background: none; border: none; font-size: 22px; cursor: pointer;
+  padding: 0; line-height: 1; color: var(--text3); transition: color 0.1s;
+}
+.star-btn.lit { color: #EF9F27; }
+.section-lbl { font-size: 12px; color: var(--text2); margin-bottom: 4px; display: block; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+/* HABITS */
+.habit-month-card { border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 16px; overflow: hidden; }
+.habit-month-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; background: var(--surface2); cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+.habit-month-header.current-m { background: var(--green-bg); }
+.habit-month-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.habit-month-meta { font-size: 12px; color: var(--text2); }
+.habit-month-body { padding: 16px 18px; background: var(--surface); display: none; }
+.habit-month-body.open { display: block; }
+.habit-name-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.habit-name-row input { flex: 1; }
+.days-grid { display: grid; gap: 4px; grid-template-columns: repeat(10, 1fr); }
+.day-cell {
+  aspect-ratio: 1; border-radius: 4px; cursor: pointer;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: var(--text3); transition: all 0.1s; user-select: none;
+}
+.day-cell.done { background: var(--green); border-color: var(--green); color: white; }
+.day-cell.future { opacity: 0.35; cursor: default; }
+.habit-stats { display: flex; gap: 12px; margin-top: 12px; font-size: 13px; color: var(--text2); }
+.habit-stat-val { font-weight: 700; color: var(--text); }
+.habit-pct-bar { height: 6px; border-radius: 99px; background: var(--surface2); margin-top: 8px; overflow: hidden; }
+.habit-pct-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s; }
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg: #f7f6f3; --surface: #ffffff; --surface2: #f0eeea;
     --border: rgba(0,0,0,0.09); --border2: rgba(0,0,0,0.16);
@@ -125,7 +164,17 @@
   .strength-box-title { font-size: 12px; font-weight: 700; margin-bottom: 10px; }
   .pos-box .strength-box-title { color: var(--green-dark); }
   .neg-box .strength-box-title { color: var(--red); }
-  .hijri-badge {
+ .week-goals-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.week-goals-row input { flex: 1; }
+.stars-row { display: flex; gap: 6px; margin-top: 6px; }
+.star-btn {
+  background: none; border: none; font-size: 22px; cursor: pointer;
+  padding: 0; line-height: 1; color: var(--text3); transition: color 0.1s;
+}
+.star-btn.lit { color: #EF9F27; }
+.section-lbl { font-size: 12px; color: var(--text2); margin-bottom: 4px; display: block; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; } 
+ .hijri-badge {
     display: inline-block; background: var(--amber-bg); color: var(--amber);
     font-size: 11px; padding: 2px 10px; border-radius: 99px; font-weight: 500; margin-right: 8px;
   }

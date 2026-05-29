@@ -201,6 +201,21 @@
       <h1>مرحباً، هذا عامك ١٤٤٨هـ 🎯</h1>
       <p>لنبنِ سنةً هجرية تستحق أن تُعاش</p>
     </div>
+   <div class="grid-2" style="margin-bottom:16px;">
+  <div class="card">
+    <div class="card-title">🌿 عادة اليوم</div>
+    <div id="today-habit-name" style="font-size:16px;font-weight:700;margin-bottom:14px;"></div>
+    <button class="primary" id="today-habit-btn" onclick="toggleTodayHabit()">✅ أتممت اليوم</button>
+    <div id="today-habit-stats" style="margin-top:14px;font-size:13px;color:var(--text2);"></div>
+    <div class="progress-bar" style="margin-top:8px;">
+      <div class="progress-fill" id="today-habit-bar" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📅 تقدم العادات</div>
+    <div id="habits-overview"></div>
+  </div>
+</div>
     <div class="grid-3">
       <div class="metric">
         <div class="metric-label">✅ الأهداف المنجزة</div>
@@ -648,7 +663,73 @@ function renderTags() {
     ? S.neg.map((t,i) => `<span class="tag neg">${t}<button class="tag-del" onclick="delTag('neg',${i})">×</button></span>`).join('')
     : '<span style="font-size:12px;color:var(--red);opacity:0.5;">أضف ما تريد تطويره…</span>';
 }
+function toggleTodayHabit() {
+  const hi = currentHijriInfo();
+  if (!hi.inYear) return;
+  const mi = hi.monthIdx;
+  const day = hi.dayOfYear - MONTH_STARTS[mi] + 1;
+  if (S.habits[mi].days[day]) delete S.habits[mi].days[day];
+  else S.habits[mi].days[day] = true;
+  save();
+  renderTodayHabit();
+  if (document.getElementById('section-habits').classList.contains('active')) renderHabitMonth(mi);
+}
 
+function renderTodayHabit() {
+  const hi = currentHijriInfo();
+  const nameEl = document.getElementById('today-habit-name');
+  const statsEl = document.getElementById('today-habit-stats');
+  const barEl = document.getElementById('today-habit-bar');
+  const btnEl = document.getElementById('today-habit-btn');
+  if (!nameEl) return;
+
+  if (!hi.inYear) {
+    nameEl.textContent = 'خارج نطاق ١٤٤٨هـ';
+    return;
+  }
+
+  const mi = hi.monthIdx;
+  const h = S.habits[mi];
+  const day = hi.dayOfYear - MONTH_STARTS[mi] + 1;
+  const isDone = !!h.days[day];
+  const doneDays = Object.keys(h.days).length;
+  const pct = Math.round(doneDays / day * 100);
+
+  nameEl.textContent = h.name || '(لم تحدد عادة بعد — اذهب لتبويب العادات)';
+  nameEl.style.color = h.name ? 'var(--text)' : 'var(--text3)';
+  btnEl.textContent = isDone ? '✅ أتممت اليوم' : '⬜ سجّل إنجاز اليوم';
+  btnEl.style.background = isDone ? 'var(--green)' : 'var(--surface)';
+  btnEl.style.color = isDone ? 'white' : 'var(--text)';
+  statsEl.textContent = `أنجزت ${doneDays} من ${day} يوم`;
+  barEl.style.width = pct + '%';
+}
+
+function renderHabitsOverview() {
+  const el = document.getElementById('habits-overview');
+  if (!el) return;
+  const hi = currentHijriInfo();
+  const rows = HIJRI_MONTHS.map((name, mi) => {
+    const h = S.habits[mi];
+    const isPast = hi.inYear && hi.monthIdx > mi;
+    const isCurrent = hi.inYear && hi.monthIdx === mi;
+    if (!isPast && !isCurrent) return '';
+    const totalDays = isPast ? MONTH_LENGTHS[mi] : (hi.dayOfYear - MONTH_STARTS[mi] + 1);
+    const doneDays = Object.keys(h.days).length;
+    const pct = Math.round(doneDays / totalDays * 100);
+    return `
+      <div style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
+          <span style="font-weight:500;">${name} ${isCurrent ? '🔄' : '✅'}</span>
+          <span style="color:var(--text2);">${h.name || '—'}</span>
+          <span style="color:var(--text2);">${doneDays}/${totalDays}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>
+      </div>`;
+  }).join('');
+  el.innerHTML = rows || '<div class="empty">لا توجد بيانات بعد</div>';
+}
 function saveNote() { S.note = document.getElementById('year-note').value; save(); }
 
 function renderOverview() {
@@ -677,7 +758,8 @@ function renderOverview() {
   if (cml) {
     cml.textContent = hi.inYear ? 'الآن: ' + HIJRI_MONTHS[hi.monthIdx] : 'خارج نطاق ١٤٤٨هـ';
   }
-
+renderTodayHabit();
+renderHabitsOverview();
   const tg = document.getElementById('top-goals');
   const active = S.goals.filter(g => !g.done).slice(0,4);
   tg.innerHTML = active.length

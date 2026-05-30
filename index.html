@@ -352,6 +352,27 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
   <div class="card-full" style="margin-bottom:16px;">
     <div class="card-header"><div class="card-title"><span>📊</span> أداء المجالات (متوسط)</div></div>
     <div class="eval-domains" id="ach-domains"></div>
+ <!-- نقاط القوة والضعف -->
+<div class="card-full" style="margin-bottom:16px;">
+  <div class="card-header">
+    <div class="card-title"><span>💡</span> نقاط القوة والضعف</div>
+  </div>
+
+  <!-- تلقائي -->
+  <div id="auto-insights" style="margin-bottom:16px;"></div>
+
+  <!-- يدوي -->
+  <div style="display:flex;flex-direction:column;gap:8px;" id="manual-insights-list"></div>
+
+  <div class="add-task-row" style="margin-top:12px;">
+    <input class="add-task-input" id="new-insight-text" placeholder="أضف ملاحظة...">
+    <select class="domain-select" id="new-insight-type">
+      <option value="pos">💪 قوة</option>
+      <option value="neg">⚠️ ضعف</option>
+    </select>
+    <button class="add-task-btn" onclick="addInsight()">+ إضافة</button>
+  </div>
+</div>
   </div>
 </div>
 

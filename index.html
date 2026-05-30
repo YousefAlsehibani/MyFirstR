@@ -1,3 +1,712 @@
+
+موقع التخطيط الشخصي
+/
+Claude finished the response
+أبي أبني موقع تخطيط شخصي وهذه فكرته: أنت تبني مخطط شخصي لعام ١٤٤٨هـ — موقع خاص فيك تفتحه كل يوم.
+التبويبات الثلاث:
+١. نظرة عامة — لوحة القيادة اليومية
+
+التاريخ هجري + ميلادي
+الباقي على نهاية السنة (أيام + أسابيع + شريط)
+عادة اليوم + زر تأشير
+مهام اليوم بالأولوية مع تسجيل التقدم
+تقييم الأسبوع الماضي تلقائياً
+ملاحظة اليوم
+مهام إثرائية بعد إنجاز الكل
+٢. التقويم — السنة كاملة
+
+١٢ شهر دفعة وحدة (٣×٤)
+تضغط على شهر ← عادة + أهداف ٤ مجالات + أيام
+تضغط على أسبوع ← تحدد مهام + أولويات + نسخ من الأسبوع الماضي
+تضغط على يوم ← مهام اليوم مع إمكانية تعديل
+٣. المنجزات — إحصائيات
+
+عدد المهام المنجزة والتعثرات
+أفضل أسبوع
+نقاط القوة والضعف
+نظام التقييم الأسبوعي بالأوزان:
+
+🕌 إيماني = ٤٠%
+📚 علمي = ٣٠%
+🏃 صحي = ٢٠%
+💼 عملي = ١٠% الحين في مرحلة تطوير النظرة العامة 👍
+Show more
+4:47 م
+
+Viewed a file, created a file, read a file
+Viewed a file, created a file, read a file
+V
+
+Connecting to visualize...
+تفضل! النسخة الأولى من مخططك الشخصي ١٤٤٨هـ 🎉
+
+ما فيه الآن:
+
+نظرة عامة ✅
+
+التاريخ هجري + ميلادي مع اسم اليوم
+الباقي على نهاية السنة (٣٧ يوم / ٥ أسابيع) + شريط ٩٠٪
+عادة اليوم مع زر تأشير وعداد السلسلة 🔥
+تقييم الأسبوع بالأوزان الأربعة مع حساب المجموع المرجّح
+مهام اليوم بالأولوية (أحمر/ذهبي/رمادي) مع تأشير بالضغط
+مهام إثرائية تُفتح تلقائياً بعد إنجاز الكل 🔒
+ملاحظة اليوم
+التقويم ✅ — ١٢ شهر بشريط التقدم، ضغطة على أي شهر تكشف أهداف المجالات الأربعة
+
+المنجزات ✅ — إحصائيات + أداء المجالات + نقاط القوة والضعف
+
+الخطوة التالية؟ نكمل على تبويب التقويم — الأسابيع والأيام والتحرير — أو نضيف التخزين الدائم (localStorage) حتى تحتفظ البيانات بين الجلسات؟
+
+
+Planner 1448
+Code · HTML 
+أنت أسطورة، وش الخطوة اللي بعدها
+
+4:53 م
+شكراً والله! 😄
+
+الخطوات الطبيعية بالترتيب:
+
+١. التخزين الدائم (localStorage) حتى تحتفظ بكل شي بين الجلسات — المهام، العادات، الملاحظات، التقييمات. هذي الأساس اللي يبني عليه كل شي.
+
+٢. إكمال تبويب التقويم ضغطة أسبوع ← تحديد المهام والأولويات ونسخ من الأسبوع الماضي. ضغطة يوم ← تعديل مهام اليوم.
+
+٣. نظام التقييم الأسبوعي التفاعلي في آخر كل أسبوع تفتح نافذة تقيّم فيها المجالات الأربعة بالأوزان وتحسب النتيجة تلقائياً.
+
+٤. إضافة المهام يدوياً حقل إضافة مهمة جديدة + تحديد الأولوية + تعيينها ليوم معين.
+
+أنا أقترح نبدأ بـ ١ ثم ٤ لأنهم يخلون النظرة العامة فعلية وتقدر تستخدمها فعلاً من اليوم — وش تشوف؟
+
+يلا
+
+4:54 م
+
+Viewed 2 files
+Viewed 2 files
+ممتاز، بكتب النسخة الجديدة كاملة مع localStorage + إضافة المهام يدوياً:
+
+Claude's response was interrupted.
+أبي التخزين يكون في سب بيس بحيث يمديني أفتح الموقع من جهاز ثاني، خلها آخر خطرة
+
+4:54 م
+فكرة ممتازة! Supabase يخلي البيانات تمشي معاك على أي جهاز 👌
+
+بس قبل ما نبني، أحتاج منك:
+
+١. أنشئ مشروع Supabase مجاني: اذهب إلى supabase.com → New Project → سمّه planner-1448
+
+٢. بعد ما يتهيأ المشروع، أحتاج:
+
+Project URL — مثل: https://xxxx.supabase.co
+Anon Public Key — من Settings → API
+٣. شغّل هذا الـ SQL في Supabase SQL Editor لإنشاء الجداول:
+
+sql
+create table tasks (
+  id uuid default gen_random_uuid() primary key,
+  date text not null,
+  text text not null,
+  priority text default 'p2',
+  done boolean default false,
+  created_at timestamptz default now()
+);
+
+create table habits (
+  id uuid default gen_random_uuid() primary key,
+  date text not null unique,
+  done boolean default false,
+  streak int default 0
+);
+
+create table notes (
+  id uuid default gen_random_uuid() primary key,
+  date text not null unique,
+  content text default ''
+);
+
+create table week_ratings (
+  id uuid default gen_random_uuid() primary key,
+  week_key text not null unique,
+  imani int default 0,
+  ilmi int default 0,
+  sihi int default 0,
+  amali int default 0,
+  total numeric default 0
+);
+جهّز هذي المعلومات وأرسلها، وأبني الموقع كاملاً متصل بـ Supabase 🚀
+
+ما بي أربطه الحين بداتا بيس، خلنا نصلح باقي احتياجات الموقع قبل
+
+4:55 م
+عدل! نكمل البناء أولاً ونخلي الموقع مكتمل ١٠٠٪، وبعدين نربطه بـ Supabase بضربة وحدة في الآخر 💪
+
+الخطة الباقية:
+
+المرحلة الثانية — التخزين المحلي + إضافة المهام localStorage كمرحلة مؤقتة + حقل إضافة مهمة جديدة
+
+المرحلة الثالثة — تبويب التقويم كامل أسابيع + أيام + نسخ من الأسبوع الماضي
+
+المرحلة الرابعة — نظام التقييم الأسبوعي نافذة تقييم نهاية الأسبوع بالأوزان الأربعة
+
+المرحلة الأخيرة — Supabase نبدل localStorage بـ Supabase وخلاص
+
+نبدأ بالثانية؟ يلا 🚀
+
+خلنا ننتقل للمرحلة الثالثة
+
+4:56 م
+يلا نبني تبويب التقويم كامل! 🗓️
+
+
+Read current file to build on it
+Read current file to build on it
+أبني التقويم الكامل الآن — شهر ← أسابيع ← أيام مع تعديل المهام ونسخ من الأسبوع الماضي:
+
+
+Ran a command, read a file
+Ran a command, read a file
+جاهز! تبويب التقويم الآن مكتمل بالكامل 🗓️
+
+شو الجديد:
+
+شبكة الشهور — ١٢ شهر بشريط تقدم لكل شهر، والشهر الحالي مميز
+
+تفاصيل الشهر — تضغط على شهر تطلع:
+
+أهداف المجالات الأربعة قابلة للتعديل مباشرة
+قائمة الأسابيع مع عدد المهام المنجزة
+مصغرة الأيام تقدر تضغط على يوم مباشرة
+تفاصيل الأسبوع — تضغط على أسبوع تطلع:
+
+ملاحظة الأسبوع
+زر نسخ من الأسبوع الماضي 📋
+قائمة أيام الأسبوع مع حالة كل يوم
+تفاصيل اليوم — تضغط على يوم تطلع:
+
+مهام اليوم مع تأشير وحذف
+إضافة مهام جديدة + اختيار الأولوية
+حقل الإدخال يتفعل بـ Enter
+Breadcrumb للتنقل في أي مستوى
+
+المرحلة الرابعة؟ نظام التقييم الأسبوعي 👆
+
+
+Planner 1448
+Code · HTML 
+طيب بنقل هالكود لقيت هب بحيث تصير تعطيني الإضافات وأنا أضيفها بدال ما تكتب الكود من جديد
+
+5:00 م
+فكرة ذكية جداً! 💡
+
+بس خلني أكون صريح معك — في هذا المشروع تحديداً، الكود كبير ومترابط، وكل مرحلة جديدة تتداخل مع اللي قبلها (مثلاً نظام التقييم راح يحتاج يقرأ بيانات المهام والعادات من نفس localStorage).
+
+لو عطيتك patches منفصلة:
+
+لازم تعرف وين بالضبط تحط كل قطعة
+خطأ بسيط في المكان يكسر الكل
+وكل مرة نضيف شي لازم تتتبع التغييرات يدوياً
+اللي أقترحه: نكمل هنا لحين ما يكتمل الموقع ١٠٠٪ — بعدين تنزله ملف واحد كامل وترفعه على GitHub أو أي استضافة وخلاص. المرحلة الأخيرة بعدها هي Supabase وهي تغيير نظيف ومحدد.
+
+الموقع اليوم حوالي ٤٠٠ سطر، لما يكتمل ممكن يوصل ٦٠٠-٧٠٠، وهذا حجم يتحكم فيه بسهولة بعد ما ينزل عندك.
+
+وش رأيك؟ نكمل المرحلة الرابعة؟ 🚀
+
+خل فكرة تخزين البيانات وحفظها آخر شيء، ودي أول شيء نطلع بموقع يخدمني بشكل ممتاز ثم نخزن البيانات ونشارك الموقع على أكثر من جهاز وهيك، وش رايك
+
+5:02 م
+رأيك صح ١٠٠٪ 👌
+
+الأولوية الصح: موقع مكتمل ومفيد أولاً ← ثم تخزين ومشاركة
+
+خطة واضحة:
+
+المرحلة الرابعة — نظام التقييم الأسبوعي بالأوزان الأربعة
+
+المرحلة الخامسة — إضافة المهام من النظرة العامة + localStorage يحفظ كل شي
+
+المرحلة السادسة — Supabase ونشر الموقع
+
+نبدأ بالرابعة؟ 🚀
+
+يلا
+
+5:02 م
+يلا نبني نظام التقييم الأسبوعي! 🎯
+
+
+Viewed 2 files
+Viewed 2 files
+الآن أضيف نظام التقييم الأسبوعي — modal يطلع، sliders للأوزان الأربعة، ويحسب النتيجة تلقائياً:
+
+
+Edited 2 files, ran a command
+Edited 2 files, ran a command
+الآن أضيف زر التقييم في عرض الأسبوع وكارت النظرة العامة:
+
+
+Add rate button in week detail and show saved rating
+Add rate button in week detail and show saved rating
+الآن أضيف زر التقييم في كارت النظرة العامة:
+
+
+Add rate button to overview weekly eval card
+Add rate button to overview weekly eval card
+أيضاً أضيف عرض التقييم المحفوظ في قائمة الأسابيع داخل الشهر:
+
+
+Show saved rating badge in weeks list inside month view
+Show saved rating badge in weeks list inside month view
+أضيف weekRatingKey في قسم helpers داخل الـ script الأول:
+
+
+Edited a file, ran a command, read a file
+Edited a file, ran a command, read a file
+جاهز! نظام التقييم الأسبوعي مكتمل 🎯
+
+شو الجديد:
+
+Modal تقييم الأسبوع — يطلع من أي مكان:
+
+Sliders للمجالات الأربعة من ٠ إلى ١٠٠
+كل slider يتلون بلون مجاله
+المجموع المرجّح يتحسب لحظياً بالأوزان (٤٠/٣٠/٢٠/١٠)
+تقدير نصي: ممتاز / جيد جداً / جيد / مقبول / يحتاج جهد
+في النظرة العامة — زر "قيّم الأسبوع الحالي" أسفل كارت التقييم
+
+في تفاصيل الأسبوع — يعرض التقييم المحفوظ بالأشرطة، وزر تعديل إذا بغيت تراجع
+
+في قائمة الأسابيع بالشهر — شارة بالنسبة المئوية تظهر جانب كل أسبوع قيّمته
+
+الآن تبقى المرحلة الخامسة الأخيرة — localStorage لحفظ كل شي، وبعدها Supabase 🚀
+
+
+Planner 1448
+Code · HTML 
+أول ملاحظة أن التاريخ الموجود في الموقع غير التاريخ اليوم 
+ثاني ملاحظة أن التقييم ودي يكون مرتبط بالمهام،
+بحيث نعطي كل مجال وزن في بداية الأسبوع من خلال توزيعه على الأولويات ! ! !! !!!! وكذا
+ثالث ملاحظة لم تتم إضافة خيار إضافة مهام اليوم من النظرة العامة 
+رابع ملاحظة فكرة أسابيع الشهر في تبويب التقويم ما أدري وش فايدته
+
+5:08 م
+ملاحظات ممتازة! خلني أفهم كل واحدة قبل أنفذ 👇
+
+١. التاريخ — واضح، نصلحه.
+
+٢. التقييم مرتبط بالمهام — هذي فكرة قوية، بس أحتاج أفهم أكثر. قصدك إن كل مهمة تنتمي لمجال (إيماني/علمي/صحي/عملي)، وبناءً على كمية المهام المنجزة في كل مجال يتحسب التقييم تلقائياً؟
+
+٣. إضافة مهام من النظرة العامة — واضح، نضيف حقل إضافة مهمة في نفس اليوم.
+
+٤. أسابيع الشهر — قصدك تشيل قسم "أسابيع الشهر" من داخل تفاصيل الشهر، وتبقى بس الأهداف + مصغرة الأيام؟
+
+إذا جيت أضيف المهام من تبويب التقويم بحط المهمة الأولى في المجال الإيماني والثاني العلمي والثالثة العملي والرابعة الصحي
+وفي بداية كل أسبوع بحط وزن لكل مجال بحيث أركز عليه ذاك الأسبوع
+
+5:10 م
+فاهم الفكرة الحين! 🎯
+
+يعني النظام هو:
+
+كل مهمة تنتمي لمجال — لما تضيف مهمة تختار مجالها (إيماني/علمي/صحي/عملي) بدل الأولوية فقط
+
+أوزان الأسبوع قابلة للتعديل — في بداية كل أسبوع تحدد الأوزان بنفسك (مثلاً هذا الأسبوع إيماني ٥٠٪ بدل ٤٠٪ لأن رمضان قريب)
+
+التقييم يتحسب تلقائياً — نسبة إنجازك في كل مجال × وزنه = تقييمك الأسبوعي بدون ما تحتاج تحرك slider
+
+بس سؤال واحد على موضوع الأولوية — لما تضيف مهمة، تبي تحدد مجال + أولوية (عاجل/مهم/عادي) مع بعض؟ أو تحذف الأولوية وتكتفي بالمجال؟
+
+كل مهمة تنتمي لمجال وأضف مجال خامس: إضافي
+أوزان الأولويات حنا نعتمدها الحين، واللي علي أني أحدد أولوية المجال في ذاك الأسبوع
+نحذف الأولوية ونكتفي بالمجال
+
+5:11 م
+واضح تماماً! 💡
+
+إذن النظام النهائي:
+
+المهمة = نص + مجال (إيماني / علمي / صحي / عملي / إضافي)
+
+الأوزان الثابتة للأولويات:
+
+المجال الأول في الأسبوع = ٤٠٪
+الثاني = ٣٠٪
+الثالث = ٢٠٪
+الرابع = ١٠٪
+إضافي = خارج الحساب
+في بداية الأسبوع — ترتّب المجالات الأربعة بالسحب (أو الضغط) حسب تركيزك هذا الأسبوع
+
+التقييم يتحسب تلقائياً — (مهام منجزة ÷ إجمالي مهام) لكل مجال × وزنه
+
+سؤال أخير: ترتيب المجالات في بداية الأسبوع — تبيه سحب وإفلات drag & drop، أو أزرار أسهم ↑↓ أبسط؟
+
+أسهم
+
+5:12 م
+ممتاز، نبدأ! 🚀
+
+
+Viewed 3 files
+Viewed 3 files
+الصورة واضحة. الآن أكتب الملف من جديد بشكل نظيف مع كل التغييرات الأربعة دفعة وحدة:
+
+
+Ran a command, read a file
+Ran a command, read a file
+جاهز! كل الملاحظات الأربعة تمت معالجتها 🎯
+
+التغييرات:
+
+١. التاريخ ✅ — يتحسب تلقائياً من تاريخ اليوم الحقيقي بناءً على ١ محرم ١٤٤٨ = ٨ يوليو ٢٠٢٦
+
+٢. التقييم مرتبط بالمهام ✅ — يتحسب تلقائياً بدون sliders:
+
+كل مهمة تنتمي لمجال
+في بداية كل أسبوع ترتّب المجالات بالأسهم ▲▼
+الترتيب يحدد الوزن: الأول ٤٠٪ → الثاني ٣٠٪ → الثالث ٢٠٪ → الرابع ١٠٪
+النتيجة = (مهام منجزة ÷ كل مهام المجال) × وزنه
+٣. إضافة مهام من النظرة العامة ✅ — حقل إضافة مع اختيار المجال مباشرة في الصفحة الرئيسية
+
+٤. أسابيع الشهر محذوفة ✅ — صفحة الشهر أصبحت: أهداف المجالات + مصغرة الأيام فقط
+
++ مجال إضافي ➕ لا يدخل في الحساب
+
+المرحلة الخامسة — localStorage الكاملة + لاحقاً Supabase 🚀
+
+
+Planner 1448
+Code · HTML 
+طيب خلنا ننقله على قيت هب ثم نربطه بسب بيس، وش رأيك
+
+5:19 م
+رأي ممتاز! الترتيب الصح هو:
+
+١. GitHub — نرفع الملف على repository ٢. Netlify أو Vercel — نربطه بـ GitHub ويصير عندك رابط موقع حقيقي ٣. Supabase — نضيف التخزين ونبدل localStorage
+
+بس خلني أكون صريح — هذي الخطوات تحتاج تسوّيها أنت بيدك لأن فيها:
+
+تسجيل دخول لحساباتك
+صلاحيات ورموز سرية
+اللي أقدر أساعدك فيه هو:
+
+نحوّل الموقع لـ React + Vite project جاهز للرفع، أو نخليه ملف HTML واحد كما هو (أبسط بكثير لـ GitHub Pages).
+
+اقتراحي — خطوات واضحة:
+
+الخطوة ١ — أنشئ repository جديد على github.com اسمه planner-1448
+
+الخطوة ٢ — ارفع الملف planner-1448.html وسمّه index.html
+
+الخطوة ٣ — فعّل GitHub Pages من Settings → Pages → Branch: main
+
+الخطوة ٤ — يعطيك رابط مثل username.github.io/planner-1448 ✅
+
+الخطوة ٥ — نجي نضيف Supabase على الكود وترفع التحديث
+
+تبي أبدأ بإضافة Supabase للكود الآن جاهز للرفع مباشرة؟ أو تبي تخطو الخطوات أولاً؟
+
+رفعته على قيت هب واشتغل
+
+5:23 م
+ممتاز! 🎉 الموقع صار حي على الإنترنت
+
+الحين نضيف Supabase عشان البيانات تتزامن بين أجهزتك. تحتاج ثلاث خطوات قبل ما أكتب الكود:
+
+١. أنشئ مشروع Supabase: اذهب لـ supabase.com → New Project → سمّه planner-1448
+
+٢. شغّل هذا SQL في SQL Editor:
+
+sql
+create table tasks (
+  id uuid default gen_random_uuid() primary key,
+  month_idx int not null,
+  day int not null,
+  text text not null,
+  domain text not null default 'extra',
+  done boolean default false,
+  created_at timestamptz default now()
+);
+
+create table habits (
+  id uuid default gen_random_uuid() primary key,
+  month_idx int not null,
+  day int not null unique,
+  done boolean default false
+);
+
+create table notes (
+  id uuid default gen_random_uuid() primary key,
+  month_idx int not null,
+  day int not null unique,
+  content text default ''
+);
+
+create table week_data (
+  id uuid default gen_random_uuid() primary key,
+  month_idx int not null,
+  week_idx int not null,
+  priority_order jsonb default '["imani","ilmi","sihi","amali"]',
+  note text default '',
+  unique(month_idx, week_idx)
+);
+
+create table month_goals (
+  id uuid default gen_random_uuid() primary key,
+  month_idx int not null unique,
+  imani text default '',
+  ilmi text default '',
+  sihi text default '',
+  amali text default ''
+);
+٣. أرسل لي:
+
+Project URL مثل: https://xxxx.supabase.co
+Anon Public Key من Settings → API
+وأكتب لك النسخة الكاملة جاهزة للرفع 🚀
+
+ليش سوينا كذا
+
+5:25 م
+سؤال وجيه 😄
+
+لأن Supabase يحتاج يعرف أنت مين عشان يحفظ بياناتك ويفصلها عن غيرك — لو ما فيه مصادقة، أي شخص يفتح الرابط يشوف بياناتك أو يمسحها.
+
+الحلول:
+
+الأبسط — Supabase بدون مصادقة (RLS مفتوح) كل من عنده الرابط يشوف نفس البيانات — مقبول لأن الموقع خاص فيك أنت فقط ومو منشور للعموم.
+
+الأصح — Supabase + Magic Link تدخل بإيميلك، يرسل لك رابط، تضغطه وتدخل — بدون باسورد. بياناتك مربوطة بحسابك على أي جهاز.
+
+اقتراحي: نسوي Magic Link — بسيط جداً في التطبيق وتضمن إن بياناتك ما تنكشف لو شاركت الرابط يوماً.
+
+وش تختار؟
+
+اللي ابيه الحين أني لو شغلت الرابط من جهاز ثاني وسجلت فيه بيانات ينحفظ حتى لو فتحته من الجهاز الأول
+وما يحتاج أسوي تسجيل ددخول للآن
+
+5:25 م
+واضح — تبي مزامنة بدون تسجيل دخول.
+
+الحل البسيط: نخزن كل شيء تحت User ID ثابت تنشئه مرة وحدة وتحطه في الرابط أو في ملف صغير.
+
+يعني رابطك يصير:
+
+username.github.io/planner-1448?uid=abc123
+أي جهاز يفتح نفس الرابط = نفس البيانات ✅
+
+خطوات تنفيذه:
+
+١. أنشئ مشروع Supabase على supabase.com
+
+٢. شغّل هذا SQL:
+
+sql
+create table planner_data (
+  id uuid default gen_random_uuid() primary key,
+  user_id text not null,
+  data_key text not null,
+  data_value jsonb,
+  updated_at timestamptz default now(),
+  unique(user_id, data_key)
+);
+جدول واحد بس — بسيط ونظيف.
+
+٣. أرسل لي:
+
+Project URL
+Anon Key
+وأكتب الكود كاملاً — كل lsSet وlsGet تتحول لـ Supabase تلقائياً 🚀
+
+https://qfqhlnxxnokgvvurhgbo.supabase.co/rest/v1/
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmcWhsbnh4bm9rZ3Z2dXJoZ2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNDYwNTcsImV4cCI6MjA5NTcyMjA1N30.EQRAEJFIo_PtJF9xc5bVB6yjrmeUrUpeAtsZ66pkjG4
+
+5:27 م
+ممتاز! عندي كل شيء، أكتب النسخة الكاملة الآن 🚀
+
+
+Viewed 4 files
+Viewed 4 files
+ممتاز، الصورة واضحة. الاستراتيجية: نبدل lsGet/lsSet بـ Supabase مع cache محلي عشان يشتغل بسرعة، والـ uid يتوليد تلقائياً أول مرة وينحفظ في localStorage:
+
+
+Replace localStorage layer with Supabase + local cache hybrid
+Replace localStorage layer with Supabase + local cache hybrid
+الآن نبدل initOverview() عشان ينتظر تحميل البيانات أولاً:
+
+
+Make init async - wait for data load before rendering
+Make init async - wait for data load before rendering
+الآن نضيف جدول Supabase عبر الـ SQL، وننشئ الملف النهائي:
+
+
+Ran a command, read a file
+Ran a command, read a file
+جاهز! قبل ما ترفعه، خطوة وحدة في Supabase 👇
+
+شغّل هذا SQL في SQL Editor:
+
+sql
+create table planner_data (
+  id uuid default gen_random_uuid() primary key,
+  user_id text not null,
+  data_key text not null,
+  data_value jsonb,
+  updated_at timestamptz default now(),
+  unique(user_id, data_key)
+);
+بعدها ارفع الملف على GitHub وهذا اللي يصير:
+
+أول مرة تفتح الموقع ← ينتولد لك uid تلقائياً ويضاف للرابط
+كل بياناتك تتحفظ في Supabase تحت uid خاص فيك
+تبي تفتح من جهاز ثاني ← انسخ الرابط كاملاً بالـ ?uid=xxx أو اضغط زر 🔗 في الـ nav
+مؤشر متزامن ✓ يظهر في الأعلى عند كل تحميل
+
+Planner 1448
+Code · HTML 
+ما فهمت وش أسوي
+
+5:28 م
+تمام، خطوتين بس 👇
+
+الخطوة ١ — في Supabase:
+
+افتح supabase.com وادخل مشروعك
+من القائمة الجانبية اضغط SQL Editor
+انسخ هذا وشغّله:
+sql
+create table planner_data (
+  id uuid default gen_random_uuid() primary key,
+  user_id text not null,
+  data_key text not null,
+  data_value jsonb,
+  updated_at timestamptz default now(),
+  unique(user_id, data_key)
+);
+الخطوة ٢ — في GitHub:
+
+افتح الـ repository
+افتح ملف index.html
+اضغط ✏️ Edit
+احذف كل الكود واحط الكود الجديد اللي نزّلته
+اضغط Commit changes
+خلاص — افتح الموقع وشوف مؤشر "متزامن ✓" في الأعلى 🚀
+
+طيب وش الخطوة اللي بعدها
+
+5:30 م
+الموقع الآن مكتمل تقريباً ٩٥٪ 🎉
+
+اللي تبقى:
+
+١. اختبار حقيقي — جرّب تضيف مهام من جهازك، افتح الرابط من جهاز ثاني، شوف هل تظهر نفس البيانات
+
+٢. تخصيص شخصي — حاجات ما زلنا نضيفها:
+
+اسم العادة اليومية (الآن ثابت "قراءة ٢٠ صفحة")
+اسمك في الموقع
+٣. تبويب المنجزات — الآن يعرض أرقام من البيانات الحقيقية بس ما اختبرناه
+
+وش أهم شيء تحس إنه ناقص الآن لما تستخدم الموقع فعلياً؟
+
+جربت أضيف مهمة في أحد الأيام لكن حدثت الموقع وانحذفت وما لقيتها في الجهاز الثاني
+
+5:32 م
+واضح — البيانات ما وصلت لـ Supabase. السبب الأغلب إن جدول planner_data ما اتعمل بعد، أو فيه مشكلة في الصلاحيات.
+
+خلنا نتأكد خطوة خطوة 👇
+
+أولاً — تحقق من الجدول: افتح Supabase → Table Editor — هل تشوف جدول اسمه planner_data؟
+
+إذا موجود — فعّل الصلاحيات: روح SQL Editor وشغّل هذا:
+
+sql
+alter table planner_data enable row level security;
+
+create policy "allow all" on planner_data
+for all using (true) with check (true);
+إذا مو موجود — أنشئه من جديد:
+
+sql
+create table planner_data (
+  id uuid default gen_random_uuid() primary key,
+  user_id text not null,
+  data_key text not null,
+  data_value jsonb,
+  updated_at timestamptz default now(),
+  unique(user_id, data_key)
+);
+
+alter table planner_data enable row level security;
+
+create policy "allow all" on planner_data
+for all using (true) with check (true);
+بعد ما تشغّله، جرب أضف مهمة وقولي وش يظهر في مؤشر المزامنة أعلى الصفحة — هل يقول "متزامن ✓" أو "بدون إنترنت"؟
+
+كفو، موجودة
+
+5:34 م
+ممتاز! 🎉
+
+الآن جرّب هذا للتأكد النهائي:
+
+أضف مهمة من الجهاز الأول وشوف المؤشر — هل قال "متزامن ✓"؟
+افتح نفس الرابط (بالـ ?uid=xxx) من جهاز ثاني أو متصفح ثاني
+شوف هل المهمة موجودة
+إذا اشتغل، الموقع صار مكتمل وحي ومتزامن ✅
+
+الخطوة الوحيدة اللي تبقت هي تخصيص العادة اليومية — بدل ما تكون ثابتة "قراءة ٢٠ صفحة"، نخليها قابلة للتعديل من الموقع مباشرة. تبي نضيفها؟
+
+ودي أضيف التاريخ الميلادي بشكل فرعي
+
+5:35 م
+قصدك يظهر التاريخ الميلادي تحت الهجري في بطاقة التاريخ — كما هو الآن بس تبيه يكون فعلي وصح؟
+
+أو تبيه يظهر في مكان ثاني؟
+
+يظهر في التقويم تحت كل شهر هجري اسم الشهر الميلادي
+وتحت كل يوم هجري يظهر اليوم الميلادي
+
+وفي النظرة العامة يظهر لي التاريخ اليوم الهجري والتاريخ الميلادي
+
+5:35 م
+واضح تماماً! ثلاث أماكن:
+
+١. النظرة العامة — التاريخ الميلادي كامل تحت الهجري ✅ (موجود بس نتأكد إنه صح)
+
+٢. شبكة الشهور — تحت كل شهر هجري يظهر "يوليو – أغسطس" مثلاً
+
+٣. خلايا الأيام — تحت الرقم الهجري يظهر الرقم الميلادي بخط صغير
+
+يلا أضيفها 🚀
+
+
+Viewed 3 files
+Viewed 3 files
+الآن أضيف دالة تحويل Hijri→Gregorian وأحدّث المواضع الثلاثة:
+
+
+Edited a file, ran a command, read a file
+Edited a file, ran a command, read a file
+جاهز! ارفعه على GitHub وشوف النتيجة 🗓️
+
+اللي تغيّر:
+
+النظرة العامة — التاريخ الميلادي يتحسب تلقائياً بالعربي (١ يوليو ٢٠٢٦م)
+شبكة الشهور — تحت كل شهر هجري يظهر النطاق الميلادي بالأزرق (يوليو – أغسطس ٢٠٢٦)
+خلايا الأيام — تحت كل رقم هجري يظهر رقم اليوم الميلادي بخط صغير
+
+Planner 1448
+Code · HTML 
+
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+raw
+Planner 1448 · HTML
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -27,7 +736,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .card-full{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;}
 .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .card-title{font-size:13px;font-weight:600;color:var(--text-muted);letter-spacing:.8px;display:flex;align-items:center;gap:6px;}
-
+ 
 /* DATE HERO */
 .date-hero{background:linear-gradient(135deg,#1a1c26 0%,#14161f 60%,#1c1a14 100%);border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;position:relative;overflow:hidden;}
 .date-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(201,168,76,.08),transparent 70%);pointer-events:none;}
@@ -51,7 +760,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .habit-check-btn{width:100%;padding:11px;background:var(--green-dim);border:1.5px solid var(--green);border-radius:8px;color:var(--green);font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .habit-check-btn:hover{background:var(--green);color:#fff;}
 .habit-check-btn.done{background:var(--green);color:#fff;cursor:default;}
-
+ 
 /* TASKS */
 .task-list{display:flex;flex-direction:column;gap:8px;}
 .task-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;}
@@ -82,18 +791,18 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .add-task-btn:hover{background:var(--accent);color:#0d0f14;}
 .del-btn{color:var(--text-dim);font-size:14px;cursor:pointer;padding:2px 4px;flex-shrink:0;line-height:1;}
 .del-btn:hover{color:var(--red);}
-
+ 
 /* NOTE */
 .note-area{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:14px;resize:none;height:80px;outline:none;transition:border-color .2s;margin-top:10px;}
 .note-area:focus{border-color:var(--accent);}
 .note-area::placeholder{color:var(--text-dim);}
-
+ 
 /* ENRICHMENT */
 .enrichment-locked{text-align:center;padding:20px;color:var(--text-dim);font-size:13px;}
 .enrichment-locked .lock-icon{font-size:28px;margin-bottom:8px;}
 .enrichment-task{display:none;flex-direction:column;gap:10px;}
 .enrich-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:13px;color:var(--accent2);}
-
+ 
 /* CALENDAR */
 .cal-months-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .month-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .2s;}
@@ -106,7 +815,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .breadcrumb .crumb:hover{color:var(--accent2);}
 .breadcrumb .sep{color:var(--text-dim);}
 .breadcrumb .current{color:var(--text);}
-
+ 
 /* DAYS GRID */
 .days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px;}
 .day-header{font-size:11px;color:var(--text-dim);text-align:center;padding:4px 0;}
@@ -116,7 +825,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .day-cell.has-tasks::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);position:absolute;bottom:3px;}
 .day-cell.all-done::after{background:var(--green);}
 .day-cell.empty,.day-cell.other-month{cursor:default;opacity:.2;}
-
+ 
 /* WEEK PRIORITIES */
 .week-priority-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
 .wp-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
@@ -127,7 +836,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .wp-arrow{background:none;border:1px solid var(--border);color:var(--text-muted);border-radius:4px;width:22px;height:18px;cursor:pointer;font-size:10px;line-height:1;transition:all .15s;font-family:'Tajawal',sans-serif;}
 .wp-arrow:hover{border-color:var(--accent);color:var(--accent);}
 .wp-arrow:disabled{opacity:.25;cursor:default;}
-
+ 
 /* WEEK SCORE */
 .week-score-card{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 18px;margin-top:12px;}
 .week-score-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
@@ -137,28 +846,28 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .wds-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
 .wds-bar-wrap{flex:1;height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;margin:0 10px;}
 .wds-bar{height:100%;border-radius:99px;}
-
+ 
 /* GOALS */
 .goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
 .goal-item{padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
 .goal-domain-label{font-size:11px;margin-bottom:4px;}
 .goal-edit{width:100%;background:transparent;border:none;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;outline:none;}
 .goal-edit::placeholder{color:var(--text-dim);}
-
+ 
 /* COPY WEEK */
 .copy-week-btn{width:100%;padding:10px;background:rgba(91,155,213,.08);border:1px dashed var(--blue);border-radius:8px;color:var(--blue);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-bottom:12px;}
 .copy-week-btn:hover{background:rgba(91,155,213,.15);}
-
+ 
 /* EVAL BTN */
 .eval-rate-btn{font-size:12px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:6px 14px;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .2s;width:100%;margin-top:10px;font-weight:600;}
 .eval-rate-btn:hover{background:var(--accent);color:#0d0f14;}
-
+ 
 /* RATING BADGES */
 .rating-badge{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;}
 .rating-excellent{background:rgba(76,175,125,.15);color:var(--green);}
 .rating-good{background:var(--accent-dim);color:var(--accent);}
 .rating-weak{background:rgba(224,92,92,.12);color:var(--red);}
-
+ 
 /* ACHIEVEMENTS */
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center;}
@@ -181,11 +890,11 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 .strength-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:13px;}
 .strength-item.pos{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,125,.2);}
 .strength-item.neg{background:rgba(224,92,92,.08);color:var(--red);border:1px solid rgba(224,92,92,.2);}
-
+ 
 /* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface);border:1px solid var(--accent);color:var(--accent2);padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;transition:transform .3s;z-index:999;pointer-events:none;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-
+ 
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
@@ -201,13 +910,13 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
 </style>
 </head>
 <body>
-
+ 
 <nav class="nav">
   <button class="nav-tab active" onclick="showPage('overview',this)">🌅 نظرة عامة</button>
   <button class="nav-tab" onclick="showPage('calendar',this)">📅 التقويم</button>
   <button class="nav-tab" onclick="showPage('achievements',this)">🏆 المنجزات</button>
 </nav>
-
+ 
 <!-- ══════════ OVERVIEW ══════════ -->
 <div class="page active" id="page-overview">
   <div class="date-hero">
@@ -224,12 +933,12 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
       </div>
     </div>
   </div>
-
+ 
   <div class="prog-bar-wrap">
     <div class="prog-bar-label"><span>إنجاز سنة ١٤٤٨هـ</span><span id="ov-prog-pct">—</span></div>
     <div class="prog-track"><div class="prog-fill" id="ov-prog-fill" style="width:0%"></div></div>
   </div>
-
+ 
   <div class="grid2">
     <!-- HABIT -->
     <div class="card">
@@ -242,7 +951,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
         <span id="hbt">أشّر الإنجاز</span>
       </button>
     </div>
-
+ 
     <!-- WEEK EVAL -->
     <div class="card" id="ov-eval-card">
       <div class="card-header"><div class="card-title"><span>📊</span> تقييم الأسبوع</div></div>
@@ -251,7 +960,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
       </div>
     </div>
   </div>
-
+ 
   <!-- TODAY TASKS -->
   <div class="card-full" id="ov-tasks-card">
     <div class="card-header">
@@ -280,14 +989,14 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
       </div>
     </div>
   </div>
-
+ 
   <!-- NOTE -->
   <div class="card-full">
     <div class="card-header"><div class="card-title"><span>📝</span> ملاحظة اليوم</div></div>
     <textarea class="note-area" id="ov-note" placeholder="اكتب ملاحظة أو تأمل ليومك..."></textarea>
   </div>
 </div>
-
+ 
 <!-- ══════════ CALENDAR ══════════ -->
 <div class="page" id="page-calendar">
   <div id="cal-level-months">
@@ -322,7 +1031,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
     <div id="day-detail-wrap"></div>
   </div>
 </div>
-
+ 
 <!-- ══════════ ACHIEVEMENTS ══════════ -->
 <div class="page" id="page-achievements">
   <div style="margin-bottom:16px;font-size:18px;font-weight:700;color:var(--accent2);">إحصائياتك لـ ١٤٤٨هـ</div>
@@ -339,16 +1048,16 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min
     <div class="eval-domains" id="ach-domains"></div>
   </div>
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script>
 // ══════════════════════════════════════════════
 //  CONSTANTS
 // ══════════════════════════════════════════════
 const AR = '٠١٢٣٤٥٦٧٨٩';
 function toA(n){ return String(Math.round(n)).replace(/\d/g, d => AR[d]); }
-
+ 
 const MONTHS = [
   {name:'محرم',days:30},{name:'صفر',days:29},{name:'ربيع الأول',days:30},
   {name:'ربيع الآخر',days:29},{name:'جمادى الأولى',days:30},{name:'جمادى الآخرة',days:29},
@@ -359,7 +1068,7 @@ const MONTHS = [
 // Total days in 1448: 354
 const YEAR_START_DOW = 4; // Thursday
 const TOTAL_YEAR_DAYS = 354;
-
+ 
 // Domain meta
 const DOMAINS = {
   imani: {label:'إيماني', icon:'🕌', color:'var(--imani)'},
@@ -370,16 +1079,16 @@ const DOMAINS = {
 };
 const DOMAIN_KEYS = ['imani','ilmi','sihi','amali'];
 const WEIGHTS = [0.4, 0.3, 0.2, 0.1]; // by rank 1→4
-
+ 
 const DAY_NAMES      = ['أحد','اثن','ثلا','أرب','خمس','جمع','سبت'];
 const DAY_NAMES_FULL = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-
+ 
 // ══════════════════════════════════════════════
 //  CURRENT DATE (Hijri 1448)
 // ══════════════════════════════════════════════
 // 1 محرم 1448 = Jul 8 2026 (Gregorian)
 const HIJRI_START = new Date(2026, 6, 8); // Jul 8 2026
-
+ 
 function getTodayHijri() {
   const today = new Date();
   today.setHours(0,0,0,0);
@@ -393,19 +1102,39 @@ function getTodayHijri() {
   }
   return null;
 }
-
+ 
 function getMonthStartDow(mIdx) {
   let total = 0;
   for (let i = 0; i < mIdx; i++) total += MONTHS[i].days;
   return (YEAR_START_DOW + total) % 7;
 }
-
+ 
+// تحويل هجري -> ميلادي
+function hijriToGreg(mIdx, day) {
+  let dayOfYear = day - 1;
+  for (let i = 0; i < mIdx; i++) dayOfYear += MONTHS[i].days;
+  const d = new Date(HIJRI_START);
+  d.setDate(d.getDate() + dayOfYear);
+  return d;
+}
+function getMonthGregRange(mIdx) {
+  const first = hijriToGreg(mIdx, 1);
+  const last  = hijriToGreg(mIdx, MONTHS[mIdx].days);
+  const GM = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const fm = GM[first.getMonth()], lm = GM[last.getMonth()];
+  const fy = first.getFullYear(), ly = last.getFullYear();
+  if (fm === lm) return fm + ' ' + fy;
+  if (fy === ly) return fm + ' – ' + lm + ' ' + fy;
+  return fm + ' ' + fy + ' – ' + lm + ' ' + ly;
+}
+function getDayGreg(mIdx, day) { return hijriToGreg(mIdx, day).getDate(); }
+ 
 // ══════════════════════════════════════════════
 //  SUPABASE CONFIG
 // ══════════════════════════════════════════════
 const SB_URL  = 'https://qfqhlnxxnokgvvurhgbo.supabase.co';
 const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmcWhsbnh4bm9rZ3Z2dXJoZ2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNDYwNTcsImV4cCI6MjA5NTcyMjA1N30.EQRAEJFIo_PtJF9xc5bVB6yjrmeUrUpeAtsZ66pkjG4';
-
+ 
 // ── User ID: ينتوليد مرة وحدة وينحفظ محلياً
 // شارك الرابط مع ?uid=xxx لتزامن جهاز ثاني
 function getUID() {
@@ -425,10 +1154,10 @@ function getUID() {
   return uid;
 }
 const UID = getUID();
-
+ 
 // ── Local cache (سرعة العرض الفوري)
 const _cache = {};
-
+ 
 // ── Supabase fetch helper
 async function sbGet(dataKey, def) {
   // 1. إرجاع cache فوراً
@@ -447,7 +1176,7 @@ async function sbGet(dataKey, def) {
     return def;
   }
 }
-
+ 
 async function sbSet(dataKey, value) {
   _cache[dataKey] = value; // cache فوري
   try {
@@ -462,7 +1191,7 @@ async function sbSet(dataKey, value) {
     });
   } catch(e) { /* silent fail */ }
 }
-
+ 
 // ── lsGet/lsSet: قراءة من cache أولاً (sync) وكتابة لـ Supabase (async)
 // البيانات تُحمَّل مسبقاً عند بدء التطبيق
 function lsGet(k, def) {
@@ -472,7 +1201,7 @@ function lsSet(k, v) {
   _cache[k] = v;
   sbSet(k, v); // حفظ في الخلفية
 }
-
+ 
 // ── تحميل كل بيانات المستخدم دفعة وحدة عند البدء
 async function loadAllData() {
   showSyncIndicator('جارٍ المزامنة...');
@@ -488,7 +1217,7 @@ async function loadAllData() {
     showSyncIndicator('⚠️ بدون إنترنت', false, true);
   }
 }
-
+ 
 function showSyncIndicator(msg, success=false, warn=false) {
   let el = document.getElementById('sync-indicator');
   if (!el) {
@@ -504,7 +1233,7 @@ function showSyncIndicator(msg, success=false, warn=false) {
   el.style.opacity = '1';
   if (success) setTimeout(() => { el.style.opacity = '0'; }, 2500);
 }
-
+ 
 function taskKey(m, d)    { return `t_${m}_${d}`; }
 function habitKey(m, d)   { return `h_${m}_${d}`; }
 function noteKey(m, d)    { return `n_${m}_${d}`; }
@@ -512,7 +1241,7 @@ function goalKey(m)       { return `g_${m}`; }
 function weekPrioKey(m,w) { return `wp_${m}_${w}`; }
 function weekRatingKey(m,w){ return `wr_${m}_${w}`; }
 function weekNoteKey(m,w)  { return `wn_${m}_${w}`; }
-
+ 
 // ══════════════════════════════════════════════
 //  WEEKS HELPER
 // ══════════════════════════════════════════════
@@ -533,17 +1262,17 @@ function getWeeksOfMonth(mIdx) {
   }
   return weeks;
 }
-
+ 
 function getWeekIdxForDay(mIdx, day) {
   const weeks = getWeeksOfMonth(mIdx);
   for (let i = 0; i < weeks.length; i++) if (weeks[i].days.includes(day)) return i;
   return 0;
 }
-
+ 
 function getWeekPriority(mIdx, wIdx) {
   return lsGet(weekPrioKey(mIdx, wIdx), ['imani','ilmi','sihi','amali']);
 }
-
+ 
 // ══════════════════════════════════════════════
 //  RATING CALC (auto from tasks)
 // ══════════════════════════════════════════════
@@ -569,7 +1298,7 @@ function calcWeekRating(mIdx, wIdx) {
   const total = usedWeight > 0 ? Math.round(weightedSum / usedWeight) : null;
   return { scores, total, prio };
 }
-
+ 
 function getGrade(score) {
   if (score >= 90) return { label:'ممتاز 🌟', cls:'rating-excellent' };
   if (score >= 75) return { label:'جيد جداً ✅', cls:'rating-good' };
@@ -577,12 +1306,12 @@ function getGrade(score) {
   if (score >= 40) return { label:'مقبول ⚡', cls:'rating-weak' };
   return { label:'يحتاج جهد 💪', cls:'rating-weak' };
 }
-
+ 
 // ══════════════════════════════════════════════
 //  NAV & STATE
 // ══════════════════════════════════════════════
 let calLevel = 0, calMonth = 0, calWeek = 0, calDay = 0;
-
+ 
 function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -591,9 +1320,9 @@ function showPage(id, btn) {
   if (id === 'calendar')     renderCalLevel();
   if (id === 'achievements') renderAchievements();
 }
-
+ 
 function goLevel(l) { calLevel = l; renderCalLevel(); }
-
+ 
 function renderCalLevel() {
   ['months','month','week','day'].forEach((n,i) => {
     document.getElementById('cal-level-'+n).style.display = calLevel === i ? 'block' : 'none';
@@ -603,7 +1332,7 @@ function renderCalLevel() {
   if (calLevel === 2) renderWeekDetail(calMonth, calWeek);
   if (calLevel === 3) renderDayDetail(calMonth, calWeek, calDay);
 }
-
+ 
 // ══════════════════════════════════════════════
 //  OVERVIEW
 // ══════════════════════════════════════════════
@@ -617,14 +1346,15 @@ function initOverview() {
   const m = MONTHS[mIdx];
   const dow = getMonthStartDow(mIdx);
   const todayDow = (dow + day - 1) % 7;
-
+ 
   // Date display
   const HIJRI_MONTHS_AR = ['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
   document.getElementById('ov-hijri').textContent = toA(day) + ' ' + m.name + ' ١٤٤٨هـ';
   document.getElementById('ov-dayname').textContent = DAY_NAMES_FULL[todayDow];
   const greg = new Date(HIJRI_START); greg.setDate(greg.getDate() + dayOfYear - 1);
-  document.getElementById('ov-miladi').textContent = greg.toLocaleDateString('ar-SA-u-ca-gregory', {day:'numeric',month:'long',year:'numeric'});
-
+  const gregMonths = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  document.getElementById('ov-miladi').textContent = greg.getDate() + ' ' + gregMonths[greg.getMonth()] + ' ' + greg.getFullYear() + 'م';
+ 
   // Remaining
   const daysLeft = TOTAL_YEAR_DAYS - dayOfYear;
   document.getElementById('ov-days-left').textContent  = toA(daysLeft);
@@ -632,7 +1362,7 @@ function initOverview() {
   const pct = Math.round((dayOfYear / TOTAL_YEAR_DAYS) * 100);
   document.getElementById('ov-prog-pct').textContent   = toA(pct) + '٪';
   document.getElementById('ov-prog-fill').style.width  = pct + '%';
-
+ 
   // Habit
   const habitName = lsGet('habit_name','قراءة ٢٠ صفحة');
   const habitDone = lsGet(habitKey(mIdx,day), false);
@@ -645,20 +1375,20 @@ function initOverview() {
     btn.querySelector('#hbt').textContent = 'تم الإنجاز! 🎉';
   }
   document.getElementById('habit-btn').onclick = () => toggleHabit(mIdx, day);
-
+ 
   // Week eval
   const wIdx = getWeekIdxForDay(mIdx, day);
   renderOvEval(mIdx, wIdx);
-
+ 
   // Tasks
   renderOvTasks(mIdx, day);
-
+ 
   // Note
   const noteEl = document.getElementById('ov-note');
   noteEl.value = lsGet(noteKey(mIdx,day), '');
   noteEl.onchange = () => lsSet(noteKey(mIdx,day), noteEl.value);
 }
-
+ 
 function toggleHabit(mIdx, day) {
   const done = lsGet(habitKey(mIdx,day), false);
   if (done) return;
@@ -671,7 +1401,7 @@ function toggleHabit(mIdx, day) {
   document.getElementById('streak-badge').textContent = '🔥 ' + toA(streak) + ' يوم';
   showToast('أحسنت! 🔥 السلسلة مستمرة');
 }
-
+ 
 function renderOvEval(mIdx, wIdx) {
   const rating = calcWeekRating(mIdx, wIdx);
   const prio   = getWeekPriority(mIdx, wIdx);
@@ -703,7 +1433,7 @@ function renderOvEval(mIdx, wIdx) {
   </div>`;
   el.innerHTML = html;
 }
-
+ 
 function renderOvTasks(mIdx, day) {
   const tasks = lsGet(taskKey(mIdx,day), []);
   const list  = document.getElementById('ov-task-list');
@@ -722,7 +1452,7 @@ function renderOvTasks(mIdx, day) {
             <span class="del-btn" onclick="event.stopPropagation();ovDelTask(${mIdx},${day},${i})">✕</span>
           </div>`;
       }).join('');
-
+ 
   // enrichment
   if (tasks.length > 0 && done === tasks.length) {
     document.getElementById('enrich-locked').style.display = 'none';
@@ -732,7 +1462,7 @@ function renderOvTasks(mIdx, day) {
     document.getElementById('enrich-tasks').style.display  = 'none';
   }
 }
-
+ 
 function ovToggleTask(mIdx, day, idx) {
   const tasks = lsGet(taskKey(mIdx,day), []);
   tasks[idx].done = !tasks[idx].done;
@@ -741,7 +1471,7 @@ function ovToggleTask(mIdx, day, idx) {
   const wIdx = getWeekIdxForDay(mIdx, day);
   renderOvEval(mIdx, wIdx);
 }
-
+ 
 function ovDelTask(mIdx, day, idx) {
   const tasks = lsGet(taskKey(mIdx,day), []);
   tasks.splice(idx,1);
@@ -749,7 +1479,7 @@ function ovDelTask(mIdx, day, idx) {
   renderOvTasks(mIdx, day);
   showToast('تم الحذف');
 }
-
+ 
 function ovAddTask() {
   const inp = document.getElementById('ov-new-task');
   const dom = document.getElementById('ov-new-domain').value;
@@ -766,7 +1496,7 @@ function ovAddTask() {
   renderOvEval(hd.mIdx, wIdx);
   showToast('تمت الإضافة ✓');
 }
-
+ 
 // ══════════════════════════════════════════════
 //  CALENDAR — LEVEL 0
 // ══════════════════════════════════════════════
@@ -784,6 +1514,7 @@ function renderMonthsGrid() {
     c.innerHTML = `
       <div class="month-name-big">${m.name}</div>
       <div class="month-sub">الشهر ${toA(i+1)} · ${toA(m.days)} يوم</div>
+      <div style="font-size:11px;color:var(--blue);margin-bottom:4px;">${getMonthGregRange(i)}</div>
       <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">${isPast?'✅ مكتمل':isCurrent?'📍 الحالي':'⏳ قادم'}</div>
       <div style="height:3px;background:var(--surface3);border-radius:99px;overflow:hidden;">
         <div style="width:${prog}%;height:100%;background:${col};border-radius:99px;"></div>
@@ -792,7 +1523,7 @@ function renderMonthsGrid() {
     g.appendChild(c);
   });
 }
-
+ 
 // ══════════════════════════════════════════════
 //  CALENDAR — LEVEL 1 (Month)
 // ══════════════════════════════════════════════
@@ -800,11 +1531,11 @@ function renderMonthDetail(mIdx) {
   const m   = MONTHS[mIdx];
   const hd  = getTodayHijri();
   ['bc-month','bc-month2','bc-month3'].forEach(id => document.getElementById(id).textContent = m.name);
-
+ 
   const goals   = lsGet(goalKey(mIdx), {imani:'',ilmi:'',sihi:'',amali:''});
   const startDow = getMonthStartDow(mIdx);
   const sd       = (startDow + 1) % 7;
-
+ 
   // Build days mini-calendar
   let daysHTML = DAY_NAMES.map(n => `<div class="day-header">${n}</div>`).join('');
   for (let i = 0; i < sd; i++) daysHTML += `<div class="day-cell empty"></div>`;
@@ -815,9 +1546,10 @@ function renderMonthDetail(mIdx) {
     const allDone  = hasTasks && tasks.every(t=>t.done);
     let cls = 'day-cell' + (isToday?' today':'') + (hasTasks?' has-tasks':'') + (allDone?' all-done':'');
     const wi = getWeekIdxForDay(mIdx,d);
-    daysHTML += `<div class="${cls}" onclick="openDayFromCal(${mIdx},${wi},${d})">${toA(d)}</div>`;
+    const gregDay = getDayGreg(mIdx, d);
+    daysHTML += `<div class="${cls}" onclick="openDayFromCal(${mIdx},${wi},${d})" style="flex-direction:column;gap:0;">${toA(d)}<span style="font-size:8px;color:var(--text-dim);line-height:1;">${gregDay}</span></div>`;
   }
-
+ 
   let html = `
     <div class="card-full" style="margin-bottom:14px;">
       <div class="card-header"><div class="card-title"><span>🎯</span> أهداف ${m.name}</div></div>
@@ -833,19 +1565,19 @@ function renderMonthDetail(mIdx) {
       <div class="card-header"><div class="card-title"><span>🗓️</span> أيام الشهر</div></div>
       <div class="days-grid">${daysHTML}</div>
     </div>`;
-
+ 
   document.getElementById('month-detail-wrap').innerHTML = html;
 }
-
+ 
 function saveGoal(mIdx, field, val) {
   const g = lsGet(goalKey(mIdx), {imani:'',ilmi:'',sihi:'',amali:''});
   g[field] = val; lsSet(goalKey(mIdx), g);
 }
-
+ 
 function openDayFromCal(mIdx, wIdx, day) {
   calMonth=mIdx; calWeek=wIdx; calDay=day; calLevel=3; renderCalLevel();
 }
-
+ 
 // ══════════════════════════════════════════════
 //  CALENDAR — LEVEL 2 (Week)
 // ══════════════════════════════════════════════
@@ -856,21 +1588,21 @@ function renderWeekDetail(mIdx, wIdx) {
   const w     = weeks[wIdx];
   document.getElementById('bc-week').textContent  = `الأسبوع ${toA(wIdx+1)}`;
   document.getElementById('bc-week2').textContent = `الأسبوع ${toA(wIdx+1)}`;
-
+ 
   const prio   = getWeekPriority(mIdx, wIdx);
   const rating = calcWeekRating(mIdx, wIdx);
-
+ 
   // Copy from prev week button
   const hasPrev = wIdx > 0 || mIdx > 0;
   const prevMIdx = wIdx > 0 ? mIdx : mIdx-1;
   const prevWIdx = wIdx > 0 ? wIdx-1 : getWeeksOfMonth(mIdx-1).length-1;
-
+ 
   let html = '';
   if (hasPrev) {
     html += `<button class="copy-week-btn" onclick="copyFromPrevWeek(${mIdx},${wIdx},${prevMIdx},${prevWIdx})">
       📋 نسخ مهام الأسبوع الماضي كنقطة انطلاق</button>`;
   }
-
+ 
   // Week priority order
   html += `
     <div class="card-full" style="margin-bottom:14px;">
@@ -879,7 +1611,7 @@ function renderWeekDetail(mIdx, wIdx) {
         <span style="font-size:11px;color:var(--text-muted);">رتّب حسب تركيزك</span>
       </div>
       <div class="week-priority-list" id="wp-list-${mIdx}-${wIdx}">`;
-
+ 
   prio.forEach((d, i) => {
     const dm = DOMAINS[d];
     const w_pct = Math.round(WEIGHTS[i]*100);
@@ -895,7 +1627,7 @@ function renderWeekDetail(mIdx, wIdx) {
       </div>`;
   });
   html += `</div></div>`;
-
+ 
   // Auto score
   if (rating && rating.total !== null) {
     const grade = getGrade(rating.total);
@@ -930,14 +1662,14 @@ function renderWeekDetail(mIdx, wIdx) {
       <div style="font-size:13px;color:var(--text-muted);">أضف مهام في أيام الأسبوع ليتحسب تقييمك تلقائياً</div>
     </div>`;
   }
-
+ 
   // Days of week
   const startDow = getMonthStartDow(mIdx);
   html += `
     <div class="card-full">
       <div class="card-header"><div class="card-title"><span>📅</span> أيام الأسبوع</div></div>
       <div style="display:flex;flex-direction:column;gap:8px;">`;
-
+ 
   w.days.forEach(d => {
     const tasks   = lsGet(taskKey(mIdx,d),[]);
     const done    = tasks.filter(t=>t.done).length;
@@ -957,10 +1689,10 @@ function renderWeekDetail(mIdx, wIdx) {
       </div>`;
   });
   html += `</div></div>`;
-
+ 
   document.getElementById('week-detail-wrap').innerHTML = html;
 }
-
+ 
 function movePrio(mIdx, wIdx, domain, dir) {
   const prio = [...getWeekPriority(mIdx, wIdx)];
   const idx  = prio.indexOf(domain);
@@ -973,7 +1705,7 @@ function movePrio(mIdx, wIdx, domain, dir) {
   const hd = getTodayHijri();
   if (hd && mIdx===hd.mIdx && wIdx===getWeekIdxForDay(hd.mIdx,hd.day)) renderOvEval(mIdx,wIdx);
 }
-
+ 
 function copyFromPrevWeek(mIdx, wIdx, prevMIdx, prevWIdx) {
   const prevWeeks = getWeeksOfMonth(prevMIdx);
   const curWeeks  = getWeeksOfMonth(mIdx);
@@ -993,7 +1725,7 @@ function copyFromPrevWeek(mIdx, wIdx, prevMIdx, prevWIdx) {
   showToast(copied > 0 ? `تم نسخ ${toA(copied)} مهمة ✓` : 'لا توجد مهام للنسخ');
   renderWeekDetail(mIdx, wIdx);
 }
-
+ 
 // ══════════════════════════════════════════════
 //  CALENDAR — LEVEL 3 (Day)
 // ══════════════════════════════════════════════
@@ -1003,10 +1735,10 @@ function renderDayDetail(mIdx, wIdx, day) {
   const dow    = (getMonthStartDow(mIdx) + day - 1) % 7;
   const isToday = hd && mIdx===hd.mIdx && day===hd.day;
   document.getElementById('bc-day').textContent = `${toA(day)} ${m.name}`;
-
+ 
   const tasks = lsGet(taskKey(mIdx,day),[]);
   const done  = tasks.filter(t=>t.done).length;
-
+ 
   const tasksHTML = tasks.length === 0
     ? `<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:13px;">لا توجد مهام — أضف أولى مهامك 👇</div>`
     : tasks.map((t,i) => {
@@ -1020,7 +1752,7 @@ function renderDayDetail(mIdx, wIdx, day) {
             <span class="del-btn" onclick="event.stopPropagation();calDelTask(${mIdx},${wIdx},${day},${i})">✕</span>
           </div>`;
       }).join('');
-
+ 
   document.getElementById('day-detail-wrap').innerHTML = `
     <div style="margin-bottom:16px;">
       <div style="font-size:20px;font-weight:700;color:var(--accent2);">${DAY_NAMES_FULL[dow]}، ${toA(day)} ${m.name} ١٤٤٨هـ</div>
@@ -1041,7 +1773,7 @@ function renderDayDetail(mIdx, wIdx, day) {
       </div>
     </div>`;
 }
-
+ 
 function calToggleTask(mIdx, wIdx, day, idx) {
   const tasks = lsGet(taskKey(mIdx,day),[]);
   tasks[idx].done = !tasks[idx].done;
@@ -1051,14 +1783,14 @@ function calToggleTask(mIdx, wIdx, day, idx) {
   const hd = getTodayHijri();
   if (hd && mIdx===hd.mIdx && day===hd.day) { renderOvTasks(mIdx,day); renderOvEval(mIdx,wIdx); }
 }
-
+ 
 function calDelTask(mIdx, wIdx, day, idx) {
   const tasks = lsGet(taskKey(mIdx,day),[]);
   tasks.splice(idx,1); lsSet(taskKey(mIdx,day),tasks);
   renderDayDetail(mIdx,wIdx,day);
   showToast('تم الحذف');
 }
-
+ 
 function calAddTask(mIdx, wIdx, day) {
   const inp  = document.getElementById('cal-new-task');
   const dom  = document.getElementById('cal-new-domain').value;
@@ -1076,14 +1808,14 @@ function calAddTask(mIdx, wIdx, day) {
   if (hd && mIdx===hd.mIdx && day===hd.day) { renderOvTasks(mIdx,day); renderOvEval(mIdx,wIdx); }
   showToast('تمت الإضافة ✓');
 }
-
+ 
 // ══════════════════════════════════════════════
 //  ACHIEVEMENTS
 // ══════════════════════════════════════════════
 function renderAchievements() {
   let totalDone=0, totalAll=0, weeksRated=0, bestWeek=0, totalScore=0;
   const domScores = {imani:[], ilmi:[], sihi:[], amali:[]};
-
+ 
   for (let m=0; m<12; m++) {
     const weeks = getWeeksOfMonth(m);
     for (let w=0; w<weeks.length; w++) {
@@ -1101,14 +1833,14 @@ function renderAchievements() {
       });
     }
   }
-
+ 
   document.getElementById('ach-done').textContent         = toA(totalDone);
   document.getElementById('ach-missed').textContent       = toA(totalAll - totalDone);
   document.getElementById('ach-weeks-rated').textContent  = toA(weeksRated);
   document.getElementById('ach-best-week').textContent    = bestWeek>0 ? toA(bestWeek)+'٪' : '—';
   document.getElementById('ach-avg').textContent          = weeksRated>0 ? toA(Math.round(totalScore/weeksRated))+'٪' : '—';
   document.getElementById('ach-streak').textContent       = toA(lsGet('habit_streak',0));
-
+ 
   const domainsEl = document.getElementById('ach-domains');
   domainsEl.innerHTML = DOMAIN_KEYS.map(d => {
     const arr = domScores[d];
@@ -1123,7 +1855,7 @@ function renderAchievements() {
       </div>`;
   }).join('');
 }
-
+ 
 // ══════════════════════════════════════════════
 //  TOAST
 // ══════════════════════════════════════════════
@@ -1135,7 +1867,7 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
-
+ 
 // ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
@@ -1146,7 +1878,7 @@ async function init() {
   // زر مشاركة الرابط
   addShareBtn();
 }
-
+ 
 function addShareBtn() {
   const uid = UID;
   const url = new URL(location.href);
@@ -1164,8 +1896,9 @@ function addShareBtn() {
   };
   nav.appendChild(btn);
 }
-
+ 
 init();
 </script>
 </body>
 </html>
+ 

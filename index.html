@@ -401,10 +401,110 @@ function getMonthStartDow(mIdx) {
 }
 
 // ══════════════════════════════════════════════
-//  LOCALSTORAGE
+//  SUPABASE CONFIG
 // ══════════════════════════════════════════════
-function lsGet(k, def) { try { const v = localStorage.getItem(k); return v === null ? def : JSON.parse(v); } catch(e) { return def; } }
-function lsSet(k, v)   { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
+const SB_URL  = 'https://qfqhlnxxnokgvvurhgbo.supabase.co';
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmcWhsbnh4bm9rZ3Z2dXJoZ2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNDYwNTcsImV4cCI6MjA5NTcyMjA1N30.EQRAEJFIo_PtJF9xc5bVB6yjrmeUrUpeAtsZ66pkjG4';
+
+// ── User ID: ينتوليد مرة وحدة وينحفظ محلياً
+// شارك الرابط مع ?uid=xxx لتزامن جهاز ثاني
+function getUID() {
+  const params = new URLSearchParams(location.search);
+  if (params.get('uid')) {
+    localStorage.setItem('planner_uid', params.get('uid'));
+  }
+  let uid = localStorage.getItem('planner_uid');
+  if (!uid) {
+    uid = 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+    localStorage.setItem('planner_uid', uid);
+    // أضف الـ uid للرابط بدون reload
+    const url = new URL(location.href);
+    url.searchParams.set('uid', uid);
+    history.replaceState({}, '', url);
+  }
+  return uid;
+}
+const UID = getUID();
+
+// ── Local cache (سرعة العرض الفوري)
+const _cache = {};
+
+// ── Supabase fetch helper
+async function sbGet(dataKey, def) {
+  // 1. إرجاع cache فوراً
+  if (_cache[dataKey] !== undefined) return _cache[dataKey];
+  // 2. محاولة جلب من Supabase
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/planner_data?user_id=eq.${encodeURIComponent(UID)}&data_key=eq.${encodeURIComponent(dataKey)}&select=data_value`,
+      { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } }
+    );
+    const rows = await res.json();
+    const val = rows.length > 0 ? rows[0].data_value : def;
+    _cache[dataKey] = val;
+    return val;
+  } catch(e) {
+    return def;
+  }
+}
+
+async function sbSet(dataKey, value) {
+  _cache[dataKey] = value; // cache فوري
+  try {
+    await fetch(`${SB_URL}/rest/v1/planner_data`, {
+      method: 'POST',
+      headers: {
+        apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({ user_id: UID, data_key: dataKey, data_value: value, updated_at: new Date().toISOString() })
+    });
+  } catch(e) { /* silent fail */ }
+}
+
+// ── lsGet/lsSet: قراءة من cache أولاً (sync) وكتابة لـ Supabase (async)
+// البيانات تُحمَّل مسبقاً عند بدء التطبيق
+function lsGet(k, def) {
+  return _cache[k] !== undefined ? _cache[k] : def;
+}
+function lsSet(k, v) {
+  _cache[k] = v;
+  sbSet(k, v); // حفظ في الخلفية
+}
+
+// ── تحميل كل بيانات المستخدم دفعة وحدة عند البدء
+async function loadAllData() {
+  showSyncIndicator('جارٍ المزامنة...');
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/planner_data?user_id=eq.${encodeURIComponent(UID)}&select=data_key,data_value`,
+      { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } }
+    );
+    const rows = await res.json();
+    rows.forEach(r => { _cache[r.data_key] = r.data_value; });
+    showSyncIndicator('✓ متزامن', true);
+  } catch(e) {
+    showSyncIndicator('⚠️ بدون إنترنت', false, true);
+  }
+}
+
+function showSyncIndicator(msg, success=false, warn=false) {
+  let el = document.getElementById('sync-indicator');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'sync-indicator';
+    el.style.cssText = 'position:fixed;top:10px;left:50%;transform:translateX(-50%);font-size:11px;padding:4px 14px;border-radius:99px;z-index:998;transition:all .3s;font-family:Tajawal,sans-serif;pointer-events:none;';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.background = warn ? 'rgba(224,92,92,.15)' : success ? 'rgba(76,175,125,.15)' : 'rgba(91,155,213,.15)';
+  el.style.color = warn ? '#e05c5c' : success ? '#4caf7d' : '#5b9bd5';
+  el.style.border = `1px solid ${warn?'rgba(224,92,92,.3)':success?'rgba(76,175,125,.3)':'rgba(91,155,213,.3)'}`;
+  el.style.opacity = '1';
+  if (success) setTimeout(() => { el.style.opacity = '0'; }, 2500);
+}
+
 function taskKey(m, d)    { return `t_${m}_${d}`; }
 function habitKey(m, d)   { return `h_${m}_${d}`; }
 function noteKey(m, d)    { return `n_${m}_${d}`; }
@@ -1039,8 +1139,33 @@ function showToast(msg) {
 // ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
-initOverview();
-renderMonthsGrid();
+async function init() {
+  await loadAllData();
+  initOverview();
+  renderMonthsGrid();
+  // زر مشاركة الرابط
+  addShareBtn();
+}
+
+function addShareBtn() {
+  const uid = UID;
+  const url = new URL(location.href);
+  url.searchParams.set('uid', uid);
+  const shareURL = url.toString();
+  // أضف زر في الـ nav
+  const nav = document.querySelector('.nav');
+  const btn = document.createElement('button');
+  btn.className = 'nav-tab';
+  btn.title = 'انسخ رابط المزامنة';
+  btn.innerHTML = '🔗';
+  btn.style.padding = '10px 14px';
+  btn.onclick = () => {
+    navigator.clipboard.writeText(shareURL).then(() => showToast('تم نسخ رابط المزامنة ✓'));
+  };
+  nav.appendChild(btn);
+}
+
+init();
 </script>
 </body>
 </html>

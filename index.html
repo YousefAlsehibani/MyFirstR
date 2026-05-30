@@ -3,995 +3,1044 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مخطط يوسف ١٤٤٨هـ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<title>مخططي ١٤٤٨هـ</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #f7f6f3; --surface: #ffffff; --surface2: #f0eeea;
-    --border: rgba(0,0,0,0.09); --border2: rgba(0,0,0,0.16);
-    --text: #1a1a18; --text2: #6b6a66; --text3: #9e9c97;
-    --green: #1D9E75; --green-bg: #E1F5EE; --green-dark: #085041;
-    --red-bg: #FCEBEB; --red: #A32D2D;
-    --blue-bg: #E6F1FB; --blue: #185FA5;
-    --purple-bg: #EEEDFE; --purple: #534AB7;
-    --amber-bg: #FAEEDA; --amber: #854F0B;
-    --radius: 10px; --radius-lg: 14px;
-  }
-  html { font-family: 'Tajawal', sans-serif; font-size: 15px; background: var(--bg); color: var(--text); }
-  body { min-height: 100vh; }
-  .nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--surface); border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 28px; height: 56px;
-  }
-  .nav-logo { font-size: 16px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
-  .nav-logo span { color: var(--green); }
-  .nav-tabs { display: flex; gap: 4px; }
-  .tab-btn {
-    background: none; border: 1px solid transparent;
-    border-radius: var(--radius); padding: 6px 16px;
-    font-family: 'Tajawal', sans-serif; font-size: 14px;
-    cursor: pointer; color: var(--text2); transition: all 0.15s;
-  }
-  .tab-btn:hover { background: var(--surface2); }
-  .tab-btn.active { background: var(--surface2); border-color: var(--border2); color: var(--text); font-weight: 500; }
-  .main { max-width: 920px; margin: 0 auto; padding: 28px 24px; }
-  .section { display: none; }
-  .section.active { display: block; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 16px; }
-  .card-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .metric { background: var(--surface2); border-radius: var(--radius); padding: 16px 18px; }
-  .metric-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
-  .metric-val { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
-  .metric-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
-  .progress-bar { background: var(--surface2); border-radius: 99px; height: 8px; overflow: hidden; margin-top: 6px; }
-  .progress-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s; }
-  .goal-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-  .goal-row:last-child { border-bottom: none; }
-  .goal-check {
-    width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; flex-shrink: 0; transition: all 0.15s; font-size: 11px; color: transparent;
-  }
-  .goal-check.done { background: var(--green); border-color: var(--green); color: white; }
-  .goal-text { flex: 1; font-size: 14px; color: var(--text); }
-  .goal-text.done { text-decoration: line-through; color: var(--text3); }
-  .cat-badge { font-size: 11px; padding: 2px 10px; border-radius: 99px; flex-shrink: 0; font-weight: 500; }
-  .cat-work { background: var(--blue-bg); color: var(--blue); }
-  .cat-health { background: var(--green-bg); color: var(--green-dark); }
-  .cat-personal { background: var(--purple-bg); color: var(--purple); }
-  .cat-learn { background: var(--amber-bg); color: var(--amber); }
-  .del-btn { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 18px; padding: 0 2px; line-height: 1; }
-  .del-btn:hover { color: var(--red); }
-  .add-form { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-  input[type="text"], select, textarea {
-    font-family: 'Tajawal', sans-serif; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 8px 12px; font-size: 13px; color: var(--text);
-    outline: none; transition: border-color 0.15s; direction: rtl;
-  }
-  input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--green); }
-  input[type="text"] { flex: 1; min-width: 160px; }
-  select { min-width: 100px; }
-  button {
-    font-family: 'Tajawal', sans-serif; background: var(--surface); border: 1px solid var(--border2);
-    border-radius: var(--radius); padding: 8px 16px; font-size: 13px; cursor: pointer;
-    color: var(--text); transition: all 0.15s; white-space: nowrap;
-  }
-  button:hover { background: var(--surface2); }
-  button.primary { background: var(--green); color: white; border-color: var(--green); }
-  button.primary:hover { opacity: 0.9; }
-  /* WEEKS */
-  .week-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-  @media (max-width: 700px) { .week-grid { grid-template-columns: repeat(4, 1fr); } }
-  .week-cell {
-    background: var(--surface2); border-radius: var(--radius); padding: 8px;
-    cursor: pointer; transition: all 0.15s; border: 1.5px solid transparent;
-    position: relative; min-height: 56px;
-  }
-  .week-cell:hover { border-color: var(--border2); background: var(--surface); }
-  .week-cell.current { border-color: var(--green); background: var(--green-bg); }
-  .week-cell.is-done { background: var(--green-bg); }
-  .week-num { font-size: 10px; color: var(--text3); }
-  .week-hijri { font-size: 10px; color: var(--text3); margin-top: 1px; }
-  .week-goal-preview { font-size: 11px; color: var(--text2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .week-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); position: absolute; top: 8px; left: 8px; }
-  /* WEEK DETAIL */
-  .week-goals-row { display: flex; gap: 8px; margin-bottom: 10px; }
-  .week-goals-row input { flex: 1; }
-  .stars-row { display: flex; gap: 6px; margin-top: 6px; }
-  .star-btn {
-    background: none; border: none; font-size: 22px; cursor: pointer;
-    padding: 0; line-height: 1; color: var(--text3); transition: color 0.1s;
-  }
-  .star-btn.lit { color: #EF9F27; }
-  .section-lbl { font-size: 12px; color: var(--text2); margin-bottom: 4px; display: block; }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
-  /* TAGS */
-  .tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; min-height: 36px; }
-  .tag { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; padding: 4px 12px; border-radius: 99px; }
-  .tag.pos { background: #9FE1CB; color: #085041; }
-  .tag.neg { background: #F7C1C1; color: #791F1F; }
-  .tag-del { background: none; border: none; cursor: pointer; font-size: 12px; opacity: 0.5; padding: 0; color: inherit; }
-  .tag-del:hover { opacity: 1; }
-  .tag-input-row { display: flex; gap: 8px; margin-top: 12px; }
-  .tag-input-row input { flex: 1; }
-  /* MONTHS TRACK */
-  .months-track { display: flex; gap: 3px; height: 28px; margin-bottom: 8px; }
-  .month-seg { flex: 1; border-radius: 4px; background: var(--surface2); }
-  .month-seg.passed { background: var(--green); opacity: 0.7; }
-  .month-seg.current-month { background: var(--green); opacity: 1; }
-  .month-labels { display: flex; justify-content: space-between; }
-  .month-labels span { font-size: 11px; color: var(--text3); }
-  /* HABITS */
-  .habit-month-card { border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 16px; overflow: hidden; }
-  .habit-month-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 18px; background: var(--surface2); cursor: pointer;
-    border-bottom: 1px solid var(--border);
-  }
-  .habit-month-header.current-m { background: var(--green-bg); }
-  .habit-month-name { font-size: 14px; font-weight: 700; color: var(--text); }
-  .habit-month-meta { font-size: 12px; color: var(--text2); }
-  .habit-month-body { padding: 16px 18px; background: var(--surface); display: none; }
-  .habit-month-body.open { display: block; }
-  .habit-name-row { display: flex; gap: 8px; margin-bottom: 14px; }
-  .habit-name-row input { flex: 1; }
-  .days-grid { display: grid; gap: 4px; grid-template-columns: repeat(10, 1fr); }
-  .day-cell {
-    aspect-ratio: 1; border-radius: 4px; cursor: pointer;
-    background: var(--surface2); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: var(--text3); transition: all 0.1s; user-select: none;
-  }
-  .day-cell.done { background: var(--green); border-color: var(--green); color: white; }
-  .day-cell.future { opacity: 0.35; cursor: default; }
-  .habit-stats { display: flex; gap: 12px; margin-top: 12px; font-size: 13px; color: var(--text2); }
-  .habit-stat-val { font-weight: 700; color: var(--text); }
-  .habit-pct-bar { height: 6px; border-radius: 99px; background: var(--surface2); margin-top: 8px; overflow: hidden; }
-  .habit-pct-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s; }
- /* OVERVIEW */
-  .task-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 0; border-bottom: 1px solid var(--border);
-  }
-  .task-row:last-child { border-bottom: none; }
-  .task-check {
-    width: 20px; height: 20px; border-radius: 50%;
-    border: 1.5px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; flex-shrink: 0; transition: all 0.15s;
-    font-size: 11px; color: transparent;
-  }
-  .task-check.done { background: var(--green); border-color: var(--green); color: white; }
-  .task-text { flex: 1; font-size: 14px; color: var(--text); }
-  .task-text.done { text-decoration: line-through; color: var(--text3); }
-  .task-priority { font-size: 12px; color: var(--amber); font-weight: 700; flex-shrink: 0; }
-  .task-cat {
-    font-size: 11px; padding: 2px 8px; border-radius: 99px;
-    flex-shrink: 0; font-weight: 500;
-  }
-  .cat-faith { background: var(--purple-bg); color: var(--purple); }
-  .cat-health { background: var(--green-bg); color: var(--green-dark); }
-  .cat-science { background: var(--amber-bg); color: var(--amber); }
-  .cat-work { background: var(--blue-bg); color: var(--blue); }
-  .week-score-bar {
-    display: flex; gap: 4px; margin-top: 10px;
-  }
-  .score-seg {
-    height: 10px; border-radius: 99px; transition: width 0.4s;
-  }
-  .enrichment-item {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 0; font-size: 13px; color: var(--text2);
-    border-bottom: 1px solid var(--border);
-  }
-  .enrichment-item:last-child { border-bottom: none; }
- /* MISC */
-  .page-hdr { margin-bottom: 24px; }
-  .page-hdr h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-  .page-hdr p { font-size: 14px; color: var(--text2); }
-  .empty { text-align: center; color: var(--text3); font-size: 13px; padding: 20px 0; }
-  textarea { width: 100%; min-height: 80px; resize: vertical; }
-  .strength-box { border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; }
-  .strength-box.pos-box { background: var(--green-bg); }
-  .strength-box.neg-box { background: var(--red-bg); }
-  .strength-box-title { font-size: 12px; font-weight: 700; margin-bottom: 10px; }
-  .pos-box .strength-box-title { color: var(--green-dark); }
-  .neg-box .strength-box-title { color: var(--red); }
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+:root{
+  --bg:#0d0f14;--surface:#13161e;--surface2:#1a1e2a;--surface3:#212636;
+  --border:#2a2f3e;--accent:#c9a84c;--accent2:#e8c97a;--accent-dim:rgba(201,168,76,0.12);
+  --text:#e8e4d8;--text-muted:#7a7f8e;--text-dim:#4a4f5e;
+  --green:#4caf7d;--green-dim:rgba(76,175,125,0.12);
+  --red:#e05c5c;--blue:#5b9bd5;--purple:#9b7fd4;
+  --imani:#c9a84c;--ilmi:#5b9bd5;--sihi:#4caf7d;--amali:#9b7fd4;--extra:#e07a5f;
+  --r:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh;overflow-x:hidden;}
+.nav{display:flex;justify-content:center;gap:4px;padding:16px 20px 0;position:sticky;top:0;background:var(--bg);z-index:100;border-bottom:1px solid var(--border);}
+.nav-tab{padding:10px 24px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-muted);font-family:'Tajawal',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;}
+.nav-tab.active{color:var(--accent2);border-bottom-color:var(--accent);}
+.nav-tab:hover:not(.active){color:var(--text);}
+.page{display:none;padding:24px 20px;max-width:900px;margin:0 auto;}
+.page.active{display:block;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
+.card-full{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.card-title{font-size:13px;font-weight:600;color:var(--text-muted);letter-spacing:.8px;display:flex;align-items:center;gap:6px;}
+
+/* DATE HERO */
+.date-hero{background:linear-gradient(135deg,#1a1c26 0%,#14161f 60%,#1c1a14 100%);border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;position:relative;overflow:hidden;}
+.date-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(201,168,76,.08),transparent 70%);pointer-events:none;}
+.hijri-date{font-size:28px;font-weight:700;color:var(--accent2);line-height:1.2;}
+.miladi-date{font-size:13px;color:var(--text-muted);margin-top:4px;}
+.day-name{font-size:15px;color:var(--text);font-weight:500;margin-top:2px;}
+.remaining-label{font-size:12px;color:var(--text-muted);margin-bottom:6px;}
+.remaining-nums{display:flex;gap:16px;}
+.rem-item{text-align:center;}
+.rem-num{font-size:22px;font-weight:700;color:var(--accent);line-height:1;}
+.rem-unit{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.prog-bar-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;}
+.prog-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:8px;}
+.prog-bar-label span:first-child{color:var(--text);font-weight:500;font-size:13px;}
+.prog-track{height:8px;background:var(--surface3);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;position:relative;}
+.prog-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:12px;height:12px;background:var(--accent2);border-radius:50%;box-shadow:0 0 8px rgba(201,168,76,.6);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.habit-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:12px;}
+.habit-streak{font-size:12px;color:var(--accent);background:var(--accent-dim);padding:3px 10px;border-radius:99px;font-weight:600;}
+.habit-check-btn{width:100%;padding:11px;background:var(--green-dim);border:1.5px solid var(--green);border-radius:8px;color:var(--green);font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.habit-check-btn:hover{background:var(--green);color:#fff;}
+.habit-check-btn.done{background:var(--green);color:#fff;cursor:default;}
+
+/* TASKS */
+.task-list{display:flex;flex-direction:column;gap:8px;}
+.task-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;}
+.task-item:hover{border-color:rgba(255,255,255,.08);}
+.task-item.done{opacity:.45;}
+.task-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;}
+.task-item.done .task-check{background:var(--green);border-color:var(--green);color:#fff;}
+.task-text{font-size:13px;flex:1;}
+.task-item.done .task-text{text-decoration:line-through;}
+.domain-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.d-imani .domain-dot{background:var(--imani);}
+.d-ilmi  .domain-dot{background:var(--ilmi);}
+.d-sihi  .domain-dot{background:var(--sihi);}
+.d-amali .domain-dot{background:var(--amali);}
+.d-extra .domain-dot{background:var(--extra);}
+.domain-tag{font-size:10px;padding:2px 8px;border-radius:99px;flex-shrink:0;}
+.d-imani .domain-tag{background:rgba(201,168,76,.12);color:var(--imani);}
+.d-ilmi  .domain-tag{background:rgba(91,155,213,.12);color:var(--ilmi);}
+.d-sihi  .domain-tag{background:rgba(76,175,125,.12);color:var(--sihi);}
+.d-amali .domain-tag{background:rgba(155,127,212,.12);color:var(--amali);}
+.d-extra .domain-tag{background:rgba(224,122,95,.12);color:var(--extra);}
+.add-task-row{display:flex;gap:8px;margin-top:12px;}
+.add-task-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;outline:none;transition:border-color .2s;min-width:0;}
+.add-task-input:focus{border-color:var(--accent);}
+.add-task-input::placeholder{color:var(--text-dim);}
+.domain-select{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 8px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:12px;outline:none;cursor:pointer;flex-shrink:0;}
+.add-task-btn{background:var(--accent-dim);border:1.5px solid var(--accent);color:var(--accent2);border-radius:8px;padding:9px 14px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.add-task-btn:hover{background:var(--accent);color:#0d0f14;}
+.del-btn{color:var(--text-dim);font-size:14px;cursor:pointer;padding:2px 4px;flex-shrink:0;line-height:1;}
+.del-btn:hover{color:var(--red);}
+
+/* NOTE */
+.note-area{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:14px;resize:none;height:80px;outline:none;transition:border-color .2s;margin-top:10px;}
+.note-area:focus{border-color:var(--accent);}
+.note-area::placeholder{color:var(--text-dim);}
+
+/* ENRICHMENT */
+.enrichment-locked{text-align:center;padding:20px;color:var(--text-dim);font-size:13px;}
+.enrichment-locked .lock-icon{font-size:28px;margin-bottom:8px;}
+.enrichment-task{display:none;flex-direction:column;gap:10px;}
+.enrich-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:13px;color:var(--accent2);}
+
+/* CALENDAR */
+.cal-months-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.month-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .2s;}
+.month-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.month-card.current{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent-dim);}
+.month-name-big{font-size:16px;font-weight:700;color:var(--accent2);margin-bottom:2px;}
+.month-sub{font-size:11px;color:var(--text-muted);margin-bottom:8px;}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);margin-bottom:16px;flex-wrap:wrap;}
+.breadcrumb .crumb{cursor:pointer;transition:color .15s;}
+.breadcrumb .crumb:hover{color:var(--accent2);}
+.breadcrumb .sep{color:var(--text-dim);}
+.breadcrumb .current{color:var(--text);}
+
+/* DAYS GRID */
+.days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px;}
+.day-header{font-size:11px;color:var(--text-dim);text-align:center;padding:4px 0;}
+.day-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .15s;font-size:13px;font-weight:500;position:relative;}
+.day-cell:hover{border-color:var(--border);background:var(--surface2);}
+.day-cell.today{background:var(--accent-dim);border-color:var(--accent);color:var(--accent2);font-weight:700;}
+.day-cell.has-tasks::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);position:absolute;bottom:3px;}
+.day-cell.all-done::after{background:var(--green);}
+.day-cell.empty,.day-cell.other-month{cursor:default;opacity:.2;}
+
+/* WEEK PRIORITIES */
+.week-priority-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.wp-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+.wp-rank{font-size:18px;font-weight:700;color:var(--accent);width:24px;flex-shrink:0;}
+.wp-domain{flex:1;font-size:14px;font-weight:600;}
+.wp-weight{font-size:12px;color:var(--text-muted);margin-left:auto;flex-shrink:0;}
+.wp-arrows{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
+.wp-arrow{background:none;border:1px solid var(--border);color:var(--text-muted);border-radius:4px;width:22px;height:18px;cursor:pointer;font-size:10px;line-height:1;transition:all .15s;font-family:'Tajawal',sans-serif;}
+.wp-arrow:hover{border-color:var(--accent);color:var(--accent);}
+.wp-arrow:disabled{opacity:.25;cursor:default;}
+
+/* WEEK SCORE */
+.week-score-card{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 18px;margin-top:12px;}
+.week-score-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.week-score-label{font-size:14px;color:var(--accent);font-weight:500;}
+.week-score-num{font-size:28px;font-weight:700;color:var(--accent2);}
+.week-domain-scores{display:flex;flex-direction:column;gap:6px;}
+.wds-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.wds-bar-wrap{flex:1;height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;margin:0 10px;}
+.wds-bar{height:100%;border-radius:99px;}
+
+/* GOALS */
+.goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.goal-item{padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+.goal-domain-label{font-size:11px;margin-bottom:4px;}
+.goal-edit{width:100%;background:transparent;border:none;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;outline:none;}
+.goal-edit::placeholder{color:var(--text-dim);}
+
+/* COPY WEEK */
+.copy-week-btn{width:100%;padding:10px;background:rgba(91,155,213,.08);border:1px dashed var(--blue);border-radius:8px;color:var(--blue);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-bottom:12px;}
+.copy-week-btn:hover{background:rgba(91,155,213,.15);}
+
+/* EVAL BTN */
+.eval-rate-btn{font-size:12px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:6px 14px;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .2s;width:100%;margin-top:10px;font-weight:600;}
+.eval-rate-btn:hover{background:var(--accent);color:#0d0f14;}
+
+/* RATING BADGES */
+.rating-badge{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;}
+.rating-excellent{background:rgba(76,175,125,.15);color:var(--green);}
+.rating-good{background:var(--accent-dim);color:var(--accent);}
+.rating-weak{background:rgba(224,92,92,.12);color:var(--red);}
+
+/* ACHIEVEMENTS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center;}
+.stat-icon{font-size:22px;margin-bottom:8px;}
+.stat-num{font-size:26px;font-weight:700;color:var(--accent2);line-height:1;}
+.stat-label{font-size:12px;color:var(--text-muted);margin-top:4px;}
+.eval-domains{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;}
+.domain-card{background:var(--surface2);border-radius:10px;padding:12px 10px;text-align:center;border:1px solid var(--border);}
+.domain-card-icon{font-size:20px;margin-bottom:6px;}
+.domain-card-name{font-size:11px;color:var(--text-muted);margin-bottom:8px;}
+.domain-card-score{font-size:18px;font-weight:700;}
+.domain-card-weight{font-size:10px;color:var(--text-dim);margin-top:2px;}
+.domain-bar-track{height:4px;background:var(--surface3);border-radius:99px;margin-top:8px;overflow:hidden;}
+.domain-bar-fill{height:100%;border-radius:99px;}
+.dc-imani .domain-card-score,.dc-imani .domain-bar-fill{color:var(--imani);background:var(--imani);}
+.dc-ilmi  .domain-card-score,.dc-ilmi  .domain-bar-fill{color:var(--ilmi);background:var(--ilmi);}
+.dc-sihi  .domain-card-score,.dc-sihi  .domain-bar-fill{color:var(--sihi);background:var(--sihi);}
+.dc-amali .domain-card-score,.dc-amali .domain-bar-fill{color:var(--amali);background:var(--amali);}
+.strength-list{display:flex;flex-direction:column;gap:8px;}
+.strength-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:13px;}
+.strength-item.pos{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,125,.2);}
+.strength-item.neg{background:rgba(224,92,92,.08);color:var(--red);border:1px solid rgba(224,92,92,.2);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface);border:1px solid var(--accent);color:var(--accent2);padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;transition:transform .3s;z-index:999;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+@media(max-width:600px){
+  .grid2{grid-template-columns:1fr;}
+  .cal-months-grid{grid-template-columns:repeat(2,1fr);}
+  .eval-domains{grid-template-columns:repeat(2,1fr);}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .goals-grid{grid-template-columns:1fr;}
+  .days-grid{gap:3px;}
+  .add-task-row{flex-wrap:wrap;}
+}
 </style>
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول -->
-<div id="login-screen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;width:100%;max-width:360px;">
-    <h2 style="font-size:20px;font-weight:700;margin-bottom:4px;">مخططي ١٤٤٨هـ 🧭</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:24px;">سجّل دخولك للمتابعة</p>
-    <label class="section-lbl">البريد الإلكتروني</label>
-    <input type="text" id="login-email" placeholder="example@email.com" style="width:100%;margin-bottom:12px;direction:ltr;">
-    <label class="section-lbl">كلمة المرور</label>
-    <input type="password" id="login-password" placeholder="كلمة المرور" style="width:100%;margin-bottom:16px;direction:ltr;" onkeydown="if(event.key==='Enter')signIn()">
-    <div id="login-error" style="font-size:12px;color:var(--red);margin-bottom:12px;"></div>
-    <button class="primary" onclick="signIn()" style="width:100%;">دخول</button>
-  </div>
-</div>
-
-<!-- التطبيق الرئيسي -->
-<div id="app" style="display:none;">
 <nav class="nav">
-  <div class="nav-logo">🧭 مخططي <span>١٤٤٨هـ</span></div>
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showTab('overview', this)">نظرة عامة</button>
-    <button class="tab-btn" onclick="showTab('goals', this)">أهدافي</button>
-    <button class="tab-btn" onclick="showTab('weeks', this)">الأسابيع</button>
-    <button class="tab-btn" onclick="showTab('habits', this)">العادات</button>
-    <button class="tab-btn" onclick="showTab('strengths', this)">نقاط القوة</button>
-  </div>
+  <button class="nav-tab active" onclick="showPage('overview',this)">🌅 نظرة عامة</button>
+  <button class="nav-tab" onclick="showPage('calendar',this)">📅 التقويم</button>
+  <button class="nav-tab" onclick="showPage('achievements',this)">🏆 المنجزات</button>
 </nav>
 
-<div class="main">
-<!-- OVERVIEW -->
-  <div class="section active" id="section-overview">
-
-    <!-- التاريخ -->
-    <div class="card" style="margin-bottom:16px;">
-      <div id="today-date-hijri" style="font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;"></div>
-      <div id="today-date-miladi" style="font-size:13px;color:var(--text2);"></div>
+<!-- ══════════ OVERVIEW ══════════ -->
+<div class="page active" id="page-overview">
+  <div class="date-hero">
+    <div>
+      <div class="hijri-date" id="ov-hijri">—</div>
+      <div class="day-name"   id="ov-dayname">—</div>
+      <div class="miladi-date" id="ov-miladi">—</div>
     </div>
-
-    <!-- الباقي على السنة -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">⏳ الباقي على نهاية ١٤٤٨هـ</div>
-      <div style="display:flex;gap:24px;margin-bottom:10px;">
-        <div><div id="days-left" style="font-size:24px;font-weight:700;color:var(--text);">—</div><div style="font-size:12px;color:var(--text2);">يوم</div></div>
-        <div><div id="weeks-left" style="font-size:24px;font-weight:700;color:var(--text);">—</div><div style="font-size:12px;color:var(--text2);">أسبوع</div></div>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="year-progress-bar" style="width:0%"></div></div>
-    </div>
-
-    <!-- عادة اليوم -->
-    <div class="grid-2" style="margin-bottom:16px;">
-      <div class="card">
-        <div class="card-title">🌿 عادة اليوم</div>
-        <div id="today-habit-name" style="font-size:15px;font-weight:700;margin-bottom:14px;"></div>
-        <button class="primary" id="today-habit-btn" onclick="toggleTodayHabit()">⬜ سجّل إنجاز اليوم</button>
-        <div id="today-habit-stats" style="margin-top:14px;font-size:13px;color:var(--text2);"></div>
-        <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" id="today-habit-bar" style="width:0%"></div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">📅 تقدم العادات</div>
-        <div id="habits-overview"></div>
-      </div>
-    </div>
-
-    <!-- مهام اليوم -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">📋 مهام اليوم</div>
-      <div id="today-tasks-list"></div>
-      <div id="today-enrichment" style="display:none;margin-top:14px;">
-        <hr class="divider">
-        <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">✨ أحسنت! هل تريد مهاماً إثرائية؟</div>
-        <div id="today-enrichment-list"></div>
-      </div>
-    </div>
-
-    <!-- تقييم الأسبوع الماضي -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">📊 تقييم الأسبوع الماضي</div>
-      <div id="last-week-review"></div>
-    </div>
-
-    <!-- ملاحظة اليوم -->
-    <div class="card">
-      <div class="card-title">📝 ملاحظة اليوم</div>
-      <textarea id="today-note" placeholder="كيف كان يومك؟ ماذا تعلّمت؟" oninput="saveTodayNote()"></textarea>
-    </div>
-
-  </div>
-
-  <!-- GOALS -->
-  <div class="section" id="section-goals">
-    <div class="page-hdr">
-      <h1>أهدافي لعام ١٤٤٨هـ</h1>
-      <p>أضف أهدافك وتابع تقدّمك</p>
-    </div>
-    <div class="card">
-      <div class="card-title">📋 قائمة الأهداف</div>
-      <div id="goals-list"></div>
-      <div class="add-form">
-        <input type="text" id="goal-input" placeholder="أضف هدفاً جديداً…" onkeydown="if(event.key==='Enter')addGoal()">
-        <select id="goal-cat">
-          <option value="work">💼 عمل</option>
-          <option value="health">💪 صحة</option>
-          <option value="personal">🌱 شخصي</option>
-          <option value="learn">📚 تعلّم</option>
-        </select>
-        <button class="primary" onclick="addGoal()">+ إضافة</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">📊 التقدم حسب الفئة</div>
-      <div id="cat-progress"></div>
-    </div>
-  </div>
-
-  <!-- WEEKS -->
-  <div class="section" id="section-weeks">
-    <div class="page-hdr">
-      <h1>أسابيع ١٤٤٨هـ</h1>
-      <p>خطّط لكل أسبوع هجري ووثّق إنجازاتك</p>
-    </div>
-    <div class="card">
-      <div class="week-grid" id="week-grid"></div>
-    </div>
-    <div class="card" id="week-detail" style="display:none;">
-      <div class="card-title" id="week-detail-title">الأسبوع</div>
-      <label class="section-lbl">🎯 هدفا الأسبوع</label>
-      <div class="week-goals-row">
-        <input type="text" id="week-g1" placeholder="الهدف الأول…">
-      </div>
-      <div class="week-goals-row">
-        <input type="text" id="week-g2" placeholder="الهدف الثاني…">
-      </div>
-      <hr class="divider">
-      <label class="section-lbl">📝 ملاحظات ومراجعة</label>
-      <textarea id="week-note-in" placeholder="ماذا أنجزت؟ ما الذي تعلّمته؟" style="margin-bottom:14px;"></textarea>
-      <label class="section-lbl">⭐ تقييم الأسبوع</label>
-      <div class="stars-row" id="stars-row">
-        <button class="star-btn" onclick="setStar(1)">★</button>
-        <button class="star-btn" onclick="setStar(2)">★</button>
-        <button class="star-btn" onclick="setStar(3)">★</button>
-        <button class="star-btn" onclick="setStar(4)">★</button>
-        <button class="star-btn" onclick="setStar(5)">★</button>
-      </div>
-      <div id="star-label" style="font-size:12px;color:var(--text3);margin-top:4px;margin-bottom:14px;"></div>
-      <hr class="divider">
-      <div style="display:flex;align-items:center;gap:16px;">
-        <button class="primary" onclick="saveWeek()">💾 حفظ</button>
-        <label style="font-size:14px;display:flex;align-items:center;gap:8px;cursor:pointer;">
-          <input type="checkbox" id="week-done-chk" style="width:16px;height:16px;accent-color:var(--green);">
-          أتممت هذا الأسبوع بنجاح
-        </label>
+    <div>
+      <div class="remaining-label">الباقي على نهاية ١٤٤٨هـ</div>
+      <div class="remaining-nums">
+        <div class="rem-item"><div class="rem-num" id="ov-days-left">—</div><div class="rem-unit">يوم</div></div>
+        <div class="rem-item"><div class="rem-num" id="ov-weeks-left">—</div><div class="rem-unit">أسبوع</div></div>
       </div>
     </div>
   </div>
 
-  <!-- HABITS -->
-  <div class="section" id="section-habits">
-    <div class="page-hdr">
-      <h1>عادات ١٤٤٨هـ 🌿</h1>
-      <p>عادة واحدة لكل شهر هجري — ثبّتها يوماً بيوم</p>
-    </div>
-    <div id="habits-list"></div>
+  <div class="prog-bar-wrap">
+    <div class="prog-bar-label"><span>إنجاز سنة ١٤٤٨هـ</span><span id="ov-prog-pct">—</span></div>
+    <div class="prog-track"><div class="prog-fill" id="ov-prog-fill" style="width:0%"></div></div>
   </div>
 
-  <!-- STRENGTHS -->
-  <div class="section" id="section-strengths">
-    <div class="page-hdr">
-      <h1>نقاط القوة والتطوير</h1>
-      <p>اعرف نفسك لتخطّط بشكل أفضل</p>
-    </div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title" style="color:var(--green-dark);">💪 نقاط القوة</div>
-        <div class="strength-box pos-box">
-          <div class="strength-box-title">ما تتميّز به</div>
-          <div class="tag-wrap" id="pos-tags"></div>
-        </div>
-        <div class="tag-input-row">
-          <input type="text" id="pos-in" placeholder="أضف نقطة قوة…" onkeydown="if(event.key==='Enter')addTag('pos')">
-          <button onclick="addTag('pos')">+ إضافة</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title" style="color:var(--red);">🎯 نقاط التطوير</div>
-        <div class="strength-box neg-box">
-          <div class="strength-box-title">ما تريد تحسينه</div>
-          <div class="tag-wrap" id="neg-tags"></div>
-        </div>
-        <div class="tag-input-row">
-          <input type="text" id="neg-in" placeholder="أضف نقطة تطوير…" onkeydown="if(event.key==='Enter')addTag('neg')">
-          <button onclick="addTag('neg')">+ إضافة</button>
-        </div>
-      </div>
-    </div>
+  <div class="grid2">
+    <!-- HABIT -->
     <div class="card">
-      <div class="card-title">🤖 تحليل شخصي بالذكاء الاصطناعي</div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">بناءً على أهدافك ونقاطك، احصل على تحليل ونصائح مخصّصة لك.</p>
-      <button class="primary" onclick="analyzeMe()">✨ حلّل وضعي واقترح خطوات</button>
-      <div id="ai-result" style="margin-top:16px;line-height:1.9;font-size:14px;"></div>
+      <div class="card-header">
+        <div class="card-title"><span>🌟</span> عادة اليوم</div>
+        <div class="habit-streak" id="streak-badge">🔥 —</div>
+      </div>
+      <div class="habit-name" id="habit-name-display">—</div>
+      <button class="habit-check-btn" id="habit-btn" onclick="toggleHabit()">
+        <span id="hbt">أشّر الإنجاز</span>
+      </button>
+    </div>
+
+    <!-- WEEK EVAL -->
+    <div class="card" id="ov-eval-card">
+      <div class="card-header"><div class="card-title"><span>📊</span> تقييم الأسبوع</div></div>
+      <div id="ov-eval-content" style="font-size:13px;color:var(--text-muted);text-align:center;padding:16px 0;">
+        لم يُسجَّل تقييم بعد
+      </div>
     </div>
   </div>
 
+  <!-- TODAY TASKS -->
+  <div class="card-full" id="ov-tasks-card">
+    <div class="card-header">
+      <div class="card-title"><span>✅</span> مهام اليوم</div>
+      <span style="font-size:12px;color:var(--text-muted);" id="ov-tasks-counter">٠ / ٠</span>
+    </div>
+    <div class="task-list" id="ov-task-list"></div>
+    <div class="add-task-row" style="margin-top:12px;">
+      <input class="add-task-input" id="ov-new-task" placeholder="أضف مهمة لليوم..." onkeydown="if(event.key==='Enter')ovAddTask()">
+      <select class="domain-select" id="ov-new-domain">
+        <option value="imani">🕌 إيماني</option>
+        <option value="ilmi">📚 علمي</option>
+        <option value="sihi">🏃 صحي</option>
+        <option value="amali">💼 عملي</option>
+        <option value="extra">➕ إضافي</option>
+      </select>
+      <button class="add-task-btn" onclick="ovAddTask()">+ إضافة</button>
+    </div>
+    <div id="enrichment-section" style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
+      <div class="enrichment-locked" id="enrich-locked"><div class="lock-icon">🔒</div>أكمل جميع المهام لفتح المهام الإثرائية</div>
+      <div class="enrichment-task" id="enrich-tasks">
+        <div style="font-size:13px;color:var(--accent);margin-bottom:8px;font-weight:600;">✨ أحسنت! إليك مهام إثرائية:</div>
+        <div class="enrich-item"><span>📖</span> اقرأ مقالة في مجال تخصصك</div>
+        <div class="enrich-item"><span>🤲</span> ادعُ لوالديك قبل النوم</div>
+        <div class="enrich-item"><span>💡</span> سجّل فكرة واحدة مستفدتها اليوم</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="card-full">
+    <div class="card-header"><div class="card-title"><span>📝</span> ملاحظة اليوم</div></div>
+    <textarea class="note-area" id="ov-note" placeholder="اكتب ملاحظة أو تأمل ليومك..."></textarea>
+  </div>
 </div>
+
+<!-- ══════════ CALENDAR ══════════ -->
+<div class="page" id="page-calendar">
+  <div id="cal-level-months">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-size:18px;font-weight:700;color:var(--accent2);">١٤٤٨هـ — السنة كاملة</div>
+      <div style="font-size:12px;color:var(--text-muted);">اضغط على شهر</div>
+    </div>
+    <div class="cal-months-grid" id="months-grid"></div>
+  </div>
+  <div id="cal-level-month" style="display:none;">
+    <div class="breadcrumb">
+      <span class="crumb" onclick="goLevel(0)">١٤٤٨هـ</span>
+      <span class="sep">›</span><span class="current" id="bc-month"></span>
+    </div>
+    <div id="month-detail-wrap"></div>
+  </div>
+  <div id="cal-level-week" style="display:none;">
+    <div class="breadcrumb">
+      <span class="crumb" onclick="goLevel(0)">١٤٤٨هـ</span>
+      <span class="sep">›</span><span class="crumb" id="bc-month2" onclick="goLevel(1)"></span>
+      <span class="sep">›</span><span class="current" id="bc-week"></span>
+    </div>
+    <div id="week-detail-wrap"></div>
+  </div>
+  <div id="cal-level-day" style="display:none;">
+    <div class="breadcrumb">
+      <span class="crumb" onclick="goLevel(0)">١٤٤٨هـ</span>
+      <span class="sep">›</span><span class="crumb" id="bc-month3" onclick="goLevel(1)"></span>
+      <span class="sep">›</span><span class="crumb" id="bc-week2" onclick="goLevel(2)"></span>
+      <span class="sep">›</span><span class="current" id="bc-day"></span>
+    </div>
+    <div id="day-detail-wrap"></div>
+  </div>
 </div>
+
+<!-- ══════════ ACHIEVEMENTS ══════════ -->
+<div class="page" id="page-achievements">
+  <div style="margin-bottom:16px;font-size:18px;font-weight:700;color:var(--accent2);">إحصائياتك لـ ١٤٤٨هـ</div>
+  <div class="stats-grid" id="ach-stats-grid">
+    <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num" id="ach-done" style="color:var(--green);">—</div><div class="stat-label">مهمة منجزة</div></div>
+    <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-num" id="ach-missed" style="color:var(--red);">—</div><div class="stat-label">مهمة غير منجزة</div></div>
+    <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-num" id="ach-weeks-rated" style="color:var(--blue);">—</div><div class="stat-label">أسبوع قُيِّم</div></div>
+    <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-num" id="ach-best-week" style="color:var(--accent2);">—</div><div class="stat-label">أفضل أسبوع</div></div>
+    <div class="stat-card"><div class="stat-icon">🌟</div><div class="stat-num" id="ach-avg" style="color:var(--purple);">—</div><div class="stat-label">معدل التقييم</div></div>
+    <div class="stat-card"><div class="stat-icon">🔥</div><div class="stat-num" id="ach-streak">—</div><div class="stat-label">أيام عادة متتالية</div></div>
+  </div>
+  <div class="card-full" style="margin-bottom:16px;">
+    <div class="card-header"><div class="card-title"><span>📊</span> أداء المجالات (متوسط)</div></div>
+    <div class="eval-domains" id="ach-domains"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-// ===== التقويم الهجري =====
-const HIJRI_MONTHS = [
-  'محرم','صفر','ربيع الأول','ربيع الآخر',
-  'جمادى الأولى','جمادى الآخرة','رجب','شعبان',
-  'رمضان','شوال','ذو القعدة','ذو الحجة'
+// ══════════════════════════════════════════════
+//  CONSTANTS
+// ══════════════════════════════════════════════
+const AR = '٠١٢٣٤٥٦٧٨٩';
+function toA(n){ return String(Math.round(n)).replace(/\d/g, d => AR[d]); }
+
+const MONTHS = [
+  {name:'محرم',days:30},{name:'صفر',days:29},{name:'ربيع الأول',days:30},
+  {name:'ربيع الآخر',days:29},{name:'جمادى الأولى',days:30},{name:'جمادى الآخرة',days:29},
+  {name:'رجب',days:30},{name:'شعبان',days:29},{name:'رمضان',days:30},
+  {name:'شوال',days:29},{name:'ذو القعدة',days:30},{name:'ذو الحجة',days:29}
 ];
-const HIJRI_1448_START = new Date(2026, 5, 19);
-const MONTH_LENGTHS = [30,29,30,29,30,29,30,29,30,29,30,29];
-const MONTH_STARTS = (() => {
-  const s = [0];
-  for (let i = 0; i < 11; i++) s.push(s[i] + MONTH_LENGTHS[i]);
-  return s;
-})();
-const YEAR_DAYS = MONTH_STARTS[11] + MONTH_LENGTHS[11];
+// 1 محرم 1448 ≈ Thu Jul 8 2026 (dayOfWeek=4, 0=Sun)
+// Total days in 1448: 354
+const YEAR_START_DOW = 4; // Thursday
+const TOTAL_YEAR_DAYS = 354;
 
-function currentHijriInfo() {
-  const diff = Math.floor((new Date() - HIJRI_1448_START) / 86400000);
-  if (diff < 0 || diff >= YEAR_DAYS) return { inYear: false, dayOfYear: diff, monthIdx: -1, weekNum: -1 };
-  let monthIdx = 0;
-  for (let i = 11; i >= 0; i--) { if (diff >= MONTH_STARTS[i]) { monthIdx = i; break; } }
-  return { inYear: true, dayOfYear: diff, monthIdx, weekNum: Math.min(Math.floor(diff/7)+1, 51) };
+// Domain meta
+const DOMAINS = {
+  imani: {label:'إيماني', icon:'🕌', color:'var(--imani)'},
+  ilmi:  {label:'علمي',   icon:'📚', color:'var(--ilmi)'},
+  sihi:  {label:'صحي',    icon:'🏃', color:'var(--sihi)'},
+  amali: {label:'عملي',   icon:'💼', color:'var(--amali)'},
+  extra: {label:'إضافي',  icon:'➕', color:'var(--extra)'}
+};
+const DOMAIN_KEYS = ['imani','ilmi','sihi','amali'];
+const WEIGHTS = [0.4, 0.3, 0.2, 0.1]; // by rank 1→4
+
+const DAY_NAMES      = ['أحد','اثن','ثلا','أرب','خمس','جمع','سبت'];
+const DAY_NAMES_FULL = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+
+// ══════════════════════════════════════════════
+//  CURRENT DATE (Hijri 1448)
+// ══════════════════════════════════════════════
+// 1 محرم 1448 = Jul 8 2026 (Gregorian)
+const HIJRI_START = new Date(2026, 6, 8); // Jul 8 2026
+
+function getTodayHijri() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const diffMs = today - HIJRI_START;
+  const diffDays = Math.floor(diffMs / 86400000);
+  if (diffDays < 0 || diffDays >= TOTAL_YEAR_DAYS) return null; // outside 1448
+  let rem = diffDays;
+  for (let m = 0; m < 12; m++) {
+    if (rem < MONTHS[m].days) return { mIdx: m, day: rem + 1, dayOfYear: diffDays + 1 };
+    rem -= MONTHS[m].days;
+  }
+  return null;
 }
 
-function weekToHijriLabel(w) {
-  const d = (w-1)*7;
-  let mi = 0;
-  for (let i = 11; i >= 0; i--) { if (d >= MONTH_STARTS[i]) { mi = i; break; } }
-  return (d - MONTH_STARTS[mi] + 1) + ' ' + HIJRI_MONTHS[mi].substring(0,4) + '.';
+function getMonthStartDow(mIdx) {
+  let total = 0;
+  for (let i = 0; i < mIdx; i++) total += MONTHS[i].days;
+  return (YEAR_START_DOW + total) % 7;
 }
 
-// ===== Supabase =====
-const SUPABASE_URL = 'https://sdsotlhjkcbbypngnioo.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkc290bGhqa2NiYnlwbmduaW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNDkzMjQsImV4cCI6MjA5NTYyNTMyNH0.60j0DvHA_38o9CU8DMQgTLMnWhp3WiTK3ztDRflk8TM';
+// ══════════════════════════════════════════════
+//  LOCALSTORAGE
+// ══════════════════════════════════════════════
+function lsGet(k, def) { try { const v = localStorage.getItem(k); return v === null ? def : JSON.parse(v); } catch(e) { return def; } }
+function lsSet(k, v)   { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
+function taskKey(m, d)    { return `t_${m}_${d}`; }
+function habitKey(m, d)   { return `h_${m}_${d}`; }
+function noteKey(m, d)    { return `n_${m}_${d}`; }
+function goalKey(m)       { return `g_${m}`; }
+function weekPrioKey(m,w) { return `wp_${m}_${w}`; }
+function weekRatingKey(m,w){ return `wr_${m}_${w}`; }
+function weekNoteKey(m,w)  { return `wn_${m}_${w}`; }
 
-let currentUser = null;
+// ══════════════════════════════════════════════
+//  WEEKS HELPER
+// ══════════════════════════════════════════════
+function getWeeksOfMonth(mIdx) {
+  const m = MONTHS[mIdx];
+  const weeks = [];
+  let cur = 1;
+  while (cur <= m.days) {
+    const end = Math.min(cur + 6, m.days);
+    const days = [];
+    for (let d = cur; d <= end; d++) days.push(d);
+    weeks.push({ days });
+    cur = end + 1;
+  }
+  if (weeks.length > 1 && weeks[weeks.length-1].days.length <= 2) {
+    const last = weeks.pop();
+    weeks[weeks.length-1].days.push(...last.days);
+  }
+  return weeks;
+}
 
-async function signIn() {
-  const email = document.getElementById('login-email').value.trim();
-  const password = document.getElementById('login-password').value;
-  const errEl = document.getElementById('login-error');
-  errEl.textContent = '';
-  const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
-    method: 'POST',
-    headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
+function getWeekIdxForDay(mIdx, day) {
+  const weeks = getWeeksOfMonth(mIdx);
+  for (let i = 0; i < weeks.length; i++) if (weeks[i].days.includes(day)) return i;
+  return 0;
+}
+
+function getWeekPriority(mIdx, wIdx) {
+  return lsGet(weekPrioKey(mIdx, wIdx), ['imani','ilmi','sihi','amali']);
+}
+
+// ══════════════════════════════════════════════
+//  RATING CALC (auto from tasks)
+// ══════════════════════════════════════════════
+function calcWeekRating(mIdx, wIdx) {
+  const weeks = getWeeksOfMonth(mIdx);
+  const w = weeks[wIdx];
+  if (!w) return null;
+  const prio = getWeekPriority(mIdx, wIdx);
+  const scores = {};
+  DOMAIN_KEYS.forEach(d => {
+    let total = 0, done = 0;
+    w.days.forEach(day => {
+      const tasks = lsGet(taskKey(mIdx, day), []);
+      tasks.filter(t => t.domain === d).forEach(t => { total++; if (t.done) done++; });
+    });
+    scores[d] = total > 0 ? Math.round((done / total) * 100) : null;
   });
-  const data = await res.json();
-  if (data.access_token) {
-    currentUser = data.user;
-    localStorage.setItem('sb_token', data.access_token);
-    localStorage.setItem('sb_user', JSON.stringify(data.user));
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    await loadFromDB();
-  } else {
-    errEl.textContent = 'البريد أو كلمة المرور غير صحيحة';
-  }
+  // weighted total — only include domains that have tasks
+  let weightedSum = 0, usedWeight = 0;
+  prio.forEach((d, i) => {
+    if (scores[d] !== null) { weightedSum += scores[d] * WEIGHTS[i]; usedWeight += WEIGHTS[i]; }
+  });
+  const total = usedWeight > 0 ? Math.round(weightedSum / usedWeight) : null;
+  return { scores, total, prio };
 }
 
-async function checkSession() {
-  const token = localStorage.getItem('sb_token');
-  const user = localStorage.getItem('sb_user');
-  if (token && user) {
-    currentUser = JSON.parse(user);
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    await loadFromDB();
-  }
+function getGrade(score) {
+  if (score >= 90) return { label:'ممتاز 🌟', cls:'rating-excellent' };
+  if (score >= 75) return { label:'جيد جداً ✅', cls:'rating-good' };
+  if (score >= 60) return { label:'جيد 👍', cls:'rating-good' };
+  if (score >= 40) return { label:'مقبول ⚡', cls:'rating-weak' };
+  return { label:'يحتاج جهد 💪', cls:'rating-weak' };
 }
 
-async function signOut() {
-  localStorage.removeItem('sb_token');
-  localStorage.removeItem('sb_user');
-  currentUser = null;
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-}
+// ══════════════════════════════════════════════
+//  NAV & STATE
+// ══════════════════════════════════════════════
+let calLevel = 0, calMonth = 0, calWeek = 0, calDay = 0;
 
-async function saveToDB() {
-  if (!currentUser) return;
-  const token = localStorage.getItem('sb_token');
-  const existing = await fetch(
-    SUPABASE_URL + '/rest/v1/planner_data?user_id=eq.' + currentUser.id,
-    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + token } }
-  ).then(r => r.json());
-  const payload = { user_id: currentUser.id, data: JSON.stringify(S) };
-  if (existing.length > 0) {
-    await fetch(SUPABASE_URL + '/rest/v1/planner_data?user_id=eq.' + currentUser.id, {
-      method: 'PATCH',
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } else {
-    await fetch(SUPABASE_URL + '/rest/v1/planner_data', {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-      body: JSON.stringify(payload)
-    });
-  }
-}
-
-async function loadFromDB() {
-  if (!currentUser) return;
-  const token = localStorage.getItem('sb_token');
-  const res = await fetch(
-    SUPABASE_URL + '/rest/v1/planner_data?user_id=eq.' + currentUser.id,
-    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + token } }
-  ).then(r => r.json());
-  if (res.length > 0) {
-    try { S = JSON.parse(res[0].data); } catch(e) {}
-  }
-  for (let i = 0; i < 12; i++) {
-    if (!S.habits[i]) S.habits[i] = { name: '', days: {} };
-  }
-  render();
-}
-
-// ===== الحالة =====
-let S = { goals:[], weeks:{}, pos:[], neg:[], note:'', habits:{}, days:{} };
-function load() { checkSession(); }
-
-function save() {
-  try { localStorage.setItem('planner1448', JSON.stringify(S)); } catch(e) {}
-  saveToDB();
-}
-
-function showTab(t, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('section-'+t).classList.add('active');
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
   btn.classList.add('active');
-  if (t === 'overview') renderOverview();
-  if (t === 'habits') renderHabits();
+  if (id === 'calendar')     renderCalLevel();
+  if (id === 'achievements') renderAchievements();
 }
 
-const CAT = { work:'عمل', health:'صحة', personal:'شخصي', learn:'تعلّم' };
-const CATC = { work:'cat-work', health:'cat-health', personal:'cat-personal', learn:'cat-learn' };
+function goLevel(l) { calLevel = l; renderCalLevel(); }
 
-// ===== أهداف =====
-function addGoal() {
-  const inp = document.getElementById('goal-input');
-  const text = inp.value.trim();
-  if (!text) return;
-  S.goals.push({ id: Date.now(), text, cat: document.getElementById('goal-cat').value, done: false });
-  inp.value = '';
-  save(); renderGoals(); renderOverview();
-}
-function toggleGoal(id) {
-  const g = S.goals.find(g => g.id===id);
-  if (g) { g.done = !g.done; save(); renderGoals(); renderOverview(); }
-}
-function delGoal(id) {
-  S.goals = S.goals.filter(g => g.id!==id);
-  save(); renderGoals(); renderOverview();
-}
-function renderGoals() {
-  const el = document.getElementById('goals-list');
-  if (!S.goals.length) { el.innerHTML = '<div class="empty">لا توجد أهداف بعد. أضف هدفك الأول!</div>'; renderCatProg(); return; }
-  el.innerHTML = S.goals.map(g =>
-    '<div class="goal-row">' +
-    '<div class="goal-check ' + (g.done?'done':'') + '" onclick="toggleGoal(' + g.id + ')">✓</div>' +
-    '<div class="goal-text ' + (g.done?'done':'') + '">' + g.text + '</div>' +
-    '<span class="cat-badge ' + CATC[g.cat] + '">' + CAT[g.cat] + '</span>' +
-    '<button class="del-btn" onclick="delGoal(' + g.id + ')">×</button>' +
-    '</div>'
-  ).join('');
-  renderCatProg();
-}
-function renderCatProg() {
-  const el = document.getElementById('cat-progress');
-  const rows = ['work','health','personal','learn'].map(cat => {
-    const all = S.goals.filter(g => g.cat===cat);
-    if (!all.length) return '';
-    const done = all.filter(g => g.done).length;
-    const pct = Math.round(done/all.length*100);
-    return '<div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span>' + CAT[cat] + '</span><span style="color:var(--text2)">' + done + '/' + all.length + '</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>';
-  }).join('');
-  el.innerHTML = rows || '<div class="empty">لا توجد أهداف</div>';
-}
-
-// ===== أسابيع =====
-function renderWeeks() {
-  const grid = document.getElementById('week-grid');
-  const hi = currentHijriInfo();
-  const cw = hi.inYear ? hi.weekNum : -1;
-  grid.innerHTML = Array.from({length:51},(_,i) => {
-    const w = i+1;
-    const d = S.weeks[w] || {};
-    const stars = d.rating ? '★'.repeat(d.rating) : '';
-    return '<div class="week-cell ' + (w===cw?'current':'') + ' ' + (d.done?'is-done':'') + '" onclick="openWeek(' + w + ')">' +
-      (w===cw ? '<div class="week-dot"></div>' : '') +
-      '<div class="week-num">أسبوع ' + w + '</div>' +
-      '<div class="week-hijri">' + weekToHijriLabel(w) + '</div>' +
-      '<div class="week-goal-preview">' + (d.g1 ? d.g1.substring(0,13)+(d.g1.length>13?'…':'') : '') + '</div>' +
-      (stars ? '<div style="font-size:9px;color:#EF9F27;margin-top:2px;">' + stars + '</div>' : '') +
-      '</div>';
-  }).join('');
-}
-
-let selWeek = null;
-let selRating = 0;
-const STAR_LABELS = ['','أسبوع صعب','أسبوع مقبول','أسبوع جيد','أسبوع ممتاز','أسبوع رائع! 🎉'];
-
-function setStar(n) {
-  selRating = n;
-  document.querySelectorAll('.star-btn').forEach((b,i) => b.classList.toggle('lit', i < n));
-  document.getElementById('star-label').textContent = STAR_LABELS[n];
-}
-function openWeek(w) {
-  selWeek = w;
-  const d = S.weeks[w] || {};
-  selRating = d.rating || 0;
-  document.getElementById('week-detail').style.display = 'block';
-  document.getElementById('week-detail-title').textContent = 'الأسبوع ' + w + ' — ' + weekToHijriLabel(w);
-  document.getElementById('week-g1').value = d.g1 || '';
-  document.getElementById('week-g2').value = d.g2 || '';
-  document.getElementById('week-note-in').value = d.note || '';
-  document.getElementById('week-done-chk').checked = !!d.done;
-  setStar(selRating);
-  document.getElementById('week-detail').scrollIntoView({behavior:'smooth'});
-}
-function saveWeek() {
-  if (!selWeek) return;
-  S.weeks[selWeek] = {
-    g1: document.getElementById('week-g1').value,
-    g2: document.getElementById('week-g2').value,
-    note: document.getElementById('week-note-in').value,
-    rating: selRating,
-    done: document.getElementById('week-done-chk').checked
-  };
-  save(); renderWeeks();
-}
-
-// ===== عادات =====
-function saveHabitName(mi) {
-  S.habits[mi].name = document.getElementById('habit-name-'+mi).value;
-  save();
-  const el = document.getElementById('habit-hname-'+mi);
-  if (el) el.textContent = S.habits[mi].name || '(بدون اسم)';
-}
-function toggleDay(mi, day) {
-  if (!S.habits[mi]) S.habits[mi] = { name:'', days:{} };
-  if (S.habits[mi].days[day]) delete S.habits[mi].days[day];
-  else S.habits[mi].days[day] = true;
-  save();
-  renderHabitMonth(mi);
-}
-function toggleHabitBody(mi) {
-  document.getElementById('habit-body-'+mi).classList.toggle('open');
-}
-function renderHabitMonth(mi) {
-  const h = S.habits[mi];
-  const totalDays = MONTH_LENGTHS[mi];
-  const hi = currentHijriInfo();
-  let todayDayInMonth = -1;
-  if (hi.inYear && hi.monthIdx === mi) todayDayInMonth = hi.dayOfYear - MONTH_STARTS[mi] + 1;
-  const monthPassed = hi.inYear && hi.monthIdx > mi;
-  const monthFuture = !hi.inYear || hi.monthIdx < mi;
-  const doneDays = Object.keys(h.days).length;
-  const availDays = monthPassed ? totalDays : (monthFuture ? 0 : todayDayInMonth);
-  const pct = availDays > 0 ? Math.round(doneDays / availDays * 100) : 0;
-  const daysHTML = Array.from({length: totalDays}, (_, i) => {
-    const day = i + 1;
-    const isDone = !!h.days[day];
-    const isFuture = monthFuture || (!monthPassed && day > todayDayInMonth);
-    return '<div class="day-cell ' + (isDone?'done':'') + ' ' + (isFuture?'future':'') + '" ' +
-      (isFuture ? '' : 'onclick="toggleDay(' + mi + ',' + day + ')"') +
-      ' title="يوم ' + day + '">' + day + '</div>';
-  }).join('');
-  document.getElementById('habit-body-'+mi).innerHTML =
-    '<div class="habit-name-row"><input type="text" id="habit-name-' + mi + '" value="' + (h.name||'') + '" placeholder="اكتب اسم العادة… مثل: قرأت ١٠ دقائق" oninput="saveHabitName(' + mi + ')"></div>' +
-    '<div class="days-grid">' + daysHTML + '</div>' +
-    '<div class="habit-stats"><span>✅ أنجزت: <span class="habit-stat-val">' + doneDays + '</span> يوم</span><span>📅 من: <span class="habit-stat-val">' + availDays + '</span> يوم</span><span>📊 النسبة: <span class="habit-stat-val">' + pct + '%</span></span></div>' +
-    '<div class="habit-pct-bar"><div class="habit-pct-fill" style="width:' + pct + '%"></div></div>';
-}
-function renderHabits() {
-  const el = document.getElementById('habits-list');
-  const hi = currentHijriInfo();
-  el.innerHTML = HIJRI_MONTHS.map((name, mi) => {
-    const h = S.habits[mi] || { name:'', days:{} };
-    const isCurrent = hi.inYear && hi.monthIdx === mi;
-    const doneDays = Object.keys(h.days).length;
-    return '<div class="habit-month-card">' +
-      '<div class="habit-month-header ' + (isCurrent?'current-m':'') + '" onclick="toggleHabitBody(' + mi + ')">' +
-      '<div><div class="habit-month-name">' + name + (isCurrent?' ← الشهر الحالي':'') + '</div>' +
-      '<div class="habit-month-meta" id="habit-hname-' + mi + '">' + (h.name||'(لم تحدد عادة بعد)') + '</div></div>' +
-      '<div style="font-size:13px;color:var(--text2);">' + (doneDays>0?'✅ '+doneDays+' يوم':'') + '<span style="margin-right:8px;font-size:16px;">⌄</span></div>' +
-      '</div>' +
-      '<div class="habit-month-body ' + (isCurrent?'open':'') + '" id="habit-body-' + mi + '"></div>' +
-      '</div>';
-  }).join('');
-  for (let i = 0; i < 12; i++) renderHabitMonth(i);
-}
-
-// ===== اليوم والنظرة العامة =====
-function toggleTodayHabit() {
-  const hi = currentHijriInfo();
-  if (!hi.inYear) return;
-  const mi = hi.monthIdx;
-  const day = hi.dayOfYear - MONTH_STARTS[mi] + 1;
-  if (S.habits[mi].days[day]) delete S.habits[mi].days[day];
-  else S.habits[mi].days[day] = true;
-  save();
-  renderTodayHabit();
-  if (document.getElementById('section-habits').classList.contains('active')) renderHabitMonth(mi);
-}
-function renderTodayHabit() {
-  const hi = currentHijriInfo();
-  const nameEl = document.getElementById('today-habit-name');
-  const statsEl = document.getElementById('today-habit-stats');
-  const barEl = document.getElementById('today-habit-bar');
-  const btnEl = document.getElementById('today-habit-btn');
-  if (!nameEl) return;
-  if (!hi.inYear) { nameEl.textContent = 'خارج نطاق ١٤٤٨هـ'; return; }
-  const mi = hi.monthIdx;
-  const h = S.habits[mi];
-  const day = hi.dayOfYear - MONTH_STARTS[mi] + 1;
-  const isDone = !!h.days[day];
-  const doneDays = Object.keys(h.days).length;
-  const pct = Math.round(doneDays / day * 100);
-  nameEl.textContent = h.name || '(لم تحدد عادة بعد — اذهب لتبويب العادات)';
-  nameEl.style.color = h.name ? 'var(--text)' : 'var(--text3)';
-  btnEl.textContent = isDone ? '✅ أتممت اليوم' : '⬜ سجّل إنجاز اليوم';
-  btnEl.style.background = isDone ? 'var(--green)' : 'var(--surface)';
-  btnEl.style.color = isDone ? 'white' : 'var(--text)';
-  statsEl.textContent = 'أنجزت ' + doneDays + ' من ' + day + ' يوم';
-  barEl.style.width = pct + '%';
-}
-function renderHabitsOverview() {
-  const el = document.getElementById('habits-overview');
-  if (!el) return;
-  const hi = currentHijriInfo();
-  const rows = HIJRI_MONTHS.map((name, mi) => {
-    const h = S.habits[mi];
-    const isPast = hi.inYear && hi.monthIdx > mi;
-    const isCurrent = hi.inYear && hi.monthIdx === mi;
-    if (!isPast && !isCurrent) return '';
-    const totalDays = isPast ? MONTH_LENGTHS[mi] : (hi.dayOfYear - MONTH_STARTS[mi] + 1);
-    const doneDays = Object.keys(h.days).length;
-    const pct = Math.round(doneDays / totalDays * 100);
-    return '<div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;"><span style="font-weight:500;">' + name + ' ' + (isCurrent?'🔄':'✅') + '</span><span style="color:var(--text2);">' + (h.name||'—') + '</span><span style="color:var(--text2);">' + doneDays + '/' + totalDays + '</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>';
-  }).join('');
-  el.innerHTML = rows || '<div class="empty">لا توجد بيانات بعد</div>';
-}
-
-// ===== تاقز =====
-function addTag(type) {
-  const inp = document.getElementById(type+'-in');
-  const val = inp.value.trim();
-  if (!val) return;
-  if (type==='pos') S.pos.push(val); else S.neg.push(val);
-  inp.value = ''; save(); renderTags();
-}
-function delTag(type, i) {
-  if (type==='pos') S.pos.splice(i,1); else S.neg.splice(i,1);
-  save(); renderTags();
-}
-function renderTags() {
-  document.getElementById('pos-tags').innerHTML = S.pos.length
-    ? S.pos.map((t,i) => '<span class="tag pos">' + t + '<button class="tag-del" onclick="delTag(\'pos\',' + i + ')">×</button></span>').join('')
-    : '<span style="font-size:12px;color:var(--green-dark);opacity:0.5;">أضف نقاط قوتك…</span>';
-  document.getElementById('neg-tags').innerHTML = S.neg.length
-    ? S.neg.map((t,i) => '<span class="tag neg">' + t + '<button class="tag-del" onclick="delTag(\'neg\',' + i + ')">×</button></span>').join('')
-    : '<span style="font-size:12px;color:var(--red);opacity:0.5;">أضف ما تريد تطويره…</span>';
-}
-
-function saveNote() { S.note = document.getElementById('year-note').value; save(); }
-
-function saveTodayNote() {
-  const hi = currentHijriInfo();
-  if (!hi.inYear) return;
-  if (!S.days) S.days = {};
-  const key = hi.dayOfYear;
-  if (!S.days[key]) S.days[key] = { tasks: {}, note: '' };
-  S.days[key].note = document.getElementById('today-note').value;
-  save();
-}
-
-function toggleTodayTask(taskKey) {
-  const hi = currentHijriInfo();
-  if (!hi.inYear) return;
-  if (!S.days) S.days = {};
-  const key = hi.dayOfYear;
-  if (!S.days[key]) S.days[key] = { tasks: {}, note: '' };
-  S.days[key].tasks[taskKey] = !S.days[key].tasks[taskKey];
-  save();
-  renderTodayTasks();
-}
-
-function getTodayTasks() {
-  const hi = currentHijriInfo();
-  if (!hi.inYear) return [];
-  const weekNum = hi.weekNum;
-  const w = S.weeks[weekNum] || {};
-  const CATS = ['faith','health','science','work'];
-  const WEIGHTS = [40, 30, 20, 10];
-  const priorities = w.priorities || CATS;
-  const tasks = [];
-  priorities.forEach((cat, idx) => {
-    const taskText = w['task_' + cat] || '';
-    const importance = w['imp_' + cat] || '!';
-    if (taskText) {
-      tasks.push({
-        key: cat,
-        text: taskText,
-        cat: cat,
-        importance: importance,
-        weight: WEIGHTS[idx]
-      });
-    }
+function renderCalLevel() {
+  ['months','month','week','day'].forEach((n,i) => {
+    document.getElementById('cal-level-'+n).style.display = calLevel === i ? 'block' : 'none';
   });
-  return tasks;
+  if (calLevel === 0) renderMonthsGrid();
+  if (calLevel === 1) renderMonthDetail(calMonth);
+  if (calLevel === 2) renderWeekDetail(calMonth, calWeek);
+  if (calLevel === 3) renderDayDetail(calMonth, calWeek, calDay);
 }
 
-function renderTodayTasks() {
-  const hi = currentHijriInfo();
-  const el = document.getElementById('today-tasks-list');
-  if (!el) return;
-  if (!hi.inYear) { el.innerHTML = '<div class="empty">خارج نطاق ١٤٤٨هـ</div>'; return; }
-
-  const tasks = getTodayTasks();
-  const dayKey = hi.dayOfYear;
-  const dayData = (S.days && S.days[dayKey]) || { tasks: {}, note: '' };
-
-  if (!tasks.length) {
-    el.innerHTML = '<div class="empty">لم تحدد مهام لهذا الأسبوع بعد — اذهب لتبويب التقويم</div>';
+// ══════════════════════════════════════════════
+//  OVERVIEW
+// ══════════════════════════════════════════════
+function initOverview() {
+  const hd = getTodayHijri();
+  if (!hd) {
+    document.getElementById('ov-hijri').textContent = 'خارج نطاق ١٤٤٨هـ';
     return;
   }
+  const { mIdx, day, dayOfYear } = hd;
+  const m = MONTHS[mIdx];
+  const dow = getMonthStartDow(mIdx);
+  const todayDow = (dow + day - 1) % 7;
 
-  const CAT_LABELS = { faith: '🕌 إيماني', health: '🏃 صحي', science: '📚 علمي', work: '💼 عملي' };
-  const CAT_CLASS = { faith: 'cat-faith', health: 'cat-health', science: 'cat-science', work: 'cat-work' };
+  // Date display
+  const HIJRI_MONTHS_AR = ['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+  document.getElementById('ov-hijri').textContent = toA(day) + ' ' + m.name + ' ١٤٤٨هـ';
+  document.getElementById('ov-dayname').textContent = DAY_NAMES_FULL[todayDow];
+  const greg = new Date(HIJRI_START); greg.setDate(greg.getDate() + dayOfYear - 1);
+  document.getElementById('ov-miladi').textContent = greg.toLocaleDateString('ar-SA-u-ca-gregory', {day:'numeric',month:'long',year:'numeric'});
 
-  el.innerHTML = tasks.map((t, idx) => {
-    const isDone = !!dayData.tasks[t.key];
-    return '<div class="task-row">' +
-      '<div style="font-size:12px;color:var(--text3);width:16px;text-align:center;flex-shrink:0;">①②③④'[idx] + '</div>' +
-      '<div class="task-check ' + (isDone?'done':'') + '" onclick="toggleTodayTask(\'' + t.key + '\')">✓</div>' +
-      '<div class="task-text ' + (isDone?'done':'') + '">' + t.text + '</div>' +
-      '<span class="task-priority">' + t.importance + '</span>' +
-      '<span class="task-cat ' + CAT_CLASS[t.cat] + '">' + CAT_LABELS[t.cat] + '</span>' +
-      '</div>';
-  }).join('');
+  // Remaining
+  const daysLeft = TOTAL_YEAR_DAYS - dayOfYear;
+  document.getElementById('ov-days-left').textContent  = toA(daysLeft);
+  document.getElementById('ov-weeks-left').textContent = toA(Math.ceil(daysLeft/7));
+  const pct = Math.round((dayOfYear / TOTAL_YEAR_DAYS) * 100);
+  document.getElementById('ov-prog-pct').textContent   = toA(pct) + '٪';
+  document.getElementById('ov-prog-fill').style.width  = pct + '%';
 
-  // مهام إثرائية بعد إنجاز الكل
-  const allDone = tasks.every(t => !!dayData.tasks[t.key]);
-  const enrichEl = document.getElementById('today-enrichment');
-  if (enrichEl) enrichEl.style.display = allDone ? 'block' : 'none';
-
-  // ملاحظة اليوم
-  const noteEl = document.getElementById('today-note');
-  if (noteEl) noteEl.value = dayData.note || '';
-}
-
-function renderLastWeekReview() {
-  const hi = currentHijriInfo();
-  const el = document.getElementById('last-week-review');
-  if (!el || !hi.inYear) return;
-
-  const lastWeek = hi.weekNum - 1;
-  if (lastWeek < 1) { el.innerHTML = '<div class="empty">لا يوجد أسبوع سابق بعد</div>'; return; }
-
-  const w = S.weeks[lastWeek] || {};
-  const CATS = ['faith','health','science','work'];
-  const WEIGHTS = [40, 30, 20, 10];
-  const LABELS = { faith: '🕌 إيماني', health: '🏃 صحي', science: '📚 علمي', work: '💼 عملي' };
-  const COLORS = { faith: '#534AB7', health: '#1D9E75', science: '#854F0B', work: '#185FA5' };
-  const priorities = w.priorities || CATS;
-
-  // احسب بداية ونهاية الأسبوع الماضي
-  const weekStartDay = (lastWeek - 1) * 7;
-  const weekEndDay = weekStartDay + 6;
-
-  let totalScore = 0;
-  let scoreBreakdown = [];
-
-  priorities.forEach((cat, idx) => {
-    const weight = WEIGHTS[idx];
-    const taskText = w['task_' + cat] || '';
-    if (!taskText) return;
-
-    // احسب كم يوم أنجز من أيام الأسبوع
-    let doneDays = 0;
-    for (let d = weekStartDay; d <= weekEndDay; d++) {
-      const dayData = (S.days && S.days[d]) || { tasks: {} };
-      if (dayData.tasks[cat]) doneDays++;
-    }
-    const catScore = Math.round((doneDays / 7) * weight);
-    totalScore += catScore;
-    scoreBreakdown.push({ cat, label: LABELS[cat], color: COLORS[cat], score: catScore, max: weight, done: doneDays });
-  });
-
-  const stars = totalScore >= 90 ? '⭐⭐⭐⭐⭐' : totalScore >= 70 ? '⭐⭐⭐⭐' : totalScore >= 50 ? '⭐⭐⭐' : totalScore >= 30 ? '⭐⭐' : '⭐';
-
-  el.innerHTML =
-    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
-    '<div style="font-size:13px;color:var(--text2);">الأسبوع ' + lastWeek + ' — ' + weekToHijriLabel(lastWeek) + '</div>' +
-    '<div style="font-size:18px;">' + stars + ' <span style="font-size:13px;color:var(--text2);">' + totalScore + '%</span></div>' +
-    '</div>' +
-    '<div class="progress-bar" style="margin-bottom:12px;"><div class="progress-fill" style="width:' + totalScore + '%"></div></div>' +
-    scoreBreakdown.map(s =>
-      '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">' +
-      '<span>' + s.label + '</span>' +
-      '<span style="color:var(--text2);">' + s.done + '/٧ أيام — ' + s.score + '/' + s.max + ' نقطة</span>' +
-      '</div>'
-    ).join('');
-}
-
-function renderDateHeader() {
-  const hi = currentHijriInfo();
-  const hijriEl = document.getElementById('today-date-hijri');
-  const miladiEl = document.getElementById('today-date-miladi');
-  const daysLeftEl = document.getElementById('days-left');
-  const weeksLeftEl = document.getElementById('weeks-left');
-  const barEl = document.getElementById('year-progress-bar');
-  if (!hijriEl) return;
-
-  const today = new Date();
-  const DAYS_AR = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  const MONTHS_AR = ['يناير','فبراير','مارس','إبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-  const dayName = DAYS_AR[today.getDay()];
-  const miladiStr = dayName + ' — ' + today.getDate() + ' ' + MONTHS_AR[today.getMonth()] + ' ' + today.getFullYear() + 'م';
-
-  if (hi.inYear) {
-    const dayInMonth = hi.dayOfYear - MONTH_STARTS[hi.monthIdx] + 1;
-    const hijriStr = dayName + ' — ' + dayInMonth + ' ' + HIJRI_MONTHS[hi.monthIdx] + ' ١٤٤٨هـ';
-    hijriEl.textContent = hijriStr;
-    const daysLeft = YEAR_DAYS - hi.dayOfYear - 1;
-    const weeksLeft = Math.floor(daysLeft / 7);
-    const pct = Math.round(hi.dayOfYear / YEAR_DAYS * 100);
-    daysLeftEl.textContent = daysLeft;
-    weeksLeftEl.textContent = weeksLeft;
-    barEl.style.width = pct + '%';
-  } else {
-    hijriEl.textContent = 'خارج نطاق ١٤٤٨هـ';
+  // Habit
+  const habitName = lsGet('habit_name','قراءة ٢٠ صفحة');
+  const habitDone = lsGet(habitKey(mIdx,day), false);
+  const streak    = lsGet('habit_streak', 0);
+  document.getElementById('habit-name-display').textContent = habitName;
+  document.getElementById('streak-badge').textContent = '🔥 ' + toA(streak) + ' يوم';
+  if (habitDone) {
+    const btn = document.getElementById('habit-btn');
+    btn.classList.add('done');
+    btn.querySelector('#hbt').textContent = 'تم الإنجاز! 🎉';
   }
-  miladiEl.textContent = miladiStr;
+  document.getElementById('habit-btn').onclick = () => toggleHabit(mIdx, day);
+
+  // Week eval
+  const wIdx = getWeekIdxForDay(mIdx, day);
+  renderOvEval(mIdx, wIdx);
+
+  // Tasks
+  renderOvTasks(mIdx, day);
+
+  // Note
+  const noteEl = document.getElementById('ov-note');
+  noteEl.value = lsGet(noteKey(mIdx,day), '');
+  noteEl.onchange = () => lsSet(noteKey(mIdx,day), noteEl.value);
 }
 
-// ===== نظرة عامة =====
-function renderOverview() {
-  renderDateHeader();
-  renderTodayHabit();
-  renderHabitsOverview();
-  renderTodayTasks();
-  renderLastWeekReview();
-  const hi = currentHijriInfo();
-  const yn = document.getElementById('year-note');
-  if (yn) yn.value = S.note || '';
+function toggleHabit(mIdx, day) {
+  const done = lsGet(habitKey(mIdx,day), false);
+  if (done) return;
+  lsSet(habitKey(mIdx,day), true);
+  const streak = lsGet('habit_streak', 0) + 1;
+  lsSet('habit_streak', streak);
+  const btn = document.getElementById('habit-btn');
+  btn.classList.add('done');
+  btn.querySelector('#hbt').textContent = 'تم الإنجاز! 🎉';
+  document.getElementById('streak-badge').textContent = '🔥 ' + toA(streak) + ' يوم';
+  showToast('أحسنت! 🔥 السلسلة مستمرة');
 }
-  
 
-// ===== AI =====
-function analyzeMe() {
-  const res = document.getElementById('ai-result');
-  const goals = S.goals.map(g => g.text).join(', ') || 'لا توجد أهداف';
-  const done = S.goals.filter(g => g.done).length;
-  const pos = S.pos.join(', ') || 'غير محددة';
-  const neg = S.neg.join(', ') || 'غير محددة';
-  const habitsSummary = Object.values(S.habits).filter(h=>h.name).map(h=>h.name+' ('+Object.keys(h.days).length+' يوم)').join(', ') || 'لا توجد';
-  const prompt = 'أنا أستخدم مخططاً شخصياً لعام ١٤٤٨هـ. أهدافي: ' + goals + '. أنجزت ' + done + ' منها. عاداتي الشهرية: ' + habitsSummary + '. نقاط قوتي: ' + pos + '. ما أريد تطويره: ' + neg + '. قدّم لي: ١) تحليلاً سريعاً لوضعي ٢) ٣ نصائح عملية للأسابيع القادمة ٣) تحذير من نقطة ضعف قد تؤثر على أهدافي. كن مختصراً وعملياً وباللغة العربية.';
-  res.innerHTML = '<span style="color:var(--text3);">جارٍ التحليل…</span>';
-  fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
-  }).then(r => r.json()).then(data => {
-    res.innerHTML = data.content.map(c => c.text||'').join('').replace(/\n/g, '<br>');
-  }).catch(() => {
-    res.innerHTML = '<span style="color:var(--red);">تعذّر الاتصال. حاول مجدداً.</span>';
+function renderOvEval(mIdx, wIdx) {
+  const rating = calcWeekRating(mIdx, wIdx);
+  const prio   = getWeekPriority(mIdx, wIdx);
+  const el     = document.getElementById('ov-eval-content');
+  if (!rating || rating.total === null) {
+    el.innerHTML = `<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px 0;">أضف مهام لهذا الأسبوع ليظهر تقييمك تلقائياً</div>`;
+    return;
+  }
+  const grade = getGrade(rating.total);
+  let html = `<div style="display:flex;flex-direction:column;gap:6px;">`;
+  prio.forEach((d,i) => {
+    const sc = rating.scores[d];
+    if (sc === null) return;
+    const dm = DOMAINS[d];
+    html += `
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+        <span style="color:${dm.color};">${dm.icon} ${dm.label} <span style="color:var(--text-dim);font-size:11px;">${toA(Math.round(WEIGHTS[i]*100))}٪</span></span>
+        <span style="color:${dm.color};font-weight:700;">${toA(sc)}٪</span>
+      </div>
+      <div style="height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;">
+        <div style="width:${sc}%;height:100%;background:${dm.color};border-radius:99px;"></div>
+      </div>`;
+  });
+  html += `
+    <div style="display:flex;justify-content:space-between;margin-top:6px;padding-top:8px;border-top:1px solid var(--border);">
+      <span style="color:var(--text-muted);">المجموع <span class="rating-badge ${grade.cls}" style="margin-right:4px;">${grade.label}</span></span>
+      <span style="color:var(--accent2);font-weight:700;font-size:18px;">${toA(rating.total)}٪</span>
+    </div>
+  </div>`;
+  el.innerHTML = html;
+}
+
+function renderOvTasks(mIdx, day) {
+  const tasks = lsGet(taskKey(mIdx,day), []);
+  const list  = document.getElementById('ov-task-list');
+  const done  = tasks.filter(t=>t.done).length;
+  document.getElementById('ov-tasks-counter').textContent = toA(done) + ' / ' + toA(tasks.length);
+  list.innerHTML = tasks.length === 0
+    ? `<div style="text-align:center;padding:16px;color:var(--text-dim);font-size:13px;">لا توجد مهام — أضف أولى مهامك 👆</div>`
+    : tasks.map((t,i) => {
+        const dm = DOMAINS[t.domain] || DOMAINS.extra;
+        return `
+          <div class="task-item d-${t.domain}${t.done?' done':''}" onclick="ovToggleTask(${mIdx},${day},${i})">
+            <div class="domain-dot"></div>
+            <div class="task-check">${t.done?'✓':''}</div>
+            <div class="task-text">${t.text}</div>
+            <span class="domain-tag">${dm.icon} ${dm.label}</span>
+            <span class="del-btn" onclick="event.stopPropagation();ovDelTask(${mIdx},${day},${i})">✕</span>
+          </div>`;
+      }).join('');
+
+  // enrichment
+  if (tasks.length > 0 && done === tasks.length) {
+    document.getElementById('enrich-locked').style.display = 'none';
+    document.getElementById('enrich-tasks').style.display  = 'flex';
+  } else {
+    document.getElementById('enrich-locked').style.display = 'block';
+    document.getElementById('enrich-tasks').style.display  = 'none';
+  }
+}
+
+function ovToggleTask(mIdx, day, idx) {
+  const tasks = lsGet(taskKey(mIdx,day), []);
+  tasks[idx].done = !tasks[idx].done;
+  lsSet(taskKey(mIdx,day), tasks);
+  renderOvTasks(mIdx, day);
+  const wIdx = getWeekIdxForDay(mIdx, day);
+  renderOvEval(mIdx, wIdx);
+}
+
+function ovDelTask(mIdx, day, idx) {
+  const tasks = lsGet(taskKey(mIdx,day), []);
+  tasks.splice(idx,1);
+  lsSet(taskKey(mIdx,day), tasks);
+  renderOvTasks(mIdx, day);
+  showToast('تم الحذف');
+}
+
+function ovAddTask() {
+  const inp = document.getElementById('ov-new-task');
+  const dom = document.getElementById('ov-new-domain').value;
+  const text = inp.value.trim();
+  if (!text) return;
+  const hd = getTodayHijri();
+  if (!hd) return;
+  const tasks = lsGet(taskKey(hd.mIdx, hd.day), []);
+  tasks.push({ text, domain: dom, done: false, id: Date.now() });
+  lsSet(taskKey(hd.mIdx, hd.day), tasks);
+  inp.value = '';
+  renderOvTasks(hd.mIdx, hd.day);
+  const wIdx = getWeekIdxForDay(hd.mIdx, hd.day);
+  renderOvEval(hd.mIdx, wIdx);
+  showToast('تمت الإضافة ✓');
+}
+
+// ══════════════════════════════════════════════
+//  CALENDAR — LEVEL 0
+// ══════════════════════════════════════════════
+function renderMonthsGrid() {
+  const hd = getTodayHijri();
+  const g  = document.getElementById('months-grid');
+  g.innerHTML = '';
+  MONTHS.forEach((m,i) => {
+    const isCurrent = hd && i === hd.mIdx;
+    const isPast    = hd && i < hd.mIdx;
+    const prog      = isPast ? 100 : isCurrent ? Math.round((hd.day/m.days)*100) : 0;
+    const col       = isPast ? '#c9a84c' : isCurrent ? '#5b9bd5' : '#4a4f5e';
+    const c = document.createElement('div');
+    c.className = 'month-card' + (isCurrent?' current':'');
+    c.innerHTML = `
+      <div class="month-name-big">${m.name}</div>
+      <div class="month-sub">الشهر ${toA(i+1)} · ${toA(m.days)} يوم</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">${isPast?'✅ مكتمل':isCurrent?'📍 الحالي':'⏳ قادم'}</div>
+      <div style="height:3px;background:var(--surface3);border-radius:99px;overflow:hidden;">
+        <div style="width:${prog}%;height:100%;background:${col};border-radius:99px;"></div>
+      </div>`;
+    c.onclick = () => { calMonth = i; calLevel = 1; renderCalLevel(); };
+    g.appendChild(c);
   });
 }
 
-function render() { renderGoals(); renderWeeks(); renderTags(); renderOverview(); }
+// ══════════════════════════════════════════════
+//  CALENDAR — LEVEL 1 (Month)
+// ══════════════════════════════════════════════
+function renderMonthDetail(mIdx) {
+  const m   = MONTHS[mIdx];
+  const hd  = getTodayHijri();
+  ['bc-month','bc-month2','bc-month3'].forEach(id => document.getElementById(id).textContent = m.name);
 
-// تهيئة days عند التحميل
-const _origLoadFromDB = loadFromDB;
-loadFromDB = async function() {
-  await _origLoadFromDB();
-  if (!S.days) S.days = {};
-};load();
+  const goals   = lsGet(goalKey(mIdx), {imani:'',ilmi:'',sihi:'',amali:''});
+  const startDow = getMonthStartDow(mIdx);
+  const sd       = (startDow + 1) % 7;
+
+  // Build days mini-calendar
+  let daysHTML = DAY_NAMES.map(n => `<div class="day-header">${n}</div>`).join('');
+  for (let i = 0; i < sd; i++) daysHTML += `<div class="day-cell empty"></div>`;
+  for (let d = 1; d <= m.days; d++) {
+    const isToday = hd && mIdx===hd.mIdx && d===hd.day;
+    const tasks   = lsGet(taskKey(mIdx,d),[]);
+    const hasTasks = tasks.length > 0;
+    const allDone  = hasTasks && tasks.every(t=>t.done);
+    let cls = 'day-cell' + (isToday?' today':'') + (hasTasks?' has-tasks':'') + (allDone?' all-done':'');
+    const wi = getWeekIdxForDay(mIdx,d);
+    daysHTML += `<div class="${cls}" onclick="openDayFromCal(${mIdx},${wi},${d})">${toA(d)}</div>`;
+  }
+
+  let html = `
+    <div class="card-full" style="margin-bottom:14px;">
+      <div class="card-header"><div class="card-title"><span>🎯</span> أهداف ${m.name}</div></div>
+      <div class="goals-grid">
+        ${['imani','ilmi','sihi','amali'].map(d=>`
+          <div class="goal-item">
+            <div class="goal-domain-label" style="color:${DOMAINS[d].color};">${DOMAINS[d].icon} ${DOMAINS[d].label}</div>
+            <input class="goal-edit" placeholder="اكتب هدفك..." value="${(goals[d]||'').replace(/"/g,'&quot;')}" oninput="saveGoal(${mIdx},'${d}',this.value)">
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="card-full">
+      <div class="card-header"><div class="card-title"><span>🗓️</span> أيام الشهر</div></div>
+      <div class="days-grid">${daysHTML}</div>
+    </div>`;
+
+  document.getElementById('month-detail-wrap').innerHTML = html;
+}
+
+function saveGoal(mIdx, field, val) {
+  const g = lsGet(goalKey(mIdx), {imani:'',ilmi:'',sihi:'',amali:''});
+  g[field] = val; lsSet(goalKey(mIdx), g);
+}
+
+function openDayFromCal(mIdx, wIdx, day) {
+  calMonth=mIdx; calWeek=wIdx; calDay=day; calLevel=3; renderCalLevel();
+}
+
+// ══════════════════════════════════════════════
+//  CALENDAR — LEVEL 2 (Week)
+// ══════════════════════════════════════════════
+function renderWeekDetail(mIdx, wIdx) {
+  const m     = MONTHS[mIdx];
+  const hd    = getTodayHijri();
+  const weeks = getWeeksOfMonth(mIdx);
+  const w     = weeks[wIdx];
+  document.getElementById('bc-week').textContent  = `الأسبوع ${toA(wIdx+1)}`;
+  document.getElementById('bc-week2').textContent = `الأسبوع ${toA(wIdx+1)}`;
+
+  const prio   = getWeekPriority(mIdx, wIdx);
+  const rating = calcWeekRating(mIdx, wIdx);
+
+  // Copy from prev week button
+  const hasPrev = wIdx > 0 || mIdx > 0;
+  const prevMIdx = wIdx > 0 ? mIdx : mIdx-1;
+  const prevWIdx = wIdx > 0 ? wIdx-1 : getWeeksOfMonth(mIdx-1).length-1;
+
+  let html = '';
+  if (hasPrev) {
+    html += `<button class="copy-week-btn" onclick="copyFromPrevWeek(${mIdx},${wIdx},${prevMIdx},${prevWIdx})">
+      📋 نسخ مهام الأسبوع الماضي كنقطة انطلاق</button>`;
+  }
+
+  // Week priority order
+  html += `
+    <div class="card-full" style="margin-bottom:14px;">
+      <div class="card-header">
+        <div class="card-title"><span>🎯</span> أولويات المجالات هذا الأسبوع</div>
+        <span style="font-size:11px;color:var(--text-muted);">رتّب حسب تركيزك</span>
+      </div>
+      <div class="week-priority-list" id="wp-list-${mIdx}-${wIdx}">`;
+
+  prio.forEach((d, i) => {
+    const dm = DOMAINS[d];
+    const w_pct = Math.round(WEIGHTS[i]*100);
+    html += `
+      <div class="wp-item" id="wp-${d}">
+        <div class="wp-rank" style="color:${dm.color};">${toA(i+1)}</div>
+        <div class="wp-domain" style="color:${dm.color};">${dm.icon} ${dm.label}</div>
+        <div class="wp-weight">${toA(w_pct)}٪</div>
+        <div class="wp-arrows">
+          <button class="wp-arrow" ${i===0?'disabled':''} onclick="movePrio(${mIdx},${wIdx},'${d}',-1)">▲</button>
+          <button class="wp-arrow" ${i===3?'disabled':''} onclick="movePrio(${mIdx},${wIdx},'${d}',+1)">▼</button>
+        </div>
+      </div>`;
+  });
+  html += `</div></div>`;
+
+  // Auto score
+  if (rating && rating.total !== null) {
+    const grade = getGrade(rating.total);
+    html += `
+    <div class="card-full" style="margin-bottom:14px;">
+      <div class="card-header">
+        <div class="card-title"><span>📊</span> تقييم الأسبوع (تلقائي)</div>
+        <span class="rating-badge ${grade.cls}">${grade.label}</span>
+      </div>
+      <div class="week-domain-scores">`;
+    prio.forEach((d,i) => {
+      const sc = rating.scores[d];
+      if (sc === null) return;
+      const dm = DOMAINS[d];
+      html += `
+        <div class="wds-row">
+          <span style="color:${dm.color};font-size:13px;min-width:80px;">${dm.icon} ${dm.label}</span>
+          <div class="wds-bar-wrap"><div class="wds-bar" style="width:${sc}%;background:${dm.color};"></div></div>
+          <span style="color:${dm.color};font-weight:700;font-size:13px;min-width:36px;text-align:left;">${toA(sc)}٪</span>
+        </div>`;
+    });
+    html += `</div>
+      <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);">
+        <span style="color:var(--text-muted);font-size:13px;">المجموع المرجّح</span>
+        <span style="color:var(--accent2);font-weight:700;font-size:20px;">${toA(rating.total)}٪</span>
+      </div>
+    </div>`;
+  } else {
+    html += `
+    <div class="card-full" style="margin-bottom:14px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:6px;">📊</div>
+      <div style="font-size:13px;color:var(--text-muted);">أضف مهام في أيام الأسبوع ليتحسب تقييمك تلقائياً</div>
+    </div>`;
+  }
+
+  // Days of week
+  const startDow = getMonthStartDow(mIdx);
+  html += `
+    <div class="card-full">
+      <div class="card-header"><div class="card-title"><span>📅</span> أيام الأسبوع</div></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">`;
+
+  w.days.forEach(d => {
+    const tasks   = lsGet(taskKey(mIdx,d),[]);
+    const done    = tasks.filter(t=>t.done).length;
+    const isToday = hd && mIdx===hd.mIdx && d===hd.day;
+    const dow     = (startDow + d - 1) % 7;
+    html += `
+      <div class="week-row${isToday?' current-week':''}" onclick="openDayFromCal(${mIdx},${wIdx},${d})" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s;">
+        <div>
+          <div style="font-size:14px;font-weight:600;">${DAY_NAMES_FULL[dow]} — ${toA(d)} ${m.name}</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${tasks.length>0?toA(done)+'/'+toA(tasks.length)+' مهمة':'لا توجد مهام'}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          ${isToday?'<span style="font-size:11px;background:var(--accent-dim);color:var(--accent);padding:3px 10px;border-radius:99px;">اليوم</span>':''}
+          ${done===tasks.length&&tasks.length>0?'<span style="font-size:11px;background:var(--green-dim);color:var(--green);padding:3px 10px;border-radius:99px;">✅ مكتمل</span>':''}
+          <span style="color:var(--text-dim);">›</span>
+        </div>
+      </div>`;
+  });
+  html += `</div></div>`;
+
+  document.getElementById('week-detail-wrap').innerHTML = html;
+}
+
+function movePrio(mIdx, wIdx, domain, dir) {
+  const prio = [...getWeekPriority(mIdx, wIdx)];
+  const idx  = prio.indexOf(domain);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx > 3) return;
+  [prio[idx], prio[newIdx]] = [prio[newIdx], prio[idx]];
+  lsSet(weekPrioKey(mIdx,wIdx), prio);
+  renderWeekDetail(mIdx, wIdx);
+  // refresh overview eval if current week
+  const hd = getTodayHijri();
+  if (hd && mIdx===hd.mIdx && wIdx===getWeekIdxForDay(hd.mIdx,hd.day)) renderOvEval(mIdx,wIdx);
+}
+
+function copyFromPrevWeek(mIdx, wIdx, prevMIdx, prevWIdx) {
+  const prevWeeks = getWeeksOfMonth(prevMIdx);
+  const curWeeks  = getWeeksOfMonth(mIdx);
+  const prevW = prevWeeks[prevWIdx];
+  const curW  = curWeeks[wIdx];
+  let copied = 0;
+  prevW.days.forEach((pd,i) => {
+    const prevTasks = lsGet(taskKey(prevMIdx,pd),[]);
+    if (prevTasks.length > 0 && i < curW.days.length) {
+      const curDay = curW.days[i];
+      if (lsGet(taskKey(mIdx,curDay),[]).length === 0) {
+        lsSet(taskKey(mIdx,curDay), prevTasks.map(t=>({...t,done:false,id:Date.now()+Math.random()})));
+        copied += prevTasks.length;
+      }
+    }
+  });
+  showToast(copied > 0 ? `تم نسخ ${toA(copied)} مهمة ✓` : 'لا توجد مهام للنسخ');
+  renderWeekDetail(mIdx, wIdx);
+}
+
+// ══════════════════════════════════════════════
+//  CALENDAR — LEVEL 3 (Day)
+// ══════════════════════════════════════════════
+function renderDayDetail(mIdx, wIdx, day) {
+  const m      = MONTHS[mIdx];
+  const hd     = getTodayHijri();
+  const dow    = (getMonthStartDow(mIdx) + day - 1) % 7;
+  const isToday = hd && mIdx===hd.mIdx && day===hd.day;
+  document.getElementById('bc-day').textContent = `${toA(day)} ${m.name}`;
+
+  const tasks = lsGet(taskKey(mIdx,day),[]);
+  const done  = tasks.filter(t=>t.done).length;
+
+  const tasksHTML = tasks.length === 0
+    ? `<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:13px;">لا توجد مهام — أضف أولى مهامك 👇</div>`
+    : tasks.map((t,i) => {
+        const dm = DOMAINS[t.domain]||DOMAINS.extra;
+        return `
+          <div class="task-item d-${t.domain}${t.done?' done':''}" onclick="calToggleTask(${mIdx},${wIdx},${day},${i})">
+            <div class="domain-dot"></div>
+            <div class="task-check">${t.done?'✓':''}</div>
+            <div class="task-text">${t.text}</div>
+            <span class="domain-tag">${dm.icon} ${dm.label}</span>
+            <span class="del-btn" onclick="event.stopPropagation();calDelTask(${mIdx},${wIdx},${day},${i})">✕</span>
+          </div>`;
+      }).join('');
+
+  document.getElementById('day-detail-wrap').innerHTML = `
+    <div style="margin-bottom:16px;">
+      <div style="font-size:20px;font-weight:700;color:var(--accent2);">${DAY_NAMES_FULL[dow]}، ${toA(day)} ${m.name} ١٤٤٨هـ</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">${isToday?'📍 اليوم · ':''} ${toA(done)}/${toA(tasks.length)} مهمة منجزة</div>
+    </div>
+    <div class="card-full">
+      <div class="card-header">
+        <div class="card-title"><span>✅</span> المهام</div>
+        <span style="font-size:12px;color:var(--text-muted);">${toA(done)} / ${toA(tasks.length)}</span>
+      </div>
+      <div class="task-list" id="cal-task-list">${tasksHTML}</div>
+      <div class="add-task-row">
+        <input class="add-task-input" id="cal-new-task" placeholder="أضف مهمة..." onkeydown="if(event.key==='Enter')calAddTask(${mIdx},${wIdx},${day})">
+        <select class="domain-select" id="cal-new-domain">
+          ${Object.entries(DOMAINS).map(([k,v])=>`<option value="${k}">${v.icon} ${v.label}</option>`).join('')}
+        </select>
+        <button class="add-task-btn" onclick="calAddTask(${mIdx},${wIdx},${day})">+ إضافة</button>
+      </div>
+    </div>`;
+}
+
+function calToggleTask(mIdx, wIdx, day, idx) {
+  const tasks = lsGet(taskKey(mIdx,day),[]);
+  tasks[idx].done = !tasks[idx].done;
+  lsSet(taskKey(mIdx,day), tasks);
+  renderDayDetail(mIdx, wIdx, day);
+  // refresh overview if today
+  const hd = getTodayHijri();
+  if (hd && mIdx===hd.mIdx && day===hd.day) { renderOvTasks(mIdx,day); renderOvEval(mIdx,wIdx); }
+}
+
+function calDelTask(mIdx, wIdx, day, idx) {
+  const tasks = lsGet(taskKey(mIdx,day),[]);
+  tasks.splice(idx,1); lsSet(taskKey(mIdx,day),tasks);
+  renderDayDetail(mIdx,wIdx,day);
+  showToast('تم الحذف');
+}
+
+function calAddTask(mIdx, wIdx, day) {
+  const inp  = document.getElementById('cal-new-task');
+  const dom  = document.getElementById('cal-new-domain').value;
+  const text = inp.value.trim();
+  if (!text) return;
+  const tasks = lsGet(taskKey(mIdx,day),[]);
+  tasks.push({text, domain:dom, done:false, id:Date.now()});
+  lsSet(taskKey(mIdx,day), tasks);
+  inp.value = '';
+  renderDayDetail(mIdx, wIdx, day);
+  // refresh week score
+  renderWeekDetail(mIdx, wIdx); renderDayDetail(mIdx,wIdx,day);
+  // refresh overview if today
+  const hd = getTodayHijri();
+  if (hd && mIdx===hd.mIdx && day===hd.day) { renderOvTasks(mIdx,day); renderOvEval(mIdx,wIdx); }
+  showToast('تمت الإضافة ✓');
+}
+
+// ══════════════════════════════════════════════
+//  ACHIEVEMENTS
+// ══════════════════════════════════════════════
+function renderAchievements() {
+  let totalDone=0, totalAll=0, weeksRated=0, bestWeek=0, totalScore=0;
+  const domScores = {imani:[], ilmi:[], sihi:[], amali:[]};
+
+  for (let m=0; m<12; m++) {
+    const weeks = getWeeksOfMonth(m);
+    for (let w=0; w<weeks.length; w++) {
+      const r = calcWeekRating(m,w);
+      if (r && r.total !== null) {
+        weeksRated++;
+        totalScore += r.total;
+        if (r.total > bestWeek) bestWeek = r.total;
+        DOMAIN_KEYS.forEach(d => { if(r.scores[d]!==null) domScores[d].push(r.scores[d]); });
+      }
+      weeks[w].days.forEach(d => {
+        const tasks = lsGet(taskKey(m,d),[]);
+        totalAll  += tasks.length;
+        totalDone += tasks.filter(t=>t.done).length;
+      });
+    }
+  }
+
+  document.getElementById('ach-done').textContent         = toA(totalDone);
+  document.getElementById('ach-missed').textContent       = toA(totalAll - totalDone);
+  document.getElementById('ach-weeks-rated').textContent  = toA(weeksRated);
+  document.getElementById('ach-best-week').textContent    = bestWeek>0 ? toA(bestWeek)+'٪' : '—';
+  document.getElementById('ach-avg').textContent          = weeksRated>0 ? toA(Math.round(totalScore/weeksRated))+'٪' : '—';
+  document.getElementById('ach-streak').textContent       = toA(lsGet('habit_streak',0));
+
+  const domainsEl = document.getElementById('ach-domains');
+  domainsEl.innerHTML = DOMAIN_KEYS.map(d => {
+    const arr = domScores[d];
+    const avg = arr.length > 0 ? Math.round(arr.reduce((a,b)=>a+b,0)/arr.length) : 0;
+    const dm  = DOMAINS[d];
+    return `
+      <div class="domain-card dc-${d}">
+        <div class="domain-card-icon">${dm.icon}</div>
+        <div class="domain-card-name">${dm.label}</div>
+        <div class="domain-card-score">${avg>0?toA(avg)+'٪':'—'}</div>
+        <div class="domain-bar-track"><div class="domain-bar-fill" style="width:${avg}%"></div></div>
+      </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+initOverview();
+renderMonthsGrid();
 </script>
 </body>
 </html>

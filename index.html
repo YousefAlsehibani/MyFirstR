@@ -1231,6 +1231,81 @@ function toggleTheme() {
 if (localStorage.getItem('theme') === 'light') {
   document.body.classList.add('light');
 }
+  // ══════════════════════════════════════════════
+//  INSIGHTS
+// ══════════════════════════════════════════════
+function addInsight() {
+  const inp  = document.getElementById('new-insight-text');
+  const type = document.getElementById('new-insight-type').value;
+  const text = inp.value.trim();
+  if (!text) return;
+  const insights = lsGet('insights', []);
+  insights.push({ text, type, date: Date.now() });
+  lsSet('insights', insights);
+  inp.value = '';
+  renderInsights();
+  showToast('تمت الإضافة ✓');
+}
+
+function renderInsights() {
+  // ── يدوي
+  const insights = lsGet('insights', []);
+  const list = document.getElementById('manual-insights-list');
+  if (!list) return;
+  list.innerHTML = insights.length === 0
+    ? `<div style="font-size:13px;color:var(--text-dim);text-align:center;padding:8px;">لم تضف أي ملاحظات بعد</div>`
+    : insights.map((ins, i) => `
+        <div class="strength-item ${ins.type === 'pos' ? 'pos' : 'neg'}" style="justify-content:space-between;">
+          <span>${ins.type === 'pos' ? '💪' : '⚠️'} ${ins.text}</span>
+          <span class="del-btn" onclick="deleteInsight(${i})">✕</span>
+        </div>`).join('');
+
+  // ── تلقائي
+  const auto = document.getElementById('auto-insights');
+  if (!auto) return;
+  const domainTotals = { imani:[0,0], ilmi:[0,0], sihi:[0,0], amali:[0,0] };
+  for (let m = 0; m < 12; m++) {
+    getWeeksOfMonth(m).forEach((w, wi) => {
+      w.days.forEach(d => {
+        const tasks = lsGet(taskKey(m, d), []);
+        tasks.forEach(t => {
+          if (!domainTotals[t.domain]) return;
+          domainTotals[t.domain][0]++;
+          if (t.done) domainTotals[t.domain][1]++;
+        });
+      });
+    });
+  }
+  const scores = Object.entries(domainTotals)
+    .filter(([, v]) => v[0] > 0)
+    .map(([d, v]) => ({ d, pct: Math.round((v[1]/v[0])*100) }))
+    .sort((a, b) => b.pct - a.pct);
+
+  if (scores.length === 0) {
+    auto.innerHTML = `<div style="font-size:13px;color:var(--text-dim);text-align:center;padding:8px 0;">أضف مهام ليظهر التحليل التلقائي</div>`;
+    return;
+  }
+  const best  = scores[0];
+  const worst = scores[scores.length - 1];
+  const dm = d => DOMAINS[d];
+  auto.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+      <div class="strength-item pos">
+        ${dm(best.d).icon} أقوى مجال: <strong>${dm(best.d).label}</strong> — إنجاز ${toA(best.pct)}٪
+      </div>
+      <div class="strength-item neg">
+        ${dm(worst.d).icon} يحتاج تحسين: <strong>${dm(worst.d).label}</strong> — إنجاز ${toA(worst.pct)}٪
+      </div>
+    </div>`;
+}
+
+function deleteInsight(idx) {
+  const insights = lsGet('insights', []);
+  insights.splice(idx, 1);
+  lsSet('insights', insights);
+  renderInsights();
+  showToast('تم الحذف');
+}
 init();
 </script>
 </body>
